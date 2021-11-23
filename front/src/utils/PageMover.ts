@@ -24,7 +24,7 @@ export default class PageMover {
     else this.navigate(-1);
   }
   // eslint-disable-next-line
-  private static goTo(pagePath: string | undefined, state?: any): void {
+  static goTo(pagePath: string | undefined, state?: any): void {
     if (!this.navigate) throw new Error('PageMover not init error');
     if (pagePath) this.navigate(pagePath, {state: state});
     else this.navigate('/');
