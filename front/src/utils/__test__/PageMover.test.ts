@@ -36,4 +36,18 @@ describe('PageMover test', () => {
     // rollback env
     process.env.REACT_APP_LOGIN_PATH = t;
   });
+  test('init 되기 전 goBack 메소드가 호출되면 에러가 나야함', () => {
+    try {
+      PageMover.goBack();
+      expect(true).toBe(false);
+    } catch (e) {
+      expect(true).toBe(true);
+    }
+  });
+  test('init 된 후, goBack 메소드 호출 시 fn 의 매개변수는 -1', () => {
+    const fn = jest.fn();
+    PageMover.init(fn);
+    PageMover.goBack();
+    expect(fn).toBeCalledWith(-1);
+  });
 });
