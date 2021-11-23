@@ -4,6 +4,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/home/home';
 import Login from './pages/login/login';
+import {LoginReturn42} from './pages/login/loginReturn';
 import Report from './pages/report/report';
 import PageMover from './utils/PageMover';
 import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom';
@@ -14,7 +15,7 @@ function Router() {
   return (
     <Routes>
       <Route
-        path={`${process.env.REACT_APP_HOME_PATH}/*`}
+        path={`${process.env.REACT_APP_HOME_PATH}*`}
         element={<Home></Home>}
       />
       <Route
@@ -23,10 +24,12 @@ function Router() {
       />
       <Route
         path={process.env.REACT_APP_REPORT_PATH}
-        element={
-          <Report fromURL="/" error="비정상적인 URL 접근입니다."></Report>
-        }
+        element={<Report></Report>}
       />
+      <Route
+        path={process.env.REACT_APP_42_LOGINRETURN_PATH}
+        element={<LoginReturn42></LoginReturn42>}
+      ></Route>
     </Routes>
   );
 }
