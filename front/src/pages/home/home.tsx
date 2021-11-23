@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Navbar, Container, Nav} from 'react-bootstrap';
 import {Link, Routes, Route, useLocation} from 'react-router-dom';
 import PageMover from '../../utils/PageMover';

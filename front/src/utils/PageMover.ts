@@ -19,6 +19,10 @@ export default class PageMover {
   static goToReportPage(state: ReportPageState): void {
     this.goTo(process.env.REACT_APP_REPORT_PATH, state);
   }
+  static goBack(): void {
+    if (!this.navigate) throw new Error('PageMover not init error');
+    else this.navigate(-1);
+  }
   // eslint-disable-next-line
   private static goTo(pagePath: string | undefined, state?: any): void {
     if (!this.navigate) throw new Error('PageMover not init error');
