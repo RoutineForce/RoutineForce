@@ -1,50 +1,64 @@
 import React from 'react';
-import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
+import {Navbar, Container, Nav} from 'react-bootstrap';
+import {Link, Routes, Route, useLocation} from 'react-router-dom';
 import PageMover from '../../utils/PageMover';
-import {useNavigate} from 'react-router-dom';
 
 /**
  * 테스트용으로 작성해놓은 부분입니다.
  */
+function Temp(): JSX.Element {
+  return <div>Temp!</div>;
+}
+function Temp2(): JSX.Element {
+  return <div>Temp222222</div>;
+}
+function Temp3(): JSX.Element {
+  return <div>isLogined!</div>;
+}
+
 function Home(): JSX.Element {
-  const navigate = useNavigate();
-  PageMover.init(navigate);
+  const location = useLocation();
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link
-              onClick={() => {
-                PageMover.goToLoginPage();
-              }}
-            >
-              Features
-            </Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Nav>
-            <Nav.Link href="#deets">More deets</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Dank memes
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <>
+      <Navbar collapseOnSelect expand="lg" bg="white" variant="light">
+        <Container>
+          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Item>
+                <Link to="/asdf">asdf!</Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link to="/aaa">aaa</Link>
+              </Nav.Item>
+              <Nav.Item
+                onClick={() => {
+                  PageMover.goToReportPage({
+                    fromURL: 'test',
+                    error: 'testerror',
+                  });
+                }}
+              >
+                goToReport
+              </Nav.Item>
+              <Nav.Item
+                onClick={() => {
+                  PageMover.goToLoginPage();
+                }}
+              >
+                Login
+              </Nav.Item>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Routes>
+        <Route path={'/asdf'} element={<Temp></Temp>} />
+        <Route path={'/aaa'} element={<Temp2></Temp2>} />
+        <Route path={'/profile'} element={<Temp3></Temp3>} />
+      </Routes>
+    </>
   );
 }
 
