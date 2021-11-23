@@ -1,14 +1,12 @@
 import React from 'react';
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 import PageMover from '../../utils/PageMover';
-import {useNavigate} from 'react-router-dom';
 
 /**
  * 테스트용으로 작성해놓은 부분입니다.
  */
 function Home(): JSX.Element {
-  const navigate = useNavigate();
-  PageMover.init(navigate);
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -16,12 +14,8 @@ function Home(): JSX.Element {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link
-              onClick={() => {
-                PageMover.goToLoginPage();
-              }}
-            >
-              Features
+            <Nav.Link>
+              <Link to="asdf">Link!</Link>
             </Nav.Link>
             <Nav.Link href="#pricing">Pricing</Nav.Link>
             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">

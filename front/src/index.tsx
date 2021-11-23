@@ -5,31 +5,37 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/home/home';
 import Login from './pages/login/login';
 import Report from './pages/report/report';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import PageMover from './utils/PageMover';
+import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom';
 
 function Router() {
+  const navigate = useNavigate();
+  PageMover.init(navigate);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={process.env.REACT_APP_HOME_PATH} element={<Home></Home>} />
-        <Route
-          path={process.env.REACT_APP_LOGIN_PATH}
-          element={<Login></Login>}
-        />
-        <Route
-          path={process.env.REACT_APP_REPORT_PATH}
-          element={
-            <Report fromURL="/" error="비정상적인 URL 접근입니다."></Report>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route
+        path={`${process.env.REACT_APP_HOME_PATH}/*`}
+        element={<Home></Home>}
+      />
+      <Route
+        path={process.env.REACT_APP_LOGIN_PATH}
+        element={<Login></Login>}
+      />
+      <Route
+        path={process.env.REACT_APP_REPORT_PATH}
+        element={
+          <Report fromURL="/" error="비정상적인 URL 접근입니다."></Report>
+        }
+      />
+    </Routes>
   );
 }
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router></Router>
+    <BrowserRouter>
+      <Router></Router>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),
 );
