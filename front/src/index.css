@@ -1,0 +1,11 @@
+.carousel-inner {
+  background-color: #282c34;
+}
+
+.carousel-item {
+  text-align: center;
+}
+
+.carousel-item img {
+  max-height: min(20vh, 300px);
+}
