@@ -91,7 +91,7 @@ class Certification(models.Model):
 class Challenge(models.Model):
     title = models.CharField(max_length=128)
     day_start = models.DateField()
-    dat_end = models.DateField()
+    day_end = models.DateField()
     type = models.CharField(max_length=128)
     participant = models.ForeignKey('User', models.DO_NOTHING, db_column='participant', blank=True, null=True, related_name = 'participant')
 

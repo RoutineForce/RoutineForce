@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-xecoq22xndesta5&^9sf#8txztg*q63!yi-c4+6wmojl4eimhe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+        'ec2-13-124-86-205.ap-northeast-2.compute.amazonaws.com',
+        'localhost',
+        ]
 
 
 # Application definition
@@ -78,10 +81,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'routineforce',
-        'USER':'',
-        'PASSWORD':'',
-        'HOST':'',
-        'PORT':'',
+        'USER': 'routineforce',
+        'PASSWORD':'routineforce',
+        'HOST':'routineforce.cpqmhjpsyzmh.ap-northeast-2.rds.amazonaws.com',
+        'PORT':'3306',
     }
 }
 
