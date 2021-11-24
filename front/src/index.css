@@ -9,3 +9,14 @@
 .carousel-item img {
   max-height: min(20vh, 300px);
 }
+
+.row {
+  display: inline-flex !important;
+  justify-content: center;
+  margin: auto;
+}
+
+.cardRowViewerContainer {
+  display: flex;
+  justify-content: space-between;
+}
