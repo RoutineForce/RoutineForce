@@ -3,7 +3,7 @@ import {Navbar, NavDropdown, Container, Nav} from 'react-bootstrap';
 import {Routes, Route} from 'react-router-dom';
 import PageMover from '../../utils/PageMover';
 import HomeDefault from '../../components/homeDefault';
-import Routine from '../../components/routine';
+import Routine from '../../components/editRoutine';
 /**
  * 테스트용으로 작성해놓은 부분입니다.
  */
