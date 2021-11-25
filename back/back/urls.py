@@ -20,4 +20,5 @@ from routineforce import views as main_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_views.index, name="index"),
+    path('test/', main_views.index, name="index"),
 ]
