@@ -1,0 +1,36 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: whitesmoke;
+}
+
+.box {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: whitesmoke;
+  text-align: center;
+}
+.slogan {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.button {
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  justify-content: center;
+  align-items: center;
+  border:2px solid gainsboro;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: black;
+  border-radius: 24px;
+  transition: 0.25s;
+}

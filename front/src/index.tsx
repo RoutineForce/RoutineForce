@@ -5,7 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Home from './pages/home/home';
 import Login from './pages/login/login';
-import {LoginReturn42} from './pages/login/loginReturn';
+import {
+  LoginReturn42,
+  LoginReturnKakao,
+  LoginReturnGoogle,
+} from './pages/login/loginReturn';
 import Report from './pages/report/report';
 import PageMover from './utils/PageMover';
 import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom';
@@ -30,6 +34,14 @@ function Router() {
       <Route
         path={process.env.REACT_APP_42_LOGINRETURN_PATH}
         element={<LoginReturn42></LoginReturn42>}
+      ></Route>
+      <Route
+        path={process.env.REACT_APP_KAKAO_LOGINRETURN_PATH}
+        element={<LoginReturnKakao></LoginReturnKakao>}
+      ></Route>
+      <Route
+        path={process.env.REACT_APP_GOOGLE_LOGINRETURN_PATH}
+        element={<LoginReturnGoogle></LoginReturnGoogle>}
       ></Route>
     </Routes>
   );

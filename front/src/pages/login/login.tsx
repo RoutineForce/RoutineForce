@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import PageMover from '../../utils/PageMover';
-import GoogleLogin from 'react-google-login';
+// import GoogleLogin from 'react-google-login';
+import Home from '../home/home';
+import './login.css';
 
 /**
  * Todo : jaewpark 이 로그인 페이지 만들어줄거임! ㅎㅎ
@@ -21,43 +23,42 @@ export default function Login(): JSX.Element {
     window.open(process.env.REACT_APP_KAKAO_LOGIN_URL);
   };
 
-  // GOOGLE_LOGIN_URL 체크
-  // const googleClientId = 'process.env.REACT_APP_CLIENT_ID || ""';
-  // const [userObj, setUserObj] = React.useState({
-  //   email: '',
-  //   name: '',
-  // });
-  // //로그인 성공시 res처리
-  // const onLoginSuccess = (res: any) => {
-  //   setUserObj({
-  //     ...userObj,
-  //     email: res.profileObj.email,
-  //     name: res.profileObj.name,
-  //   });
-  // };
-
   const loginGoogleButtonClick = () => {
     (window as any).setCookieAndBack = (jwtToken: string) => {
       PageMover.goBack();
     };
-    window.open(process.env.REACT_APP_CLIENT_ID);
+    window.open(process.env.REACT_APP_GOOGLE_LOGIN_URL);
   };
+
   return (
     <div>
-      <button onClick={login42ButtonClick}>42 Login</button>
-      <img
-        src={'./kakao_logo.png'}
-        onClick={loginKakaoButtonClick}
-        id="kakao-login-btn"
-        width="250px"
-      />
-      {/* <GoogleLogin
-        clientId={googleClientId}
-        buttonText="Google"
-        onSuccess={result => onLoginSuccess(result)}
-        onFailure={result => console.log(result)}
-      /> */}
-      <button onClick={loginGoogleButtonClick}>Google Login</button>
+      <div className="slogan">
+        <img src={'./logo192.png'} width="30px"></img>
+        <h3 onClick={Home}>RoutineForce</h3>
+      </div>
+      <form className="box">
+        <div className="slogan">
+          <h2>
+            의지박약한 너를 위한 <br />
+            새로운 루틴 만들기
+          </h2>
+        </div>
+        <button className="button" onClick={login42ButtonClick}>
+          42 Login
+        </button>
+        <button className="button" onClick={loginKakaoButtonClick}>
+          Kakao login
+        </button>
+        {/* <GoogleLogin
+          clientId="306987520785-kd2en87pu08t6f3jbmubrr1662j78qiu.apps.googleusercontent.com"
+          buttonText="구글 로그인"
+          onSuccess={loginGoogleButtonClick}
+          onFailure={result => console.log(result)}
+        /> */}
+        <button className="button" onClick={loginGoogleButtonClick}>
+          Google Login
+        </button>
+      </form>
     </div>
   );
 }
