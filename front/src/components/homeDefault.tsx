@@ -8,6 +8,7 @@ import {
   Row,
 } from 'react-bootstrap';
 import {useMediaQuery} from 'react-responsive';
+import PageMover from '../utils/PageMover';
 /**
  * for test
  */
@@ -74,9 +75,15 @@ interface RoutineCardProps {
 }
 
 function RoutineCard(props: RoutineCardProps): JSX.Element {
+  const cardClick = () => {
+    PageMover.goTo('/routine', {routineId: props.routineId});
+  };
   return (
-    <Card style={{width: 210, height: 385, marginLeft: 10, marginRight: 10}}>
-      <Card.Img variant="top" src={props.imgSrc} />
+    <Card
+      onClick={cardClick}
+      style={{width: 210, height: 385, marginLeft: 10, marginRight: 10}}
+    >
+      <Card.Img style={{maxHeight: 138.66}} variant="top" src={props.imgSrc} />
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
         <Card.Text>{props.text}</Card.Text>
@@ -94,7 +101,7 @@ function RoutineCard(props: RoutineCardProps): JSX.Element {
                 textOverflow: 'ellipsis',
               }}
             >
-              장소는 여기저기 호잇포잇
+              {props.location}
             </div>
             <div
               style={{

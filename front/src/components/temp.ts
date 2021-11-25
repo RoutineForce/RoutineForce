@@ -19,8 +19,7 @@ const routineCardData: any[] = [
   },
   {
     routineId: '2',
-    imgSrc:
-      'https://cdn.crowdpic.net/list-thumb/thumb_l_9FA2E3C7E87309B6B344204FCDBFF3CE.jpg',
+    imgSrc: './icons/heart.png',
     title: 'test2',
     text: 'asdnfioasneioansefmasioefmioasenfioasneoifnasoef  dasefasefasefasefasefasefasefasefasefasefasefasefasefasioandddfasdfasasdfasdfasdfdfasdfasdfasdfsaseoifnaiosenfi',
     timeText: '11.12 ~ 11.25',
@@ -28,8 +27,7 @@ const routineCardData: any[] = [
   },
   {
     routineId: '3',
-    imgSrc:
-      'https://cdn.crowdpic.net/list-thumb/thumb_l_9FA2E3C7E87309B6B344204FCDBFF3CE.jpg',
+    imgSrc: './icons/rightArrow.png',
     title: 'test3',
     text: 'asdnfioasneioansefmasioefmioasenfioasneoifnasoef  ioanseoifnaiosenfi',
     timeText: '11.12 ~ 11.25',

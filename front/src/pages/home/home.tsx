@@ -3,6 +3,7 @@ import {Navbar, NavDropdown, Container, Nav} from 'react-bootstrap';
 import {Routes, Route} from 'react-router-dom';
 import PageMover from '../../utils/PageMover';
 import HomeDefault from '../../components/homeDefault';
+import Routine from '../../components/routine';
 /**
  * 테스트용으로 작성해놓은 부분입니다.
  */
@@ -47,12 +48,12 @@ function Home(): JSX.Element {
       </Navbar>
       <Routes>
         <Route path={''} element={<HomeDefault></HomeDefault>}></Route>
-        <Route path={'/asdf'} element={<Temp></Temp>} />
+        <Route path={'/routine'} element={<Routine></Routine>} />
         <Route path={'/aaa'} element={<Temp2></Temp2>} />
         <Route path={'/profile'} element={<Temp3></Temp3>} />
       </Routes>
       <br></br>
-      <div className="footer">Produced by Team.Under5</div>
+      <div className="footer">Produced by Team.Under4</div>
     </>
   );
 }
