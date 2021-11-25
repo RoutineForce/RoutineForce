@@ -78,10 +78,11 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Certification(models.Model):
-    id = models.OneToOneField('Challenge', models.DO_NOTHING, db_column='id', primary_key=True)
     challenge_id = models.IntegerField()
-    user = models.ForeignKey('User', models.DO_NOTHING)
+    user_id = models.IntegerField()
     date_and_time = models.DateTimeField(blank=True, null=True)
+    image_path = models.CharField(max_length=4096, blank=True, null=True)
+    result = models.CharField(max_length=10)
 
     class Meta:
         managed = False
@@ -90,14 +91,60 @@ class Certification(models.Model):
 
 class Challenge(models.Model):
     title = models.CharField(max_length=128)
+    type = models.CharField(max_length=10)
     day_start = models.DateField()
     day_end = models.DateField()
-    type = models.CharField(max_length=128)
-    participant = models.ForeignKey('User', models.DO_NOTHING, db_column='participant', blank=True, null=True, related_name = 'participant')
+    day_run = models.CharField(max_length=10)
+    dues = models.IntegerField(blank=True, null=True)
+    penalty = models.IntegerField(blank=True, null=True)
+    headcount_min = models.IntegerField()
+    headcount_max = models.IntegerField()
+    location = models.CharField(max_length=128)
+    certification_type = models.CharField(max_length=10)
+    intro = models.CharField(max_length=128)
+    body = models.CharField(max_length=4096)
+    body_type = models.CharField(max_length=10)
+    image_path = models.CharField(max_length=4096, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'challenge'
+
+
+class ChallengeRegistration(models.Model):
+    user = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='registration')
+    challenge = models.ForeignKey(Challenge, models.DO_NOTHING)
+    status = models.CharField(max_length=10)
+    result = models.CharField(max_length=10)
+
+    class Meta:
+        managed = False
+        db_table = 'challenge_registration'
+        unique_together = (('user', 'user_login', 'challenge'),)
+
+
+class Comment(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='usercomment')
+    body = models.CharField(max_length=4096, blank=True, null=True)
+    target = models.IntegerField()
+    date_and_time = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'comment'
+
+
+class CommonCode(models.Model):
+    value = models.CharField(primary_key=True, max_length=10)
+    type = models.CharField(max_length=10)
+    name = models.CharField(max_length=20)
+
+    class Meta:
+        managed = False
+        db_table = 'common_code'
+        unique_together = (('value', 'type'),)
 
 
 class DjangoAdminLog(models.Model):
@@ -145,14 +192,38 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
+class Heart(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='userheart')
+    challenge = models.ForeignKey(Challenge, models.DO_NOTHING)
+    date_and_time = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'heart'
+
+
+class LogPoint(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='point')
+    challenge = models.ForeignKey(Challenge, models.DO_NOTHING)
+    change_in_point = models.IntegerField()
+    change_reason = models.CharField(max_length=10)
+    date_and_time = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'log_point'
+
+
 class User(models.Model):
-    nickname = models.CharField(max_length=255, blank=True, null=True)
+    id = models.IntegerField(primary_key=True)
+    login = models.CharField(max_length=10)
+    name = models.CharField(max_length=255)
     email = models.CharField(max_length=320, blank=True, null=True)
-    challenge_id_done = models.ForeignKey(Challenge, models.DO_NOTHING, db_column='challenge_id_done', related_name = 'challenge_id_done')
-    challenge_id_ongoing = models.ForeignKey(Challenge, models.DO_NOTHING, db_column='challenge_id_ongoing', related_name = 'challenge_id_ongoing')
-    challenge_id_registered = models.ForeignKey(Challenge, models.DO_NOTHING, db_column='challenge_id_registered', related_name = 'challenge_id_registered')
-    challenge_id_applied = models.ForeignKey(Challenge, models.DO_NOTHING, db_column='challenge_id_applied', related_name = 'challenge_id_applied')
+    image_path = models.CharField(max_length=4096, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'user'
+        unique_together = (('id', 'login'),)
