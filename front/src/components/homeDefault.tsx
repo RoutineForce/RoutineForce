@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Carousel,
   Image,
@@ -6,8 +6,12 @@ import {
   ListGroup,
   ListGroupItem,
   Row,
-  Button,
 } from 'react-bootstrap';
+import {useMediaQuery} from 'react-responsive';
+/**
+ * for test
+ */
+import getData from './temp';
 
 interface SourceInfo {
   src: string;
@@ -62,7 +66,6 @@ const ImageSliderData: CarouselImageSliderProps = {
 
 interface RoutineCardProps {
   routineId: string;
-  width?: number;
   imgSrc: string;
   title: string;
   text: string;
@@ -72,7 +75,7 @@ interface RoutineCardProps {
 
 function RoutineCard(props: RoutineCardProps): JSX.Element {
   return (
-    <Card style={{width: props.width || 300}}>
+    <Card style={{width: 210, height: 385, marginLeft: 10, marginRight: 10}}>
       <Card.Img variant="top" src={props.imgSrc} />
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
@@ -80,78 +83,128 @@ function RoutineCard(props: RoutineCardProps): JSX.Element {
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroupItem>{props.timeText}</ListGroupItem>
-        <ListGroupItem>{props.location}</ListGroupItem>
+        <ListGroupItem>
+          <div className="childSpaceBetweenContainer">
+            <div
+              style={{
+                width: 150,
+                overflow: 'hidden',
+                display: 'inline-block',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              장소는 여기저기 호잇포잇
+            </div>
+            <div
+              style={{
+                width: 100,
+                display: 'flex',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <img
+                style={{height: 20, marginRight: 5}}
+                src="./icons/heart.png"
+              ></img>
+              <div>150</div>
+            </div>
+          </div>
+        </ListGroupItem>
       </ListGroup>
-      <Card.Body>
-        <Card.Link href="#">Card Link</Card.Link>
-        <Card.Link href="#">Another Link</Card.Link>
-      </Card.Body>
     </Card>
   );
 }
 
-const routineCardData: RoutineCardProps[] = [
-  {
-    routineId: '0',
-    width: 300,
-    imgSrc:
-      'https://cdn.crowdpic.net/list-thumb/thumb_l_9FA2E3C7E87309B6B344204FCDBFF3CE.jpg',
-    title: 'test1',
-    text: 'asdnfioasneioansefmasioefmioasenfioasneoifnasoef  ioanseoifnaiosenfi',
-    timeText: '11.12 ~ 11.25',
-    location: 'gaepo',
-  },
-  {
-    routineId: '1',
-    width: 300,
-    imgSrc:
-      'https://cdn.crowdpic.net/list-thumb/thumb_l_9FA2E3C7E87309B6B344204FCDBFF3CE.jpg',
-    title: 'test1',
-    text: 'asdnfioasneioansefmasioefmioasenfioasneoifnasoef  ioanseoifnaiosenfi',
-    timeText: '11.12 ~ 11.25',
-    location: 'gaepo',
-  },
-  {
-    routineId: '2',
-    width: 300,
-    imgSrc:
-      'https://cdn.crowdpic.net/list-thumb/thumb_l_9FA2E3C7E87309B6B344204FCDBFF3CE.jpg',
-    title: 'test1',
-    text: 'asdnfioasneioansefmasioefmioasenfioasneoifnasoef  dasefasefasefasefasefasefasefasefasefasefasefasefasefasioanseoifnaiosenfi',
-    timeText: '11.12 ~ 11.25',
-    location: 'gaepo',
-  },
-  {
-    routineId: '3',
-    width: 300,
-    imgSrc:
-      'https://cdn.crowdpic.net/list-thumb/thumb_l_9FA2E3C7E87309B6B344204FCDBFF3CE.jpg',
-    title: 'test1',
-    text: 'asdnfioasneioansefmasioefmioasenfioasneoifnasoef  ioanseoifnaiosenfi',
-    timeText: '11.12 ~ 11.25',
-    location: 'gaepo',
-  },
-];
-
 interface CardRowViewerProps {
-  routineCardPropses: RoutineCardProps[];
+  routineCardPropsProvideFunc: (arg0: number) => RoutineCardProps[];
+}
+
+function mediaQueryMaker(minWidth: number, maxWidth: number): string {
+  return `(min-width: ${minWidth}px) and (max-width: ${maxWidth}px)`;
 }
 
 function CardRowViewer(props: CardRowViewerProps): JSX.Element {
+  // values
+  const buttonWidth = 40;
+  const cardWidthWithMargin = 230;
+  const maxNumberOfViewCards = 8;
+
+  // func
+  const minWidthCalc = (numberOfCards: number): number => {
+    return buttonWidth * 2 + cardWidthWithMargin * numberOfCards;
+  };
+  const getHowManyCardView = (): number => {
+    const result = Math.floor(
+      (window.innerWidth - buttonWidth * 2) / cardWidthWithMargin,
+    );
+    if (result === 0) return 1;
+    else return result;
+  };
+
+  // state
+  const [routineCardPropses, setRoutineCardPropses] = useState(
+    props.routineCardPropsProvideFunc(maxNumberOfViewCards),
+  );
+  const [startIdx, setStartIdx] = useState(0);
+  const [numberOfCardView, setNumberOfCardView] = useState(
+    getHowManyCardView(),
+  );
+
+  const windowResizeHandler = () => {
+    setNumberOfCardView(getHowManyCardView());
+  };
+  // useEffect
+  useEffect(() => {
+    window.addEventListener('resize', windowResizeHandler);
+    return () => {
+      window.removeEventListener('resize', windowResizeHandler);
+    };
+  }, []);
+
+  const isUnder1 = useMediaQuery({query: mediaQueryMaker(0, minWidthCalc(1))});
+
+  const leftClick = () => {
+    let nextIdx = startIdx - numberOfCardView;
+    if (nextIdx < 0) nextIdx = 0;
+    setStartIdx(nextIdx);
+  };
+  const rightClick = () => {
+    let nextIdx = startIdx + numberOfCardView;
+    if (nextIdx >= routineCardPropses.length) nextIdx = startIdx;
+    setStartIdx(nextIdx);
+  };
+
   return (
-    <div className="cardRowViewerContainer">
-      <Button style={{width: 30, height: 30}}></Button>
-      <Row>
-        {props.routineCardPropses.map(routineCardProps => {
-          return (
-            <RoutineCard
-              key={routineCardProps.routineId}
-              {...routineCardProps}
-            ></RoutineCard>
-          );
-        })}
-      </Row>
-      <Button></Button>
+    // width 계산 >> 버튼 52, 마진 10 10 + 가운데 200 적당히
+    <div className="childCenterContainer">
+      <div className="cardRowViewerContainer">
+        <div className="cardRowViwerButtonContainer">
+          <img
+            src="./icons/leftArrow.png"
+            onClick={leftClick}
+            style={{width: 20, height: 30, marginLeft: isUnder1 ? 0 : 20}}
+          ></img>
+        </div>
+        <Row>
+          {routineCardPropses.map((routineCardProps, idx) => {
+            if (idx < startIdx) return null;
+            return (
+              <RoutineCard
+                key={routineCardProps.routineId}
+                {...routineCardProps}
+              ></RoutineCard>
+            );
+          })}
+        </Row>
+        <div className="cardRowViwerButtonContainer">
+          <img
+            src="./icons/rightArrow.png"
+            onClick={rightClick}
+            style={{width: 20, height: 30, marginRight: isUnder1 ? 0 : 20}}
+          ></img>
+        </div>
+      </div>
     </div>
   );
 }
@@ -160,8 +213,16 @@ export default function HomeDefault(): JSX.Element {
   return (
     <>
       <CarouselImageSlider {...ImageSliderData}></CarouselImageSlider>
-      <h2>Routines</h2>
-      <CardRowViewer routineCardPropses={routineCardData}></CardRowViewer>
+      <br></br>
+      <div className="childCenterContainer">
+        <h2>Routines</h2>
+      </div>
+      <CardRowViewer routineCardPropsProvideFunc={getData}></CardRowViewer>
+      <br></br>
+      <div className="childCenterContainer">
+        <h2>Mettings</h2>
+      </div>
+      <CardRowViewer routineCardPropsProvideFunc={getData}></CardRowViewer>
     </>
   );
 }

@@ -30,7 +30,7 @@ function Home(): JSX.Element {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link>See All Routines</Nav.Link>
-              <Nav.Link>Make Routine</Nav.Link>
+              <Nav.Link>See All Meetings</Nav.Link>
             </Nav>
             <Nav>
               <Nav.Link>About</Nav.Link>
@@ -51,6 +51,8 @@ function Home(): JSX.Element {
         <Route path={'/aaa'} element={<Temp2></Temp2>} />
         <Route path={'/profile'} element={<Temp3></Temp3>} />
       </Routes>
+      <br></br>
+      <div className="footer">Produced by Team.Under5</div>
     </>
   );
 }
