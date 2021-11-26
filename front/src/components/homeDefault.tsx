@@ -154,29 +154,17 @@ function CardRowViewer(props: CardRowViewerProps): JSX.Element {
     props.routineCardPropsProvideFunc(maxNumberOfViewCards),
   );
   const [startIdx, setStartIdx] = useState(0);
-  const [numberOfCardView, setNumberOfCardView] = useState(
-    getHowManyCardView(),
-  );
-
-  const windowResizeHandler = () => {
-    setNumberOfCardView(getHowManyCardView());
-  };
-  // useEffect
-  useEffect(() => {
-    window.addEventListener('resize', windowResizeHandler);
-    return () => {
-      window.removeEventListener('resize', windowResizeHandler);
-    };
-  }, []);
 
   const isUnder1 = useMediaQuery({query: mediaQueryMaker(0, minWidthCalc(1))});
 
   const leftClick = () => {
+    const numberOfCardView = getHowManyCardView();
     let nextIdx = startIdx - numberOfCardView;
     if (nextIdx < 0) nextIdx = 0;
     setStartIdx(nextIdx);
   };
   const rightClick = () => {
+    const numberOfCardView = getHowManyCardView();
     let nextIdx = startIdx + numberOfCardView;
     if (nextIdx >= routineCardPropses.length) nextIdx = startIdx;
     setStartIdx(nextIdx);

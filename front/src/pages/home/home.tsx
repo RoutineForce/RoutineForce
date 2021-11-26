@@ -39,6 +39,8 @@ function Home(): JSX.Element {
               <NavDropdown title="Login-In" id="collasible-nav-dropdown">
                 <NavDropdown.Item>My Routines</NavDropdown.Item>
                 <NavDropdown.Item>Imminent Routines</NavDropdown.Item>
+                <NavDropdown.Item>Make new Routine</NavDropdown.Item>
+                <NavDropdown.Item>Make new Meeting</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item>Logout</NavDropdown.Item>
               </NavDropdown>
