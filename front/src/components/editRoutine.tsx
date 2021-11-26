@@ -13,6 +13,7 @@ import {
 import DatePicker, {DateObject} from 'react-multi-date-picker';
 import DatePanel from 'react-multi-date-picker/plugins/date_panel';
 import TimePicker from 'react-multi-date-picker/plugins/time_picker';
+import GlobalLoader from './globalLoader';
 
 interface TimePickerFromToProps {
   idx: number;
@@ -145,6 +146,10 @@ export default function Routine(): JSX.Element {
       }
     };
   };
+  const saveButtonClick = () => {
+    GlobalLoader.start();
+  };
+
   return (
     <div className="routineFrame">
       <div
@@ -246,7 +251,7 @@ export default function Routine(): JSX.Element {
       </div>
       <br></br>
       <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
-        <Button>등록하기!</Button>
+        <Button onClick={saveButtonClick}>등록하기!</Button>
       </div>
     </div>
   );

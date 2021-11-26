@@ -1,0 +1,13 @@
+.globalLoaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  background-color: white;
+  opacity: 0.7;
+}
