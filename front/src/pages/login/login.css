@@ -1,0 +1,45 @@
+@font-face {
+  font-family: "CookieRunBold";
+  src: url("../../fonts/CookieRunBold.ttf");
+}
+
+.logo{
+  position: relative;
+  top: 20px;
+  text-align: center;
+}
+body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: whitesmoke;
+}
+
+.box {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: whitesmoke;
+  text-align: center;
+}
+.slogan {
+  position: relative;
+  bottom: 20px;
+  text-align: center;
+  font-family: "CookieRunBold";
+  color: rgb(50, 50, 50);
+  margin: 0 auto;
+}
+
+.loginLogo {
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  color: black;
+}
