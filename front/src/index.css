@@ -9,3 +9,68 @@
 .carousel-item img {
   max-height: min(20vh, 300px);
 }
+
+.row {
+  display: inline-flex !important;
+  justify-content: center;
+  margin: auto;
+}
+
+.card {
+  padding: 0px;
+}
+
+.childCenterContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.childSpaceBetweenContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardRowViewerContainer {
+  width: calc(100%);
+  max-width: 1900px;
+  height: 385px;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.cardRowViwerButtonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-text {
+  display: -webkit-box;
+  margin-top: 1px;
+  height: 95px;
+  overflow: hidden;
+  vertical-align: top;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.footer {
+  background-color: #282c34;
+  height: 70px;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
