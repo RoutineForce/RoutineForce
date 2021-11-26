@@ -38,3 +38,15 @@ export function LoginReturnGoogle(): JSX.Element {
   }, []);
   return <div>로그인 중입니다. code : {}</div>;
 }
+
+export function LoginReturnNaver(): JSX.Element {
+  useEffect(() => {
+    if (window.opener) {
+      (window.opener as any).setCookieAndBack('jwtToken given backend');
+      // window.close();
+    } else {
+      console.error('window.opener null');
+    }
+  }, []);
+  return <div>로그인 중입니다. code : {}</div>;
+}

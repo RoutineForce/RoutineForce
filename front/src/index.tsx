@@ -9,6 +9,7 @@ import {
   LoginReturn42,
   LoginReturnKakao,
   LoginReturnGoogle,
+  LoginReturnNaver,
 } from './pages/login/loginReturn';
 import Report from './pages/report/report';
 import PageMover from './utils/PageMover';
@@ -18,32 +19,47 @@ function Router() {
   const navigate = useNavigate();
   PageMover.init(navigate);
   return (
-    <Routes>
-      <Route
-        path={`${process.env.REACT_APP_HOME_PATH}*`}
-        element={<Home></Home>}
+    <>
+      <script
+        type="text/javascript"
+        src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+        charSet="utf-8"
       />
-      <Route
-        path={process.env.REACT_APP_LOGIN_PATH}
-        element={<Login></Login>}
+      <script
+        type="text/javascript"
+        src="http://code.jquery.com/jquery-1.11.3.min.js"
       />
-      <Route
-        path={process.env.REACT_APP_REPORT_PATH}
-        element={<Report></Report>}
-      />
-      <Route
-        path={process.env.REACT_APP_42_LOGINRETURN_PATH}
-        element={<LoginReturn42></LoginReturn42>}
-      ></Route>
-      <Route
-        path={process.env.REACT_APP_KAKAO_LOGINRETURN_PATH}
-        element={<LoginReturnKakao></LoginReturnKakao>}
-      ></Route>
-      <Route
-        path={process.env.REACT_APP_GOOGLE_LOGINRETURN_PATH}
-        element={<LoginReturnGoogle></LoginReturnGoogle>}
-      ></Route>
-    </Routes>
+      <Routes>
+        <Route
+          path={`${process.env.REACT_APP_HOME_PATH}*`}
+          element={<Home></Home>}
+        />
+        <Route
+          path={process.env.REACT_APP_LOGIN_PATH}
+          element={<Login></Login>}
+        />
+        <Route
+          path={process.env.REACT_APP_REPORT_PATH}
+          element={<Report></Report>}
+        />
+        <Route
+          path={process.env.REACT_APP_42_LOGINRETURN_PATH}
+          element={<LoginReturn42></LoginReturn42>}
+        ></Route>
+        <Route
+          path={process.env.REACT_APP_KAKAO_LOGINRETURN_PATH}
+          element={<LoginReturnKakao></LoginReturnKakao>}
+        ></Route>
+        <Route
+          path={process.env.REACT_APP_GOOGLE_LOGINRETURN_PATH}
+          element={<LoginReturnGoogle></LoginReturnGoogle>}
+        ></Route>
+        <Route
+          path={process.env.REACT_APP_NAVER_LOGINRETURN_PATH}
+          element={<LoginReturnNaver></LoginReturnNaver>}
+        ></Route>
+      </Routes>
+    </>
   );
 }
 
