@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import PageMover from '../../utils/PageMover';
-// import GoogleLogin from 'react-google-login';
 import Home from '../home/home';
 import './login.css';
 
@@ -22,19 +21,27 @@ export default function Login(): JSX.Element {
     };
     window.open(process.env.REACT_APP_KAKAO_LOGIN_URL);
   };
-
+  // GOOGLE_LOGIN_URL 체크
   const loginGoogleButtonClick = () => {
     (window as any).setCookieAndBack = (jwtToken: string) => {
       PageMover.goBack();
     };
     window.open(process.env.REACT_APP_GOOGLE_LOGIN_URL);
   };
-
+  // NAVER_LOGIN_URL 체크
+  const loginNaverButtonClick = () => {
+    (window as any).setCookieAndBack = (jwtToken: string) => {
+      PageMover.goBack();
+    };
+    window.open(process.env.REACT_APP_NAVER_LOGIN_URL);
+  };
+  const bannerClick = () => {
+    PageMover.goToHomePage();
+  };
   return (
     <div>
-      <div className="slogan">
-        <img src={'./logo192.png'} width="30px"></img>
-        <h3 onClick={Home}>RoutineForce</h3>
+      <div className="logo">
+        <img src={'./logo193.png'} onClick={bannerClick}></img>
       </div>
       <form className="box">
         <div className="slogan">
@@ -43,21 +50,26 @@ export default function Login(): JSX.Element {
             새로운 루틴 만들기
           </h2>
         </div>
-        <button className="button" onClick={login42ButtonClick}>
-          42 Login
-        </button>
-        <button className="button" onClick={loginKakaoButtonClick}>
-          Kakao login
-        </button>
-        {/* <GoogleLogin
-          clientId="306987520785-kd2en87pu08t6f3jbmubrr1662j78qiu.apps.googleusercontent.com"
-          buttonText="구글 로그인"
-          onSuccess={loginGoogleButtonClick}
-          onFailure={result => console.log(result)}
-        /> */}
-        <button className="button" onClick={loginGoogleButtonClick}>
-          Google Login
-        </button>
+        <img
+          src={'./logo42.png'}
+          className="loginLogo"
+          onClick={login42ButtonClick}
+        />
+        <img
+          src={'./logoKakao.png'}
+          className="loginLogo"
+          onClick={loginKakaoButtonClick}
+        />
+        <img
+          src={'./logoGoogle.png'}
+          className="loginLogo"
+          onClick={loginGoogleButtonClick}
+        />
+        <img
+          src={'./logoNaver.png'}
+          className="loginLogo"
+          onClick={loginNaverButtonClick}
+        />
       </form>
     </div>
   );
