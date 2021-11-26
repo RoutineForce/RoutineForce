@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import './routine.css';
+import './editRoutine.css';
 import {
   InputGroup,
   FormControl,
@@ -14,6 +14,7 @@ import DatePicker, {DateObject} from 'react-multi-date-picker';
 import DatePanel from 'react-multi-date-picker/plugins/date_panel';
 import TimePicker from 'react-multi-date-picker/plugins/time_picker';
 import GlobalLoader from './globalLoader';
+import {MultiSelect} from 'react-multi-select-component';
 
 interface TimePickerFromToProps {
   idx: number;
@@ -116,7 +117,11 @@ export default function Routine(): JSX.Element {
     {name: '오프라인', value: '1'},
     {name: '사진인증', value: '2'},
   ];
-
+  const options = [
+    {label: 'Grapes 🍇', value: 'grapes'},
+    {label: 'Mango 🥭', value: 'mango'},
+    {label: 'Strawberry 🍓', value: 'strawberry', disabled: true},
+  ];
   const certificationKindChange = (e: any) => {
     setCertificationKind(e.currentTarget.value);
   };
@@ -124,6 +129,7 @@ export default function Routine(): JSX.Element {
   const filePickerRef = useRef<HTMLInputElement>(null);
 
   const [selectedDates, setSelectedDates] = useState<DateObject[]>([]);
+  const [selected, setSelected] = useState([]);
 
   const imgClick = () => {
     filePickerRef.current?.click();
@@ -147,7 +153,11 @@ export default function Routine(): JSX.Element {
     };
   };
   const saveButtonClick = () => {
+    // 데이터를 주고받을 부분
     GlobalLoader.start();
+    setTimeout(() => {
+      GlobalLoader.stop();
+    }, 3000);
   };
 
   return (
@@ -191,6 +201,16 @@ export default function Routine(): JSX.Element {
         ref={filePickerRef}
         type="file"
       ></input>
+      <br></br>
+      <div style={{padding: 5, border: '1px solid black', borderRadius: 5}}>
+        <h5>Routine 테그를 선택해주세요!</h5>
+        <MultiSelect
+          options={options}
+          value={selected}
+          onChange={setSelected}
+          labelledBy="Select"
+        />
+      </div>
       <br></br>
       <div style={{padding: 5, border: '1px solid black', borderRadius: 5}}>
         <h5>Routine 진행 날짜를 선택해주세요!</h5>

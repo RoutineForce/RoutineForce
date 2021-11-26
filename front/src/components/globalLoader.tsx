@@ -16,7 +16,7 @@ export default class GlobalLoader {
     this.container.className = 'globalLoaderContainer';
     this.container.setAttribute(
       'style',
-      `width: ${window.screen.width}; height: ${window.screen.height}`,
+      `width: ${document.body.clientWidth}px; height: ${document.body.clientHeight}px`,
     );
     document.body.appendChild(this.container);
     ReactDOM.render(
