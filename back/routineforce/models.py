@@ -78,7 +78,7 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Certification(models.Model):
-    challenge_id = models.IntegerField()
+    routine_id = models.IntegerField()
     user_id = models.IntegerField()
     date_and_time = models.DateTimeField(blank=True, null=True)
     image_path = models.CharField(max_length=4096, blank=True, null=True)
@@ -89,12 +89,11 @@ class Certification(models.Model):
         db_table = 'certification'
 
 
-class Challenge(models.Model):
+class Routine(models.Model):
     title = models.CharField(max_length=128)
+    status = models.CharField(max_length=10)
     type = models.CharField(max_length=10)
-    day_start = models.DateField()
-    day_end = models.DateField()
-    day_run = models.CharField(max_length=10)
+    day_run = models.TextField()
     dues = models.IntegerField(blank=True, null=True)
     penalty = models.IntegerField(blank=True, null=True)
     headcount_min = models.IntegerField()
@@ -108,20 +107,20 @@ class Challenge(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'challenge'
+        db_table = 'routine'
 
 
-class ChallengeRegistration(models.Model):
+class RoutineRegistration(models.Model):
     user = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='registration')
-    challenge = models.ForeignKey(Challenge, models.DO_NOTHING)
+    routine = models.ForeignKey(Routine, models.DO_NOTHING)
     status = models.CharField(max_length=10)
     result = models.CharField(max_length=10)
 
     class Meta:
         managed = False
-        db_table = 'challenge_registration'
-        unique_together = (('user', 'user_login', 'challenge'),)
+        db_table = 'routine_registration'
+        unique_together = (('user', 'user_login', 'routine'),)
 
 
 class Comment(models.Model):
@@ -195,7 +194,7 @@ class DjangoSession(models.Model):
 class Heart(models.Model):
     user = models.ForeignKey('User', models.DO_NOTHING)
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='userheart')
-    challenge = models.ForeignKey(Challenge, models.DO_NOTHING)
+    routine = models.ForeignKey(Routine, models.DO_NOTHING)
     date_and_time = models.DateTimeField()
 
     class Meta:
@@ -206,7 +205,7 @@ class Heart(models.Model):
 class LogPoint(models.Model):
     user = models.ForeignKey('User', models.DO_NOTHING)
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='point')
-    challenge = models.ForeignKey(Challenge, models.DO_NOTHING)
+    routine = models.ForeignKey(Routine, models.DO_NOTHING)
     change_in_point = models.IntegerField()
     change_reason = models.CharField(max_length=10)
     date_and_time = models.DateTimeField()

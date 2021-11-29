@@ -15,10 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from routineforce import views as main_views
+from django.conf.urls import url, include
+from rest_framework import routers
+#from routineforce import views as main_views
+from routineforce.views import RoutineViewSet 
+
+router = routers.DefaultRouter()
+router.register('routine', RoutineViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main_views.index, name="index"),
-    path('test/', main_views.index, name="index"),
+    #path('', main_views.index, name="index"),
+    #path('test/', main_views.index, name="index"),
+    url(r'^', include(router.urls)),
 ]
