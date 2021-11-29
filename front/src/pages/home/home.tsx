@@ -7,10 +7,6 @@ import Routine from '../../components/editRoutine';
 /**
  * 테스트용으로 작성해놓은 부분입니다.
  */
-function Temp(): JSX.Element {
-  console.log(performance.navigation.type);
-  return <div>Temp!</div>;
-}
 function Temp2(): JSX.Element {
   return <div>Temp222222</div>;
 }
@@ -21,6 +17,9 @@ function Temp3(): JSX.Element {
 function Home(): JSX.Element {
   const brandClick = () => {
     PageMover.goToHomePage();
+  };
+  const makeNewRoutineClick = () => {
+    PageMover.goTo('/editRoutine');
   };
   return (
     <>
@@ -39,7 +38,9 @@ function Home(): JSX.Element {
               <NavDropdown title="Login-In" id="collasible-nav-dropdown">
                 <NavDropdown.Item>My Routines</NavDropdown.Item>
                 <NavDropdown.Item>Imminent Routines</NavDropdown.Item>
-                <NavDropdown.Item>Make new Routine</NavDropdown.Item>
+                <NavDropdown.Item onClick={makeNewRoutineClick}>
+                  Make new Routine
+                </NavDropdown.Item>
                 <NavDropdown.Item>Make new Meeting</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item>Logout</NavDropdown.Item>
@@ -50,7 +51,7 @@ function Home(): JSX.Element {
       </Navbar>
       <Routes>
         <Route path={''} element={<HomeDefault></HomeDefault>}></Route>
-        <Route path={'/routine'} element={<Routine></Routine>} />
+        <Route path={'/editRoutine'} element={<Routine></Routine>} />
         <Route path={'/aaa'} element={<Temp2></Temp2>} />
         <Route path={'/profile'} element={<Temp3></Temp3>} />
       </Routes>
