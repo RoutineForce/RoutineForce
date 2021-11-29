@@ -10,6 +10,7 @@ export interface RoutineCardProps {
   text: string;
   timeText: string;
   location: string;
+  marginBottom: number;
 }
 
 export default function RoutineCard(props: RoutineCardProps): JSX.Element {
@@ -19,7 +20,13 @@ export default function RoutineCard(props: RoutineCardProps): JSX.Element {
   return (
     <Card
       onClick={cardClick}
-      style={{width: 210, height: 385, marginLeft: 10, marginRight: 10}}
+      style={{
+        width: 210,
+        height: 385,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: props.marginBottom,
+      }}
     >
       <Card.Img style={{maxHeight: 138.66}} variant="top" src={props.imgSrc} />
       <Card.Body>

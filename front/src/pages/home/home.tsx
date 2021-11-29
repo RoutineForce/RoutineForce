@@ -4,6 +4,7 @@ import {Routes, Route} from 'react-router-dom';
 import PageMover from '../../utils/PageMover';
 import HomeDefault from '../../components/homeDefault';
 import Routine from '../../components/editRoutine';
+import MultiRoutineView from '../../components/multiRoutineView';
 /**
  * 테스트용으로 작성해놓은 부분입니다.
  */
@@ -24,7 +25,7 @@ function Home(): JSX.Element {
   };
 
   const seeAllRoutineClick = () => {
-    alert('페이지 준비중입니다 ㅎㅎㅎ');
+    PageMover.goTo('./viewAllRoutines');
   };
   return (
     <>
@@ -34,8 +35,8 @@ function Home(): JSX.Element {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link>See All Routines</Nav.Link>
-              <Nav.Link onClick={seeAllRoutineClick}>See All Meetings</Nav.Link>
+              <Nav.Link onClick={seeAllRoutineClick}>See All Routines</Nav.Link>
+              <Nav.Link>See All Meetings</Nav.Link>
             </Nav>
             <Nav>
               <Nav.Link>About</Nav.Link>
@@ -57,7 +58,10 @@ function Home(): JSX.Element {
       <Routes>
         <Route path={''} element={<HomeDefault></HomeDefault>}></Route>
         <Route path={'/editRoutine'} element={<Routine></Routine>} />
-        <Route path={'/aaa'} element={<Temp2></Temp2>} />
+        <Route
+          path={'/viewAllRoutines'}
+          element={<MultiRoutineView></MultiRoutineView>}
+        />
         <Route path={'/profile'} element={<Temp3></Temp3>} />
       </Routes>
       <br></br>
