@@ -1,14 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {
-  Carousel,
-  Image,
-  Card,
-  ListGroup,
-  ListGroupItem,
-  Row,
-} from 'react-bootstrap';
+import React, {useState} from 'react';
+import {Carousel, Image, Row} from 'react-bootstrap';
 import {useMediaQuery} from 'react-responsive';
-import PageMover from '../utils/PageMover';
+import {mediaQueryMaker} from '../utils/MediaQuery';
+import RoutineCard, {RoutineCardProps} from './routineCard';
 /**
  * for test
  */
@@ -65,70 +59,8 @@ const ImageSliderData: CarouselImageSliderProps = {
   ],
 };
 
-interface RoutineCardProps {
-  routineId: string;
-  imgSrc: string;
-  title: string;
-  text: string;
-  timeText: string;
-  location: string;
-}
-
-function RoutineCard(props: RoutineCardProps): JSX.Element {
-  const cardClick = () => {
-    PageMover.goTo('/routine', {routineId: props.routineId});
-  };
-  return (
-    <Card
-      onClick={cardClick}
-      style={{width: 210, height: 385, marginLeft: 10, marginRight: 10}}
-    >
-      <Card.Img style={{maxHeight: 138.66}} variant="top" src={props.imgSrc} />
-      <Card.Body>
-        <Card.Title>{props.title}</Card.Title>
-        <Card.Text>{props.text}</Card.Text>
-      </Card.Body>
-      <ListGroup className="list-group-flush">
-        <ListGroupItem>{props.timeText}</ListGroupItem>
-        <ListGroupItem>
-          <div className="childSpaceBetweenContainer">
-            <div
-              style={{
-                width: 150,
-                overflow: 'hidden',
-                display: 'inline-block',
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',
-              }}
-            >
-              {props.location}
-            </div>
-            <div
-              style={{
-                width: 100,
-                display: 'flex',
-                justifyContent: 'flex-end',
-              }}
-            >
-              <img
-                style={{height: 20, marginRight: 5}}
-                src="./icons/heart.png"
-              ></img>
-              <div>150</div>
-            </div>
-          </div>
-        </ListGroupItem>
-      </ListGroup>
-    </Card>
-  );
-}
-
 interface CardRowViewerProps {
   routineCardPropsProvideFunc: (arg0: number) => RoutineCardProps[];
-}
-
-function mediaQueryMaker(minWidth: number, maxWidth: number): string {
-  return `(min-width: ${minWidth}px) and (max-width: ${maxWidth}px)`;
 }
 
 function CardRowViewer(props: CardRowViewerProps): JSX.Element {
@@ -154,9 +86,9 @@ function CardRowViewer(props: CardRowViewerProps): JSX.Element {
     props.routineCardPropsProvideFunc(maxNumberOfViewCards),
   );
   const [startIdx, setStartIdx] = useState(0);
-
   const isUnder1 = useMediaQuery({query: mediaQueryMaker(0, minWidthCalc(1))});
 
+  // func
   const leftClick = () => {
     const numberOfCardView = getHowManyCardView();
     let nextIdx = startIdx - numberOfCardView;

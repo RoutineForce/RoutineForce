@@ -26,12 +26,6 @@
   justify-content: center;
 }
 
-.childSpaceBetweenContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
 .cardRowViewerContainer {
   width: calc(100%);
   max-width: 1900px;

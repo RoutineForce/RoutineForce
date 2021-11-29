@@ -18,8 +18,13 @@ function Home(): JSX.Element {
   const brandClick = () => {
     PageMover.goToHomePage();
   };
+
   const makeNewRoutineClick = () => {
-    PageMover.goTo('/editRoutine');
+    PageMover.goTo('./editRoutine');
+  };
+
+  const seeAllRoutineClick = () => {
+    alert('페이지 준비중입니다 ㅎㅎㅎ');
   };
   return (
     <>
@@ -30,14 +35,14 @@ function Home(): JSX.Element {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link>See All Routines</Nav.Link>
-              <Nav.Link>See All Meetings</Nav.Link>
+              <Nav.Link onClick={seeAllRoutineClick}>See All Meetings</Nav.Link>
             </Nav>
             <Nav>
               <Nav.Link>About</Nav.Link>
               {/* title 에 componenet 도 집어넣을 수 있음. 따라서 추후에 User 의 Image 로 변경될 것 */}
               <NavDropdown title="Login-In" id="collasible-nav-dropdown">
                 <NavDropdown.Item>My Routines</NavDropdown.Item>
-                <NavDropdown.Item>Imminent Routines</NavDropdown.Item>
+                <NavDropdown.Item>Interested Routines</NavDropdown.Item>
                 <NavDropdown.Item onClick={makeNewRoutineClick}>
                   Make new Routine
                 </NavDropdown.Item>
