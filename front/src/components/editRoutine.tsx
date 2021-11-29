@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react';
-import {useLocation} from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './editRoutine.css';
@@ -106,8 +105,6 @@ function PictureCertificationDetailSelector(): JSX.Element {
 }
 
 export default function Routine(): JSX.Element {
-  const location = useLocation();
-  const routineId = location.state.routineId;
   const modules = {toolbar: false};
 
   const [imgBlob, setImgBlob] = useState('./defaultImages/addImage.png');
@@ -203,7 +200,7 @@ export default function Routine(): JSX.Element {
       ></input>
       <br></br>
       <div style={{padding: 5, border: '1px solid black', borderRadius: 5}}>
-        <h5>Routine 테그를 선택해주세요!</h5>
+        <h5>Routine 종류를 선택해주세요!</h5>
         <MultiSelect
           options={options}
           value={selected}
