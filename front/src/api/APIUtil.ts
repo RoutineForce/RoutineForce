@@ -19,7 +19,7 @@ export default class API {
     req
       .get(url)
       .then(res => {
-        //GlobalLoader.stop();
+        GlobalLoader.stop();
         if (res.status !== 200) throw this.responseStatusFailError;
         else successCB(res.data);
       })

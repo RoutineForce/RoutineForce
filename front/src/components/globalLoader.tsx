@@ -5,8 +5,8 @@ import {css} from '@emotion/react';
 import './globalLoader.css';
 
 const loaderCss = css`
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
 `;
 
 export default class GlobalLoader {
@@ -14,7 +14,6 @@ export default class GlobalLoader {
   static start(): void {
     this.container = document.createElement('div');
     this.container.className = 'globalLoaderContainer';
-
     document.body.appendChild(this.container);
     ReactDOM.render(
       <ClimbingBoxLoader
