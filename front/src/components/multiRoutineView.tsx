@@ -1,7 +1,9 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import RoutineCard, {RoutineCardProps} from './routineCard';
 import {Row, ButtonGroup, Button} from 'react-bootstrap';
 import getData from './temp';
+import {RoutineGetDto} from '../api/dto/routineGet';
+import API from '../api/APIUtil';
 
 interface MultiCardViewProps {
   cardViewInfos: RoutineCardProps[];
@@ -47,9 +49,34 @@ function MultiCardViewButtons(): JSX.Element {
 }
 
 export default function MultiRoutineView(): JSX.Element {
+  const [routines, setRoutines] = useState<RoutineGetDto[]>([]);
+
+  const getRoutineCardViewPropsFromRoutines = (): RoutineCardProps[] => {
+    return routines.map(routine => {
+      const routineCardProps: RoutineCardProps = {
+        routineId: `${routine.id}`,
+        imgSrc: routine.image_path,
+        title: routine.title,
+        text: routine.body,
+        timeText: '11-02~12-14',
+        location: routine.location,
+        marginBottom: 20,
+      };
+      return routineCardProps;
+    });
+  };
+
+  useEffect(() => {
+    API.getAllRoutine(setRoutines, error => {
+      console.log(error);
+    });
+  }, []);
+
   return (
     <>
-      <MultiCardView cardViewInfos={getData()}></MultiCardView>
+      <MultiCardView
+        cardViewInfos={getRoutineCardViewPropsFromRoutines()}
+      ></MultiCardView>
       <MultiCardViewButtons></MultiCardViewButtons>
     </>
   );

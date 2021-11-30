@@ -5,6 +5,7 @@ import PageMover from '../../utils/PageMover';
 import HomeDefault from '../../components/homeDefault';
 import Routine from '../../components/editRoutine';
 import MultiRoutineView from '../../components/multiRoutineView';
+import API from '../../api/APIUtil';
 /**
  * 테스트용으로 작성해놓은 부분입니다.
  */
@@ -27,6 +28,10 @@ function Home(): JSX.Element {
   const seeAllRoutineClick = () => {
     PageMover.goTo('./viewAllRoutines');
   };
+
+  const seeAllMeetingClick = () => {
+    console.log('준비중!');
+  };
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -36,7 +41,7 @@ function Home(): JSX.Element {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link onClick={seeAllRoutineClick}>See All Routines</Nav.Link>
-              <Nav.Link>See All Meetings</Nav.Link>
+              <Nav.Link onClick={seeAllMeetingClick}>See All Meetings</Nav.Link>
             </Nav>
             <Nav>
               <Nav.Link>About</Nav.Link>
