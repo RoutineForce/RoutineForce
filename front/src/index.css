@@ -1,3 +1,8 @@
+.body {
+  position: absolute;
+  height: 100%;
+}
+
 .carousel-inner {
   background-color: #282c34;
 }
@@ -24,12 +29,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-}
-
-.childSpaceBetweenContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
 }
 
 .cardRowViewerContainer {
