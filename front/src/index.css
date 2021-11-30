@@ -1,3 +1,8 @@
+.body {
+  position: absolute;
+  height: 100%;
+}
+
 .carousel-inner {
   background-color: #282c34;
 }

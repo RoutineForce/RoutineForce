@@ -4,6 +4,7 @@ import {Row, ButtonGroup, Button} from 'react-bootstrap';
 import getData from './temp';
 import {RoutineGetDto} from '../api/dto/routineGet';
 import API from '../api/APIUtil';
+import DateUtil from '../utils/DateUtil';
 
 interface MultiCardViewProps {
   cardViewInfos: RoutineCardProps[];
@@ -51,6 +52,17 @@ function MultiCardViewButtons(): JSX.Element {
 export default function MultiRoutineView(): JSX.Element {
   const [routines, setRoutines] = useState<RoutineGetDto[]>([]);
 
+  const makeFromToDateStr = (dateStrArray: string) => {
+    const ft = API.getFromToDate(dateStrArray);
+    if (ft.from && ft.to) {
+      return (
+        DateUtil.toMMddWithDot(ft.from) + ' ~ ' + DateUtil.toMMddWithDot(ft.to)
+      );
+    } else {
+      return '';
+    }
+  };
+
   const getRoutineCardViewPropsFromRoutines = (): RoutineCardProps[] => {
     return routines.map(routine => {
       const routineCardProps: RoutineCardProps = {
@@ -58,7 +70,7 @@ export default function MultiRoutineView(): JSX.Element {
         imgSrc: routine.image_path,
         title: routine.title,
         text: routine.body,
-        timeText: '11-02~12-14',
+        timeText: makeFromToDateStr(routine.day_run),
         location: routine.location,
         marginBottom: 20,
       };
@@ -68,7 +80,7 @@ export default function MultiRoutineView(): JSX.Element {
 
   useEffect(() => {
     API.getAllRoutine(setRoutines, error => {
-      console.log(error);
+      console.error(error);
     });
   }, []);
 

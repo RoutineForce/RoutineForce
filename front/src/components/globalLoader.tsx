@@ -14,14 +14,11 @@ export default class GlobalLoader {
   static start(): void {
     this.container = document.createElement('div');
     this.container.className = 'globalLoaderContainer';
-    this.container.setAttribute(
-      'style',
-      `width: ${document.body.clientWidth}px; height: ${document.body.clientHeight}px`,
-    );
+
     document.body.appendChild(this.container);
     ReactDOM.render(
       <ClimbingBoxLoader
-        speedMultiplier={2}
+        speedMultiplier={1.5}
         css={loaderCss}
       ></ClimbingBoxLoader>,
       this.container,
