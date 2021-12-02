@@ -4,6 +4,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Home from './pages/home/home';
+import WritenRoutine from './pages/RoutineDetailPage/writenRoutine';
 import Login from './pages/login/login';
 import {
   LoginReturn42,
@@ -57,6 +58,10 @@ function Router() {
         <Route
           path={process.env.REACT_APP_NAVER_LOGINRETURN_PATH}
           element={<LoginReturnNaver></LoginReturnNaver>}
+        ></Route>
+        <Route
+          path={process.env.REACT_APP_ROUTINEDETAIL_PATH}
+          element={<WritenRoutine></WritenRoutine>}
         ></Route>
       </Routes>
     </>
