@@ -18,7 +18,7 @@ export default function CeteredModalButton(props: Modalprops) {
       <Modal
         show={show}
         onHide={handleClose}
-        size="lg"
+        size="sm"
         aria-labelledby="contained-modal-vcenter"
         centered
       >
