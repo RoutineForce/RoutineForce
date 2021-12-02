@@ -26,6 +26,6 @@ router.register('routine', RoutineViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('', main_views.index, name="index"),
-    #path('test/', main_views.index, name="index"),
+    #path('routine/', RoutineViewSet.as_view()),
     url(r'^', include(router.urls)),
 ]

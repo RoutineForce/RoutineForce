@@ -110,7 +110,7 @@ class Routine(models.Model):
         db_table = 'routine'
 
 
-class RoutineRegistration(models.Model):
+class Registration(models.Model):
     user = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='registration')
     routine = models.ForeignKey(Routine, models.DO_NOTHING)
@@ -119,7 +119,7 @@ class RoutineRegistration(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'routine_registration'
+        db_table = 'registration'
         unique_together = (('user', 'user_login', 'routine'),)
 
 
