@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Modal} from 'react-bootstrap';
+import './modalButton.css';
 
 interface Modalprops {
   header: any;
@@ -14,7 +15,9 @@ export default function CeteredModalButton(props: Modalprops) {
 
   return (
     <div className="modalButton">
-      <button onClick={handleShow}>{props.button}</button>
+      <button className="btnOrange" onClick={handleShow}>
+        {props.button}
+      </button>
       <Modal
         show={show}
         onHide={handleClose}

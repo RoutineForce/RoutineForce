@@ -1,0 +1,14 @@
+.btnOrange {
+	background-color: #f79d37;
+	color : white;
+	transition-duration: 0.4s;
+	border: 1px solid #c07325;
+	border-radius: 30px;
+	padding:5px 25px;
+	font-size: 15px;
+	margin: 5px auto;
+}
+
+.btnOrange:hover {
+	background-color: #c07325;
+}

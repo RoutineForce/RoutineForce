@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {Calendar, DateObject} from 'react-multi-date-picker';
 import CenterModalButton from './modalButton';
-import 'react-multi-date-picker/styles/colors/teal.css';
-import {Container, Col, Image} from 'react-bootstrap';
+import '../components/editedCalendar/orange.css';
+import './routineDetail.css';
+import {Container, Image} from 'react-bootstrap';
 
 export default function RoutineDetail(): JSX.Element {
   // 1. 체크된 달력 구현
@@ -41,49 +42,80 @@ export default function RoutineDetail(): JSX.Element {
     <div className="routineDetail">
       <div className="summarizedInfoBox">
         <div className="summarizedInfo">
-          {/* <img src={'./이미지 데이터'} /> */}
-          <p className="summarizedName">[10기]Run and lead</p>
+          <img
+            className="routineBackground"
+            src={'./testTitleBackground1.jpeg'}
+          />
+          <div className="summarizedName">[10기]Run and lead</div>
           <div className="summarizedPlaceAndDate">
-            <div>
-              <p className="summarizedPlace">장소</p>
-            </div>
-            <div>
-              <p className="place">온라인</p>
-            </div>
-            <div>
-              <p className="summarizedStartDate">시작일</p>
-            </div>
-            <div>
-              <p className="startDate">11.29(월) 오전 6시 30분</p>
-            </div>
+            <div className="summarizedPlace">장소</div>
+            <div className="place">온라인</div>
+            <div className="summarizedStartDate">시작일</div>
+            <div className="startDate">11.29(월) 오전 6시 30분</div>
           </div>
         </div>
       </div>
+      <div className="remainedDetail">
+        <div className="summarizedLocationAndCalender">
+          자세한 정보
+          <table className="InfoSort">
+            <tr>
+              <td>
+                <div className="summarizedCalender">
+                  <img src={'./icons/iconsCalender.png'} />
+                  <CenterModalButton
+                    button="루틴 일정"
+                    header="루틴 일정"
+                    body={
+                      <Calendar
+                        className="orange"
+                        currentDate={currentDate}
+                        multiple
+                        value={dates}
+                        sort
+                        readOnly
+                        showOtherDays
+                      />
+                    }
+                  />
+                </div>
+              </td>
+              <td>
+                <div className="summarizedLocation">
+                  <img src={'./icons/iconsLocation.png'} width="100px" />
+                  <CenterModalButton
+                    button="루틴 장소"
+                    header="루틴 장소"
+                    body="온라인"
+                  />
+                </div>
+              </td>
+              <td>
+                <div className="summarizedParticipants">
+                  <img src={'./icons/iconsPeople.png'} />
+                  <CenterModalButton
+                    button="참가자 명단"
+                    header="최소 2명 ~ 최대 3명"
+                    body={participants}
+                  />
+                </div>
+              </td>
+              <td>
+                <div className="routinePrice">
+                  <img src={'./icons/iconsMoney.png'} />
+                  {/* 루틴 금액 버튼과 비슷한 디자인 */}
+                  <button className="Price">20,000원</button>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div className="detailedRoutine">
+          {/* 루틴에 대한 설명 */}
+          <p>{detailedSomething}</p>
+        </div>
+      </div>
       <div className="summarizedCalenderAndParticipants">
-        <div className="summarizedCalender">
-          <CenterModalButton
-            button="루틴 일정"
-            header="루틴 일정"
-            body={
-              <Calendar
-                className="teal"
-                currentDate={currentDate}
-                multiple
-                value={dates}
-                sort
-                readOnly
-                showOtherDays
-              />
-            }
-          />
-        </div>
-        <div className="summarizedParticipants">
-          <CenterModalButton
-            button="참가자 명단"
-            header="참가자 명단"
-            body={participants}
-          />
-        </div>
         <div className="hostProfile">
           {/* 호스트 프로필 사진 및 닉네임 */}
           <Container>
@@ -94,16 +126,8 @@ export default function RoutineDetail(): JSX.Element {
               roundedCircle
             />
           </Container>
-          <p>jaewpark</p>
+          jaewpark
         </div>
-        <div className="routinePrice">
-          {/* 루틴 금액 버튼과 비슷한 디자인 */}
-          <p>20,000원</p>
-        </div>
-      </div>
-      <div className="detailedRoutine">
-        {/* 루틴에 대한 설명 */}
-        <p>{detailedSomething}</p>
       </div>
     </div>
   );

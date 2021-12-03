@@ -1,0 +1,100 @@
+@font-face {
+	font-family: "CookieRunBold";
+	src: url("../fonts/CookieRunBold.ttf");
+}
+.routineDetail {
+	max-width:1200px;
+	left: 50%;
+	margin:0 auto;
+}
+.summarizedInfo {
+	height: 500px;
+	background-color:rgb(243, 243, 243);
+	font-family: "CookieRunBold";
+	border: 2px solid whitesmoke;
+	margin: 5px auto;
+}
+
+.summarizedInfo .routineBackground {
+	width: inherit;
+	float: right;
+	max-width: 100%;
+	max-height: 100%;
+	position: relative;
+}
+
+.summarizedInfo .summarizedName {
+	max-width: 800px;
+	transform: translate(10%, 100%);
+	font-size: 40px;
+	font-weight: bold;
+	color: #f79d37;
+	position: absolute;
+	float: left;
+	text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+}
+
+.summarizedInfo .summarizedPlaceAndDate {
+	max-width: 800px;
+	transform: translate(5%, 200%);
+	font-size: 25px;
+	font-weight: bold;
+	text-indent: 20px;
+	float: left;
+	position: absolute;
+	text-shadow:  -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+}
+
+.summarizedPlaceAndDate .summarizedPlace {
+	color: #cc6a01;
+}
+
+.summarizedPlaceAndDate .summarizedStartDate {
+	color : #cc6a01;
+}
+
+.remainedDetail{
+	background-color:rgb(243, 243, 243);
+	width: 70%;
+	float: left;
+	margin: 5px auto;
+	border: 2px solid whitesmoke;
+}
+
+.summarizedLocationAndCalender {
+	font-family: "CookieRunBold";
+	color: #cc6a01;
+	padding-left: 30px;
+	padding-top: 5px;
+	height: 200px;
+}
+
+.detailedRoutine {
+	height: 400px;
+}
+
+.summarizedCalenderAndParticipants {
+	background-color:rgb(243, 243, 243);
+	width: 30%;
+	height: 400px;
+	float: left;
+	font-family: "CookieRunBold";
+	margin: 5px auto;
+	border: 2px solid whitesmoke;
+}
+
+.Price{
+	background-color: #f79d37;
+	color : white;
+	transition-duration: 0.4s;
+	border: 1px solid #c07325;
+	border-radius: 30px;
+	padding:5px 25px;
+	font-size: 15px;
+	text-align: center;
+	margin: 5px auto;
+}
+
+.Price:hover {
+	background-color: #c07325;
+}

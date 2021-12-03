@@ -1,0 +1,80 @@
+:root {
+	--rmdp-primary-orange: #f79d37;
+	--rmdp-secondary-orange: #c07325;
+	--rmdp-shadow-orange: #dfa061;
+	--rmdp-today-orange: #af6f02;
+	--rmdp-hover-orange: #ffae3b;
+	--rmdp-deselect-orange: #cc6a01;
+  }
+
+  .orange .rmdp-wrapper {
+	border: 1px solid var(--rmdp-secondary-orange);
+	box-shadow: 0 0 5px var(--rmdp-secondary-orange);
+  }
+
+  .orange .rmdp-panel-body li {
+	background-color: var(--rmdp-primary-orange);
+	box-shadow: 0 0 2px var(--rmdp-secondary-orange);
+  }
+
+  .orange .rmdp-week-day {
+	color: var(--rmdp-primary-orange);
+  }
+
+  .orange .rmdp-day.rmdp-deactive {
+	color: var(--rmdp-secondary-orange);
+  }
+
+  .orange .rmdp-range {
+	background-color: var(--rmdp-primary-orange);
+	box-shadow: 0 0 3px var(--rmdp-shadow-orange);
+  }
+
+  .orange .rmdp-arrow {
+	border: solid var(--rmdp-primary-orange);
+	border-width: 0 2px 2px 0;
+  }
+
+  .orange .rmdp-arrow-container:hover {
+	background-color: var(--rmdp-primary-orange);
+	box-shadow: 0 0 3px var(--rmdp-secondary-orange);
+  }
+
+  .orange .rmdp-panel-body::-webkit-scrollbar-thumb {
+	background: var(--rmdp-primary-orange) !important;
+  }
+
+  .orange .rmdp-day.rmdp-today span {
+	background-color: var(--rmdp-today-orange);
+  }
+
+  .orange .rmdp-rtl .rmdp-panel {
+	border-left: unset;
+	border-right: 1px solid var(--rmdp-secondary-orange);
+  }
+
+  .orange .rmdp-day.rmdp-selected span:not(.highlight) {
+	background-color: var(--rmdp-primary-orange);
+	box-shadow: 0 0 3px var(--rmdp-shadow-orange);
+  }
+
+  .orange .rmdp-day:not(.rmdp-day-hidden) span:hover {
+	background-color: var(--rmdp-hover-orange) !important;
+  }
+
+  .orange .b-deselect {
+	color: var(--rmdp-deselect-orange);
+	background-color: white;
+  }
+
+  .orange .rmdp-action-button {
+	color: var(--rmdp-primary-orange);
+  }
+
+  .yellow .rmdp-button:not(.rmdp-action-button) {
+	background-color: var(--rmdp-primary-yellow);
+  }
+
+  .yellow .rmdp-button:not(.rmdp-action-button):hover {
+	background-color: var(--rmdp-deselect-yellow);
+  }
