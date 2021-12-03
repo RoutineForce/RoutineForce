@@ -77,7 +77,7 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-class Certification(models.Model):
+class RoutineCertification(models.Model):
     routine_id = models.IntegerField()
     user_id = models.IntegerField()
     date_and_time = models.DateTimeField(blank=True, null=True)
@@ -86,7 +86,7 @@ class Certification(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'certification'
+        db_table = 'routine_certification'
 
 
 class Routine(models.Model):
@@ -110,7 +110,7 @@ class Routine(models.Model):
         db_table = 'routine'
 
 
-class Registration(models.Model):
+class RoutineRegistration(models.Model):
     user = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='registration')
     routine = models.ForeignKey(Routine, models.DO_NOTHING)
@@ -119,7 +119,7 @@ class Registration(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'registration'
+        db_table = 'routine_registration'
         unique_together = (('user', 'user_login', 'routine'),)
 
 
@@ -136,14 +136,13 @@ class Comment(models.Model):
 
 
 class CommonCode(models.Model):
-    value = models.CharField(primary_key=True, max_length=10)
-    type = models.CharField(max_length=10)
-    name = models.CharField(max_length=20)
+    id = models.CharField(primary_key=True, max_length=10)
+    common_id = models.CharField(max_length=10, blank=True, null=True)
+    label = models.CharField(max_length=128)
 
     class Meta:
         managed = False
         db_table = 'common_code'
-        unique_together = (('value', 'type'),)
 
 
 class DjangoAdminLog(models.Model):

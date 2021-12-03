@@ -13,25 +13,28 @@ def insertData(conn):
     dummydayend = pd.to_datetime('2022-03-26')
     dayrange = pd.date_range(dummydaystart, dummydayend, freq='D').strftime('%Y-%m-%d')
     
-    for j in range(9, 30):
+    for j in range(1, 30):
         dummyday = []
         dummytext=""
         daynum = rd.randint(1, 60)
+        ran_num_list = []
         for i in range(0, daynum):
-            while dayrange[i] in dummyday:
-                ran_num = rd.randint(0, daynum)
-                dummyday.append(dayrange[ran_num])
-            dummyday.sort()
-            print(dummyday)
+            ran_num = rd.randint(0, len(dayrange) - 1)
+            while ran_num in ran_num_list:
+                ran_num = rd.randint(0, len(dayrange) - 1)
+            dummyday.append(dayrange[ran_num])
+            ran_num_list.append(ran_num)
+        dummyday.sort()
+        #print(dummyday)
         for i in range(0,len(dummyday)):
             text = str(dummyday[i])
             dummytext += text
             if i < len(dummyday) - 1:
                 dummytext += ','
             print(dummytext)
-        #sql = f"UPDATE routine SET day_run='{dummytext}' WHERE id='{j}'"
-        #cur.execute(sql)
-        #conn.commit()
+        sql = f"UPDATE routine SET day_run='{dummytext}' WHERE id='{j}'"
+        cur.execute(sql)
+        conn.commit()
     
 def main():
     conn = dbConnect()
