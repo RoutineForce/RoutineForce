@@ -79,7 +79,8 @@ class AuthUserUserPermissions(models.Model):
 
 class RoutineCertification(models.Model):
     routine_id = models.IntegerField()
-    user_id = models.IntegerField()
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='certification')
     date_and_time = models.DateTimeField(blank=True, null=True)
     image_path = models.CharField(max_length=4096, blank=True, null=True)
     result = models.CharField(max_length=10)
