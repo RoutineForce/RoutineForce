@@ -115,8 +115,7 @@ class RoutineRegistration(models.Model):
     user = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='registration')
     routine = models.ForeignKey(Routine, models.DO_NOTHING)
-    status = models.CharField(max_length=10)
-    result = models.CharField(max_length=10)
+    result = models.CharField(max_length=10, null=True)
 
     class Meta:
         managed = False
