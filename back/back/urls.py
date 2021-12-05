@@ -18,14 +18,20 @@ from django.urls import path
 from django.conf.urls import url, include
 from rest_framework import routers
 #from routineforce import views as main_views
-from routineforce.views import RoutineViewSet 
+from routineforce.views import RoutineViewSet, UserViewSet, UserRoutineViewSet 
 
-router = routers.DefaultRouter()
-router.register('routine', RoutineViewSet)
+routerRoutine = routers.DefaultRouter()
+routerUser = routers.DefaultRouter()
+routerUserRoutine = routers.DefaultRouter()
+routerRoutine.register('routine', RoutineViewSet)
+routerUser.register('user', UserViewSet)
+routerUserRoutine.register('userroutine', UserRoutineViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('', main_views.index, name="index"),
     #path('routine/', RoutineViewSet.as_view()),
-    url(r'^', include(router.urls)),
+    url(r'^', include(routerRoutine.urls)),
+    url(r'^', include(routerUser.urls)),
+    url(r'^', include(routerUserRoutine.urls)),
 ]
