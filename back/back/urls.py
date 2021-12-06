@@ -18,20 +18,25 @@ from django.urls import path
 from django.conf.urls import url, include
 from rest_framework import routers
 #from routineforce import views as main_views
-from routineforce.views import RoutineViewSet, UserViewSet, UserRoutineViewSet 
+from routineforce.views import RoutineViewSet, UserViewSet, UserRoutineViewSet, LoginViewSet
 
-routerRoutine = routers.DefaultRouter()
-routerUser = routers.DefaultRouter()
-routerUserRoutine = routers.DefaultRouter()
-routerRoutine.register('routine', RoutineViewSet)
-routerUser.register('user', UserViewSet)
-routerUserRoutine.register('userroutine', UserRoutineViewSet)
+router = routers.DefaultRouter()
+#routerUser = routers.DefaultRouter()
+#routerUserRoutine = routers.DefaultRouter()
+#routerLogin = routers.DefaultRouter()
+router.register(r'routine', RoutineViewSet)
+router.register(r'user', UserViewSet)
+router.register(r'userroutine', UserRoutineViewSet)
+#userlogin = LoginViewSet.as_view({'post':'create'})
+router.register(r'login', LoginViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('', main_views.index, name="index"),
     #path('routine/', RoutineViewSet.as_view()),
-    url(r'^', include(routerRoutine.urls)),
-    url(r'^', include(routerUser.urls)),
-    url(r'^', include(routerUserRoutine.urls)),
+    path('', include(router.urls)),
+    #path('', include(routerUser.urls)),
+    #url(r'^', include(userlogin.urls)),
+    #path('', include(routerLogin.urls)),
+    #path('', include(routerUserRoutine.urls)),
 ]

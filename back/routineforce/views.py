@@ -96,4 +96,23 @@ class UserViewSet(viewsets.ModelViewSet):
             qs2 = UserFilter(self.request.GET, queryset=queryset)
             qs2 = qs2.qs
         return qs2
+class LoginViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
+    @action(detail=False, methods=['post'])
+    def checkuser(self, request):
+        queryset = self.get_object()
+        access_token = request.query_params.get('access_token', None)
+        print(access_token)
+        profile_request = requests.get(
+                "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
+        )
+        profile_json = profile_request.json()
+        kakao_account = profile_json.get("kakao_accoount")
+        email = kakao_account.get("email", None)
+        user_id = profile_json.get("id")
+        #print(kakao_account)
+        #print(email)
+        #print(user_id)
+        return (user_id)
