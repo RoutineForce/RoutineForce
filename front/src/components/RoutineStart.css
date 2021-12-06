@@ -1,13 +1,49 @@
-.uploadCertification {
+.User {
+	display: flex;
+}
+
+.User .UserProfile {
+	width: 30px;
+	height: 30px;
+	margin: 5px;
+}
+
+.Date {
+	width: 80%;
+}
+
+.certificationPasing {
+	max-width: 100%;
+	height: auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.arrow {
+	width: 20px;
+	height: 30px;
+}
+
+.uploadImg {
+	display: flex;
+}
+
+.uploadImg .uploadCertification {
 	border: 2px dotted black;
-	borderRadius: 7;
 	padding: 2;
 	display: flex;
-	flexWrap: wrap;
-	alignContent: space-between;
-	backgroundRepeat: no-repeat;
-	backgroundImage: `url(${imgBlob})`;
-	maxWidth: 100%;
-	height: 300;
+	flex-wrap: wrap;
+	align-Content: space-between;
+	background-repeat: no-repeat;
+	/* background-image: url(${imgBlob}); */
+	min-width: 100px;
+	width: 50%;
+	min-height: 200px;
 	cursor: pointer;
+	margin: 5px;
+}
+
+.hindinUpload {
+	display: none;
 }

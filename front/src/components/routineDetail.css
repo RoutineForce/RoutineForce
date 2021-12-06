@@ -65,13 +65,14 @@
 .summarizedLocationAndCalender {
 	font-family: "CookieRunBold";
 	color: #cc6a01;
-	padding-left: 30px;
+	padding-left: 20px;
 	padding-top: 5px;
 	height: auto;
 	margin-bottom: 10px;
 }
 
 .InfoSort {
+	padding-top: 13px;
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -183,4 +184,9 @@
 
 .partIn:hover {
 	background-color: #c04325;
+}
+
+.certification {
+	width : 100%;
+	float : left;
 }

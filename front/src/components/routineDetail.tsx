@@ -128,7 +128,7 @@ export default function RoutineDetail(): JSX.Element {
         {/* 댓글 창 구현 */}
         {/* 구현 해야 하는 부분을 이렇게 씁니다 */}
       </div>
-      <div>
+      <div className="certification">
         {/* 사진 인증 및 보기 */}
         {/* 구현 해야 하는 부분을 이렇게 씁니다 */}
         <RoutineStart />

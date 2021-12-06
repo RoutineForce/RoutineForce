@@ -142,12 +142,12 @@ export default function Routine(): JSX.Element {
     const file = (e.target as any).files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.readAsDataURL(file);
     reader.onload = () => {
       if (reader.result) {
         setImgBlob(reader.result as string);
       }
     };
+    reader.readAsDataURL(file); // div click -> imgClick -> input click (code) -> 이미지를 고른다면 -> imgChange -> reader.readAsDataUrl -> reader.onload callback
   };
   const saveButtonClick = () => {
     // 데이터를 주고받을 부분
