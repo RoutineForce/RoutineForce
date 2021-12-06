@@ -24,7 +24,7 @@
 }
 
 .summarizedInfo .summarizedName {
-	max-width: 800px;
+	max-width: 70%;
 	transform: translate(10%, 100%);
 	font-size: 40px;
 	font-weight: bold;
@@ -59,6 +59,7 @@
 	float: left;
 	margin: 5px auto;
 	border: 2px solid whitesmoke;
+	margin-bottom: 10px;
 }
 
 .summarizedLocationAndCalender {
@@ -66,35 +67,120 @@
 	color: #cc6a01;
 	padding-left: 30px;
 	padding-top: 5px;
-	height: 200px;
+	height: auto;
+	margin-bottom: 10px;
 }
+
+.InfoSort {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.iconsSize {
+	width: inherit;
+	position: static;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.InfoSort .summarizedCalender{
+	min-width: 125px;
+	width: 25%;
+	height: auto;
+	text-align: center;
+}
+
+.InfoSort .summarizedLocation {
+	min-width: 125px;
+	width: 25%;
+	height: auto;
+	text-align: center;
+}
+
+.InfoSort .summarizedParticipants {
+	min-width: 125px;
+	width: 25%;
+	height: auto;
+	text-align: center;
+}
+
+.InfoSort .routinePrice {
+	min-width: 125px;
+	width: 25%;
+	height: auto;
+	position:relative;
+	text-align: center;
+}
+
 
 .detailedRoutine {
-	height: 400px;
+	height: auto;
 }
 
-.summarizedCalenderAndParticipants {
-	background-color:rgb(243, 243, 243);
-	width: 30%;
-	height: 400px;
-	float: left;
-	font-family: "CookieRunBold";
-	margin: 5px auto;
-	border: 2px solid whitesmoke;
-}
 
-.Price{
+.routinePrice .Price{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-color: #f79d37;
 	color : white;
 	transition-duration: 0.4s;
 	border: 1px solid #c07325;
 	border-radius: 30px;
 	padding:5px 25px;
-	font-size: 15px;
+	font-size: min(4vw, 15px);
 	text-align: center;
 	margin: 5px auto;
 }
 
 .Price:hover {
 	background-color: #c07325;
+}
+
+.summarizedCalenderAndParticipants {
+	background-color:rgb(243, 243, 243);
+	width: 30%;
+	height: auto;
+	float: left;
+	text-align: center;
+	font-family: "CookieRunBold";
+	margin: 5px auto;
+	border: 2px solid whitesmoke;
+}
+
+/* .hostProfileAndName {
+	display: inline-block;
+	width: 80%;
+	position: relative;
+	border-radius: 16px;
+	margin-top : 30px;
+	border: 1px solid #c06325;
+} */
+
+.hostProfileAndName .hostProfile {
+	display: inline-block;
+	position: relative;
+	margin-top: 8px;
+}
+.hostProfile .hostName {
+	margin-bottom: 8px;
+}
+.partIn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #f76d37;
+	color : white;
+	transition-duration: 0.4s;
+	border: 1px solid #c04325;
+	border-radius: 5px;
+	padding:5px 10px;
+	font-size: min(5vw, 18px);
+	text-align: center;
+	margin: 5px auto;
+	margin-bottom: 10px;
+}
+
+.partIn:hover {
+	background-color: #c04325;
 }

@@ -5,7 +5,7 @@
 	border: 1px solid #c07325;
 	border-radius: 30px;
 	padding:5px 25px;
-	font-size: 15px;
+	font-size: min(4vw, 15px);
 	margin: 5px auto;
 }
 
