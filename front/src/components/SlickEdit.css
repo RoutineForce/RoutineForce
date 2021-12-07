@@ -1,0 +1,4 @@
+.arrow {
+	width: min(30px, 4vw);
+	height: min(30px, 4vw);
+}

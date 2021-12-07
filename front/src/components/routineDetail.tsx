@@ -8,6 +8,7 @@ import ReactQuill from 'react-quill';
 import RoutineStart from './RoutineStart';
 
 export default function RoutineDetail(): JSX.Element {
+  const modules = {toolbar: false};
   // 1. 체크된 달력 구현
   const dates = [
     new DateObject({year: 2021, month: 12, day: 17}),
