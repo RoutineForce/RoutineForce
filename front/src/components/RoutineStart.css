@@ -10,6 +10,7 @@
 
 .Date {
 	width: 80%;
+	display: grid;
 }
 
 .certificationPasing {
@@ -17,12 +18,24 @@
 	height: auto;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: left;
 }
 
-.arrow {
+.arrows {
+	width: 5%;
+}
+
+.arrowL {
 	width: 20px;
 	height: 30px;
+	transform: translateY(400%);
+}
+
+.arrowR {
+	width: 20px;
+	height: 30px;
+	transform: translateY(400%);
+	float: right;
 }
 
 .uploadImg {
@@ -30,20 +43,11 @@
 }
 
 .uploadImg .uploadCertification {
-	border: 2px dotted black;
-	padding: 2;
-	display: flex;
-	flex-wrap: wrap;
-	align-Content: space-between;
-	background-repeat: no-repeat;
-	/* background-image: url(${imgBlob}); */
-	min-width: 100px;
 	width: 50%;
-	min-height: 200px;
-	cursor: pointer;
 	margin: 5px;
 }
 
-.hindinUpload {
+/* 잠시 보류 */
+.hindingUpload {
 	display: none;
 }
