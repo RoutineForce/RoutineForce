@@ -1,10 +1,14 @@
 from django.shortcuts import render
-from .serializers import RoutineSerializer, UserSerializer, UserRoutineSerializer 
-from .models import Routine, User, RoutineRegistration
-from rest_framework import viewsets
+from .serializers import RoutineSerializer, UserSerializer, UserRoutineSerializer, LoginSerializer 
+from .models import Routine, User, RoutineRegistration, Login
+from rest_framework import viewsets, status
+from rest_framework.views import APIView
 from rest_framework.decorators import action
 from rest_framework.response import Response
+import requests
+import json
 from django_filters import rest_framework as filters
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -96,23 +100,61 @@ class UserViewSet(viewsets.ModelViewSet):
             qs2 = UserFilter(self.request.GET, queryset=queryset)
             qs2 = qs2.qs
         return qs2
-class LoginViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
-    @action(detail=False, methods=['post'])
-    def checkuser(self, request):
-        queryset = self.get_object()
-        access_token = request.query_params.get('access_token', None)
-        print(access_token)
-        profile_request = requests.get(
-                "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
-        )
-        profile_json = profile_request.json()
-        kakao_account = profile_json.get("kakao_accoount")
-        email = kakao_account.get("email", None)
-        user_id = profile_json.get("id")
+routine_url = "http://ec2-13-124-86-205.ap-northeast-2.compute.amazonaws.com:8000"
+REST_API_KEY = "10597e3006de4b770f6463b53a4324d2"
+
+class LoginAPI(APIView):
+
+    #def get(self, request):
+    #    return Respones()
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            #do login
+            access_token=serializer.data.get('access_token')
+            print(access_token)
+            print(type(access_token))
+            #print(serializer.data)
+            #print(type(serializer.data))
+            service=serializer.data.get('service')
+            headers = {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': f'Bearer {access_token}',
+            }
+
+            data = {
+                'property_keys': '["properties.nickname", "properties.profile_image", "kakao_account.email"]'
+            }
+            
+            kakao_response = requests.post('https://kapi.kakao.com/v2/user/me', headers=headers, data=data)
+            routineforce_user_response = requests.get('http://ec2-13-124-86-205.ap-northeast-2.compute.amazonaws.com:8000/user')
+            print(kakao_response.text)
+            print(routineforce_user_response)
+            return Response('Login Successed!' ,status=status.HTTP_200_OK)
+        else :
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors)
+
+        
+#################### 같은 쿼리셋, 시리얼라이저 쓰면 라우터가 구분 못하나?
+#class LoginViewSet(viewsets.ModelViewSet):
+#    queryset = User.objects.all()
+#    #serializer_class = UserSerializer
+#
+#    @action(detail=False, methods=['post'])
+#    def checkuser(self, request):
+#        queryset = self.get_object()
+#        access_token = request.query_params.get('access_token', None)
+#        print(access_token)
+#        profile_request = requests.get(
+#                "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
+#        )
+#        profile_json = profile_request.json()
+#        kakao_account = profile_json.get("kakao_accoount")
+#        email = kakao_account.get("email", None)
+#        user_id = profile_json.get("id")
         #print(kakao_account)
         #print(email)
         #print(user_id)
-        return (user_id)
+#        return (user_id)

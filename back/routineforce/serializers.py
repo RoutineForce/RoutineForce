@@ -1,5 +1,5 @@
 from rest_framework import serializers 
-from .models import Routine, User, RoutineRegistration
+from .models import Routine, User, RoutineRegistration, Login
 
 class RoutineSerializer(serializers.ModelSerializer): 
     class Meta:
@@ -15,5 +15,10 @@ class UserSerializer(serializers.ModelSerializer):
 class UserRoutineSerializer(serializers.ModelSerializer): 
     class Meta:
         model = RoutineRegistration # 모델 설정 
+        fields = "__all__"
+
+class LoginSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = Login # 모델 설정 
         fields = "__all__"
 

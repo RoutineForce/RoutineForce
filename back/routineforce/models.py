@@ -225,3 +225,8 @@ class User(models.Model):
         managed = False
         db_table = 'user'
         unique_together = (('id', 'login'),)
+
+class Login(models.Model):
+    code = models.CharField(max_length=128)
+    access_token = models.CharField(max_length=128)
+    service = models.CharField(max_length=10)
