@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react';
 
 // 사진 저장에 필요한 무언가 확인, 날짜와 닉네임
 export default function PictureUpload(): JSX.Element {
-  const [imgBlob, setImgBlob] = useState('./defaultImages/addImage.png');
+  const [imgBlob, setImgBlob] = useState('');
 
   const filePickerRef = useRef<HTMLInputElement>(null);
 

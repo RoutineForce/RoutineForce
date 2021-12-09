@@ -1,19 +1,29 @@
 import React, {useState, useCallback, useEffect} from 'react';
+import PictureUpload from './pictureUpload';
 import './SlickEdit.css';
-import Example from './example';
 
 // 이미지 보관 1장의 경우
-const images1: string[] = [
-  'https://images.unsplash.com/photo-1627745193246-1fa1c9404b21?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-  'https://images.unsplash.com/photo-1631116617822-e100bd7e6e06?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-  'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
-  '',
-  'https://cdn.pixabay.com/photo/2019/10/15/03/16/black-and-white-4550471_1280.jpg',
-  'https://cdn.pixabay.com/photo/2020/03/13/10/36/stairs-4927569_1280.jpg',
-  'https://cdn.pixabay.com/photo/2021/10/09/00/15/landscape-6692712_1280.jpg',
-  'https://cdn.pixabay.com/photo/2020/04/18/17/06/decoration-5060006_1280.jpg',
-  'https://cdn.pixabay.com/photo/2021/12/01/18/17/cat-6838844_1280.jpg',
-  'https://cdn.pixabay.com/photo/2019/02/25/00/17/kitten-4018756_1280.jpg',
+const images1: string[][] = [
+  [
+    'https://images.unsplash.com/photo-1627745193246-1fa1c9404b21?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+  ],
+  [
+    'https://images.unsplash.com/photo-1631116617822-e100bd7e6e06?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+  ],
+  [
+    'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
+  ],
+  [''],
+  [
+    'https://cdn.pixabay.com/photo/2019/10/15/03/16/black-and-white-4550471_1280.jpg',
+  ],
+  ['https://cdn.pixabay.com/photo/2020/03/13/10/36/stairs-4927569_1280.jpg'],
+  ['https://cdn.pixabay.com/photo/2021/10/09/00/15/landscape-6692712_1280.jpg'],
+  [
+    'https://cdn.pixabay.com/photo/2020/04/18/17/06/decoration-5060006_1280.jpg',
+  ],
+  ['https://cdn.pixabay.com/photo/2021/12/01/18/17/cat-6838844_1280.jpg'],
+  ['https://cdn.pixabay.com/photo/2019/02/25/00/17/kitten-4018756_1280.jpg'],
 ];
 
 const images2: string[][] = [
@@ -85,7 +95,8 @@ const ImagePicker = (): JSX.Element => {
     for (let i = 0; i < Count; ++i) {
       array.push(
         images2[pickIndex][i] !== '' ? (
-          <img className="FillImage" src={images2[pickIndex][i]} />
+          // <img className="FillImage" src={images2[pickIndex][i]} />
+          <PictureUpload />
         ) : (
           <div className="emptyCertification">
             <span> 인증 하기 </span>
@@ -112,7 +123,6 @@ const ImagePicker = (): JSX.Element => {
         <div className="Arrow" id="isRight" onClick={handleNextClickImage}>
           <img id="RightArrow" src={'./icons/rightArrow.png'} />
         </div>
-        <div className="PickerWrapper" />
       </div>
     </>
   );
