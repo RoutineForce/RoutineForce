@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import PictureUpload from '../pictureUpload';
+import PictureUpload from './pictureUpload';
 import ImagePicker from './SlickEdit';
 // import Slider from 'react-slick';
 import './RoutineStart.css';
@@ -37,11 +37,8 @@ export default function RoutineStart(): JSX.Element {
         <div className="arrows">
           <img className="arrowR" src="./icons/rightArrow.png" />
         </div> */}
-        <div className="Date">
-          12월 1일
-          <div className="uploadImg">
-            <ImagePicker />
-          </div>
+        <div className="uploadImg">
+          <ImagePicker />
         </div>
       </div>
     </div>

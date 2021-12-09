@@ -1,4 +1,79 @@
-.arrow {
+@font-face {
+	font-family: "CookieRunBold";
+	src: url("../../fonts/CookieRunBold.ttf");
+}
+
+.Container {
+	width: 100%;
+	height: auto;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	position: left;
+}
+
+.emptyCertification {
+	width: min(30vw, 50%);
+	height: 15vw;
+	background-color: grey;
+	transform: translatex(5px);
+	object-fit: cover;
+	margin: 5px;
+	text-align: center;
+	display: table;
+}
+
+.emptyCertification > span {
+	font-family: "CookieRunBold";
+	font-size: max(3vw, 5px);
+	color: whitesmoke;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.FillImage {
+	width: max(30vw, 50%);
+	height: 15vw;
+	transform: translatex(5px);
+	object-fit: cover;
+	margin: 5px;
+}
+
+.PickerWrapper {
+	position: absolute;
+	left: 50%;
+	bottom: 10px;
+	transform: translate(-50%, -10px);
+	display: flex;
+}
+
+.Arrow {
+	width: min(50px, 5vw);
+	height: min(50px, 5vw);
+	background-color: rgba(244, 244, 244, 0.299);
+	border-radius: 50%;
+	position: absolute;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	color: white;
+	cursor: pointer;
+}
+.Arrow#isLeft {
+	left: 5px;
+}
+
+.Arrow#isRight {
+	right: 5px;
+}
+
+#LeftArrow {
+	width: min(30px, 4vw);
+	height: min(30px, 4vw);
+}
+
+#RightArrow {
 	width: min(30px, 4vw);
 	height: min(30px, 4vw);
 }
