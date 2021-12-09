@@ -9,7 +9,7 @@
 }
 
 .Date {
-	width: 80%;
+	width: 95%;
 	display: grid;
 }
 
@@ -21,7 +21,7 @@
 	justify-content: left;
 }
 
-.arrows {
+/* .arrows {
 	width: 5%;
 }
 
@@ -36,18 +36,17 @@
 	height: 30px;
 	transform: translateY(400%);
 	float: right;
-}
+} */
 
 .uploadImg {
 	display: flex;
 }
 
-.uploadImg .uploadCertification {
+/* .uploadImg .uploadCertification {
 	width: 50%;
 	margin: 5px;
-}
+} */
 
-/* 잠시 보류 */
 .hindingUpload {
 	display: none;
 }

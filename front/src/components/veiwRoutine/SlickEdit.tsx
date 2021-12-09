@@ -1,11 +1,18 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import styled from 'styled-components';
 import './SlickEdit.css';
+import Example from './example';
 
 const images: string[] = [
   'https://images.unsplash.com/photo-1627745193246-1fa1c9404b21?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
   'https://images.unsplash.com/photo-1631116617822-e100bd7e6e06?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
   'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
+  'https://cdn.pixabay.com/photo/2019/10/15/03/16/black-and-white-4550471_1280.jpg',
+  'https://cdn.pixabay.com/photo/2020/03/13/10/36/stairs-4927569_1280.jpg',
+  'https://cdn.pixabay.com/photo/2021/10/09/00/15/landscape-6692712_1280.jpg',
+  'https://cdn.pixabay.com/photo/2020/04/18/17/06/decoration-5060006_1280.jpg',
+  'https://cdn.pixabay.com/photo/2021/12/01/18/17/cat-6838844_1280.jpg',
+  'https://cdn.pixabay.com/photo/2019/02/25/00/17/kitten-4018756_1280.jpg',
 ];
 
 const Container = styled.div`
@@ -18,9 +25,11 @@ const Container = styled.div`
 `;
 
 const FillImage = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 50%;
+  height: auto;
+  transform: translatex(5px);
   object-fit: cover;
+  margin: 5px;
 `;
 
 const PickerWrapper = styled.div`
@@ -46,19 +55,7 @@ const Arrow = styled.div<{isLeft: boolean}>`
   cursor: pointer;
 `;
 
-const Picker = styled.div<{background: string}>`
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: ${props => props.background};
-  margin: 0 6px;
-  cursor: pointer;
-`;
-
 const ImagePicker = (): JSX.Element => {
-  const [pickers, setPickers] = useState<JSX.Element[]>([]);
-  // 이미지 순서를 클릭하여 이동하는 pickers 배열
-
   const [pickIndex, setPickIndex] = useState<number>(0);
   // 기본으로 0번째 인덱스에 위치한 사진을 렌더링
 
@@ -87,7 +84,7 @@ const ImagePicker = (): JSX.Element => {
       return;
     }
 
-    setPickIndex(pickIndex + 1);
+    setPickIndex(pickIndex + 2);
     // 인덱스 증가
   }, [pickIndex]);
 
@@ -95,7 +92,7 @@ const ImagePicker = (): JSX.Element => {
     <Container>
       <FillImage src={images[pickIndex]} />
       {/* pickIndex라는 state 변수를 이용하여 그에 맞는 이미지 렌더링 */}
-
+      <FillImage src={images[pickIndex + 1]} />
       <Arrow isLeft={true} onClick={handlePrevClick}>
         <img className="arrow" src={'./icons/leftArrow.png'} />
       </Arrow>

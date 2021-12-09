@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import PictureUpload from './pictureUpload';
+import PictureUpload from '../pictureUpload';
 import ImagePicker from './SlickEdit';
 // import Slider from 'react-slick';
 import './RoutineStart.css';

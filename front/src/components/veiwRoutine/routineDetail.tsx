@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Calendar, DateObject} from 'react-multi-date-picker';
-import CenterModalButton from './modalButton';
-import '../components/editedCalendar/orange.css';
+import CenterModalButton from '../modalButton';
+import '../../components/editedCalendar/orange.css';
 import './routineDetail.css';
 import {Container, Image} from 'react-bootstrap';
 import ReactQuill from 'react-quill';
