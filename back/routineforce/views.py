@@ -125,16 +125,17 @@ class LoginAPI(APIView):
             data = {
                 'grant_type': 'authorization_code',
                 'client_id': f'{REST_API_KEY}',
-                'redirect_uri': f'redirect_uri',
+                'redirect_uri': f'{redirect_uri}',
                 'code': f'{code}',
             }
-
+            #print(data)
             token_response = requests.post('https://kauth.kakao.com/oauth/token', headers=headers, data=data)
             response_json = token_response.json()
-            print(response_json)
-            print(type(response_json))
-            print(response_json["access_token"])
+            #print(response_json)
+            #print(type(response_json))
+            #print(response_json["access_token"])
             access_token = response_json["access_token"]
+            #access_token = "RDQg-SS0nqn_bWHvoqjccAvaUU_pY_coFS-4PwopyNgAAAF9ovDXwQ"
             headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': f'Bearer {access_token}',
@@ -144,7 +145,7 @@ class LoginAPI(APIView):
                 'property_keys': '["properties.nickname", "properties.profile_image", "kakao_account.email"]'
             }
             
-            kakao_response = requests.post('https://kapi.kakao.com/v2/user/me', headers=headers, data=data)
+            kakao_response = requests.post('https://kapi.kakao.com/v2/user/me', headers=headers)
             routineforce_user_response = requests.get('http://ec2-13-124-86-205.ap-northeast-2.compute.amazonaws.com:8000/user')
             print(kakao_response.text)
             print(routineforce_user_response)
