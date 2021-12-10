@@ -50,7 +50,7 @@ const images2: string[][] = [
 ];
 
 // 인증 횟수
-const CertificationCount = 2;
+const CertificationCount = 1;
 
 // 루틴 데이트
 const RoutineDate: any[] = [
@@ -95,8 +95,8 @@ const ImagePicker = (): JSX.Element => {
     for (let i = 0; i < Count; ++i) {
       array.push(
         images2[pickIndex][i] !== '' ? (
-          // <img className="FillImage" src={images2[pickIndex][i]} />
-          <PictureUpload />
+          // <PictureUpload data={data} loginState={loginState} />
+          <img className="FillImage" src={images2[pickIndex][i]} />
         ) : (
           <div className="emptyCertification">
             <span> 인증 하기 </span>
@@ -110,18 +110,26 @@ const ImagePicker = (): JSX.Element => {
   return (
     <>
       <div className="Container">
-        <div className="RoutineDate">
-          {RoutineDate[pickIndex].month +
-            '월 ' +
-            RoutineDate[pickIndex].day +
-            '일'}
+        <div>
+          <div className="CertificationDate">
+            {RoutineDate[pickIndex].month +
+              '월 ' +
+              RoutineDate[pickIndex].day +
+              '일'}
+          </div>
+          <div className="Certification" id={'' + {CertificationCount}}>
+            {FillImage(CertificationCount)}
+          </div>
         </div>
-        {FillImage(CertificationCount)}
-        <div className="Arrow" id="isLeft" onClick={handlePrevClickImage}>
-          <img id="LeftArrow" src={'./icons/leftArrow.png'} />
+        <div className="Arrow" id="Left" onClick={handlePrevClickImage}>
+          <img className="ArrowImage" id="Left" src={'./icons/leftArrow.png'} />
         </div>
-        <div className="Arrow" id="isRight" onClick={handleNextClickImage}>
-          <img id="RightArrow" src={'./icons/rightArrow.png'} />
+        <div className="Arrow" id="Right" onClick={handleNextClickImage}>
+          <img
+            className="ArrowImage"
+            id="Right"
+            src={'./icons/rightArrow.png'}
+          />
         </div>
       </div>
     </>
