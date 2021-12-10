@@ -228,5 +228,4 @@ class User(models.Model):
 
 class Login(models.Model):
     code = models.CharField(max_length=128)
-    access_token = models.CharField(max_length=128)
     service = models.CharField(max_length=10)

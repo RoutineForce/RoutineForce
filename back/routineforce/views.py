@@ -103,7 +103,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 routine_url = "http://ec2-13-124-86-205.ap-northeast-2.compute.amazonaws.com:8000"
 REST_API_KEY = "10597e3006de4b770f6463b53a4324d2"
-
+redirect_uri = "http://localhost:3000/loginreturn/kakao"
 class LoginAPI(APIView):
 
     #def get(self, request):
@@ -112,12 +112,29 @@ class LoginAPI(APIView):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             #do login
-            access_token=serializer.data.get('access_token')
-            print(access_token)
-            print(type(access_token))
+            code=serializer.data.get('code')
+            #print(code)
+            #print(type(code))
             #print(serializer.data)
             #print(type(serializer.data))
             service=serializer.data.get('service')
+            headers = {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }
+
+            data = {
+                'grant_type': 'authorization_code',
+                'client_id': f'{REST_API_KEY}',
+                'redirect_uri': f'redirect_uri',
+                'code': f'{code}',
+            }
+
+            token_response = requests.post('https://kauth.kakao.com/oauth/token', headers=headers, data=data)
+            response_json = token_response.json()
+            print(response_json)
+            print(type(response_json))
+            print(response_json["access_token"])
+            access_token = response_json["access_token"]
             headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': f'Bearer {access_token}',
