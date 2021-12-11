@@ -9,6 +9,7 @@ import requests
 import json
 from django_filters import rest_framework as filters
 from django.http import HttpResponse
+from .login import Provider
 
 # Create your views here.
 
@@ -101,10 +102,6 @@ class UserViewSet(viewsets.ModelViewSet):
             qs2 = qs2.qs
         return qs2
 
-routine_url = "http://ec2-13-124-86-205.ap-northeast-2.compute.amazonaws.com:8000"
-REST_API_KEY = "10597e3006de4b770f6463b53a4324d2"
-redirect_uri = "http://localhost:3000/loginreturn/kakao"
-APP_ADMIN_KEY = "0c125d342704bcb22e4b4df1119ecafc"
 class LoginAPI(APIView):
 
     def get(self, request):
@@ -125,60 +122,27 @@ class LoginAPI(APIView):
             #do login
             code=serializer.data.get('code')
             service=serializer.data.get('service')
-            headers = {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            }
-
-            data = {
-                'grant_type': 'authorization_code',
-                'client_id': f'{REST_API_KEY}',
-                'redirect_uri': f'{redirect_uri}',
-                'code': f'{code}',
-            }
-            token_response = requests.post('https://kauth.kakao.com/oauth/token', headers=headers, data=data)
-            response_json = token_response.json()
-            access_token = response_json["access_token"]
-            headers = {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': f'Bearer {access_token}',
-            }
-
-            data = {
-                'property_keys': '["properties.nickname", "properties.profile_image", "kakao_account.email"]'
-            }
-            
-            kakao_response = requests.post('https://kapi.kakao.com/v2/user/me', headers=headers)
-            kakao_response_json = kakao_response.json()
-            kakao_id = kakao_response_json["id"]
-            kakao_account = kakao_response_json["kakao_account"]
-            kakao_profile = kakao_account["profile"]
-            kakao_name = kakao_profile["nickname"]
-            kakao_image = kakao_profile["profile_image_url"]
-            kakao_email = kakao_account["email"]
-            user_params = { 
-                    "id" : f"{kakao_id}", 
-                    "login" : f"{service}"
-            }
-            routineforce_user_response = requests.get('http://ec2-13-124-86-205.ap-northeast-2.compute.amazonaws.com:8000/user', params = user_params)
-            #if routineforce_user_response.text == "[]":
-            if User.objects.filter(id=kakao_id, login=service).exists():
+            if service == 'T0101':
+                provider = Provider().fortytwo
+            elif service == 'T0102':
+                provider = Provider().kakao
+            elif service == 'T0103':
+                provider = Provider().naver
+            elif service == 'T0104':
+                provider = Provider().google
+            userdata = provider(code)
+            print(type(userdata))
+            print(userdata)
+            if User.objects.filter(id=userdata['id'], login=service).exists():
                 print("user exists")
             else :
                 User(
-                        id = kakao_id,
+                        id = userdata['id'],
                         login = service,
-                        name = kakao_name,
-                        email = kakao_email,
-                        image_path = kakao_image
+                        name = userdata['name'],
+                        email = userdata['email'],
+                        image_path = userdata['image_path']
                 ).save()
-                #data = {
-                #        "id" : f"{kakao_id}",
-                #        "login": f"{service}",
-                #        "name" :f"{kakao_name}",
-                #        "email": f"{kakao_email}",
-                #        "image_path" :f"{kakao_image}"
-                #}
-                #r = requests.post('http://ec2-13-124-86-205.ap-northeast-2.compute.amazonaws.com:8000/user/', data=data)
             return Response('Login Successed!' ,status=status.HTTP_200_OK)
         else :
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)

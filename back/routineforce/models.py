@@ -215,7 +215,7 @@ class LogPoint(models.Model):
 
 
 class User(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.CharField(max_length=128, primary_key=True)
     login = models.CharField(max_length=10)
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=320, blank=True, null=True)

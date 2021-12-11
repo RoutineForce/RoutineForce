@@ -19,7 +19,7 @@ export function LoginReturnKakao(): JSX.Element {
     if (window.opener) {
       // Todo : 받은 code 로 백엔드에 로그인을 시도, 성공하여 jwtToken 을 받으면 아래 함수 호출
       (window.opener as any).setCookieAndBack('jwtToken given backend');
-      window.close();
+      //window.close();
     } else {
       console.error('window.opener null');
     }
