@@ -113,6 +113,10 @@ class Provider():
         }
         return userdata;
     def google(self, code):
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }
+
         data = {
                 'client_id': f'{google_client_id}',
                 'client_secret' : f'{google_client_secret}',
@@ -120,9 +124,14 @@ class Provider():
                 'grant_type': 'authorization_code',
                 'redirect_uri': f'{google_redirect_uri}'
         }
-        token_response = requests.post('https://oauth2.googleapis.com/token', data=data)
-        print(token_response.text)
+        token_response = requests.post('https://oauth2.googleapis.com/token', headers=headers, data=data)
+        print("token:",token_response.text)
         token_response_json = token_response.json()
         access_token = token_response_json["access_token"]
         print(access_token)
+        headers = {
+                'Authorization': f'Bearer {access_token}'
+        }
+        response = requests.post('https://www.googleapis.com/userinfo/v2/me', headers=headers)
+        print(response.text)
         return 0;
