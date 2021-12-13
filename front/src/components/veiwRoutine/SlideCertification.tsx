@@ -1,6 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react';
+import CheckCertification from './CheckCertification';
 import PictureUpload from './pictureUpload';
-import './SlickEdit.css';
+import '../../CSS/viewRoutine/SlideCertification.css';
 
 // 이미지 보관 1장의 경우
 const images1: string[][] = [
@@ -50,7 +51,7 @@ const images2: string[][] = [
 ];
 
 // 인증 횟수
-const CertificationCount = 1;
+const CertificationCount = 2;
 
 // 루틴 데이트
 const RoutineDate: any[] = [
@@ -95,8 +96,12 @@ const ImagePicker = (): JSX.Element => {
     for (let i = 0; i < Count; ++i) {
       array.push(
         images2[pickIndex][i] !== '' ? (
-          // <PictureUpload data={data} loginState={loginState} />
-          <img className="FillImage" src={images2[pickIndex][i]} />
+          // <PictureUpload className="FillImage" />
+          <img
+            className="FillImage"
+            id={'' + {CertificationCount}}
+            src={images2[pickIndex][i]}
+          />
         ) : (
           <div className="emptyCertification">
             <span> 인증 하기 </span>
@@ -112,14 +117,15 @@ const ImagePicker = (): JSX.Element => {
       <div className="Container">
         <div>
           <div className="CertificationDate">
-            {RoutineDate[pickIndex].month +
-              '월 ' +
-              RoutineDate[pickIndex].day +
-              '일'}
+            <div className="Date">
+              {RoutineDate[pickIndex].month +
+                '월 ' +
+                RoutineDate[pickIndex].day +
+                '일'}
+            </div>
+            <CheckCertification />
           </div>
-          <div className="Certification" id={'' + {CertificationCount}}>
-            {FillImage(CertificationCount)}
-          </div>
+          <div className="Certification">{FillImage(CertificationCount)}</div>
         </div>
         <div className="Arrow" id="Left" onClick={handlePrevClickImage}>
           <img className="ArrowImage" id="Left" src={'./icons/leftArrow.png'} />

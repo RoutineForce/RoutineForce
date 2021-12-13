@@ -4,6 +4,7 @@
 }
 
 .Container {
+	border: 2px dotted black;
 	width: 100%;
 	display: flex;
 	position: relative;
@@ -28,7 +29,6 @@
 	background-color: rgba(244, 244, 244, 0.299);
 	border-radius: 50%;
 	position: absolute;
-	float:right;
 	top: 50%;
 	right: 5px;
 	cursor: pointer;
@@ -54,16 +54,28 @@
 	color: #cc6a01;
 	width: 100%;
 	height: auto;
-	text-align: left;
+	position: relative;
+	display: table;
 	margin-left: 1rem;
 }
 
-.emptyCertification {
-	width:  48vw;
-	height: 36vw;
-	background-color: grey;
-	transform: translatex(5px);
-	object-fit: cover;
+.CertificationDate .Date {
+	font-size: 1rem;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.Certification {
+	background-repeat: no-repeat;
+	display: flex;
+}
+
+.emptyCertification{
+	max-width: 504px;
+	max-height: 504px;
+	width: 35vw;
+	height: 35vw;
+	border: 2px dotted black;
 	margin: 5px;
 	text-align: center;
 	display: table;
@@ -72,18 +84,16 @@
 .emptyCertification > span {
 	font-family: "CookieRunBold";
 	font-size: max(3vw, 5px);
-	color: whitesmoke;
+	color: rgb(163, 163, 163);
 	display: table-cell;
 	vertical-align: middle;
 }
-.Certification {
-	display: flex;
-	padding-right: 10px;
-}
+
 .FillImage {
-	width: 48vw;
-	height: 36vw;
-	transform: translatex(5px);
-	object-fit: cover;
+	max-width: 504px;
+	max-height: 504px;
+	width: 35vw;
+	height: 35vw;
+	background-size: contain;
 	margin: 5px;
 }

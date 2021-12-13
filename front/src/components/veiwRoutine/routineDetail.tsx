@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Calendar, DateObject} from 'react-multi-date-picker';
 import CenterModalButton from '../modalButton';
-import '../../components/editedCalendar/orange.css';
-import './routineDetail.css';
+import '../../CSS/editedCalendar/orange.css';
+import '../../CSS/viewRoutine/routineDetail.css';
 import {Container, Image} from 'react-bootstrap';
 import ReactQuill from 'react-quill';
 import RoutineStart from './RoutineStart';
@@ -132,6 +132,8 @@ export default function RoutineDetail(): JSX.Element {
       <div className="certification">
         {/* 사진 인증 및 보기 */}
         {/* 구현 해야 하는 부분을 이렇게 씁니다 */}
+        <RoutineStart />
+        <RoutineStart />
         <RoutineStart />
       </div>
     </div>

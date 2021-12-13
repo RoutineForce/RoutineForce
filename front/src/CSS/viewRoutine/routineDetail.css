@@ -78,10 +78,9 @@
 }
 
 .iconsSize {
-	width: inherit;
+	width: 4.5vw;
 	position: static;
-	max-width: 100%;
-	max-height: 100%;
+	min-width: 40px;
 }
 
 .InfoSort .summarizedCalender{
@@ -132,6 +131,7 @@
 	font-size: min(4vw, 15px);
 	text-align: center;
 	margin: 5px auto;
+	cursor: default;
 }
 
 .Price:hover {
