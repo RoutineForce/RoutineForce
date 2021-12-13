@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {Calendar, DateObject} from 'react-multi-date-picker';
-import CenterModalButton from '../modalButton';
+import CenterModalButton from '../common/modalButton';
 import '../../CSS/editedCalendar/orange.css';
-import '../../CSS/viewRoutine/routineDetail.css';
+import '../../CSS/viewRoutine/viewRoutine.css';
 import {Container, Image} from 'react-bootstrap';
 import ReactQuill from 'react-quill';
 import RoutineStart from './RoutineStart';
+import NoOptionQuill from '../common/noOptionQuill';
 
-export default function RoutineDetail(): JSX.Element {
-  const modules = {toolbar: false};
+export default function ViewRoutine(): JSX.Element {
   // 1. 체크된 달력 구현
   const dates = [
     new DateObject({year: 2021, month: 12, day: 17}),
@@ -102,11 +102,7 @@ export default function RoutineDetail(): JSX.Element {
         </div>
         <div className="detailedRoutine">
           {/* 루틴에 대한 설명 */}
-          <ReactQuill
-            // toolbarButton={false}
-            readOnly={true}
-            value={detailedSomething}
-          />
+          <NoOptionQuill value={detailedSomething} />
         </div>
       </div>
       <div className="summarizedCalenderAndParticipants">

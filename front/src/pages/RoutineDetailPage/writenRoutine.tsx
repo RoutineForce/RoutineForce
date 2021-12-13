@@ -1,6 +1,6 @@
 import React from 'react';
-import RoutineDetail from '../../components/veiwRoutine/routineDetail';
+import ViewRoutine from '../../components/viewRoutine/viewRoutine';
 
 export default function WritenRoutine(): JSX.Element {
-  return <RoutineDetail />;
+  return <ViewRoutine />;
 }

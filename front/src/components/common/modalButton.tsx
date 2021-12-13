@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Modal} from 'react-bootstrap';
-import './modalButton.css';
+import '../../CSS/common/modalButton.css';
 
 interface Modalprops {
   header: any;
