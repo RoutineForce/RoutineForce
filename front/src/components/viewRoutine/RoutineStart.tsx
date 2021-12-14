@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import PictureUpload from './pictureUpload';
+import React from 'react';
 import ImagePicker from './SlideCertification';
-import {Accordion, Card, useAccordionButton} from 'react-bootstrap';
+import UserProfile from './UserProfile';
+import {Accordion, useAccordionButton} from 'react-bootstrap';
 import '../../CSS/viewRoutine/RoutineStart.css';
 
 function CustomToggle({children, eventKey}: any) {
@@ -23,10 +23,7 @@ export default function RoutineStart(): JSX.Element {
       <Accordion className="wow" defaultActiveKey="0">
         <div className="User">
           {/* 유저에 대한 정보 받기 */}
-          <div className="UserInfo">
-            <img className="UserProfile" src={'./testTitleBackground1.jpeg'} />
-            <div className="UserName">jaewpark</div>
-          </div>
+          <UserProfile />
           <div className="secondRow">
             <div className="ReturnMoney">
               <img

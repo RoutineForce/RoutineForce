@@ -1,0 +1,19 @@
+.UserProfile {
+	float: left;
+	display: flex;
+	align-items: center;
+}
+
+.UserImage {
+	width: min(45px, 8vw);
+	height: min(45px, 8vw);
+	margin: 5px;
+	margin-right: -5px;
+}
+
+.UserName {
+	font-family: "CookieRunBold";
+	font-size: min(25px, 3vw);
+	text-align: center;
+	margin-right: 15px;
+}

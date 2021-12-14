@@ -9,43 +9,22 @@
 	float: left;
 }
 
-.User .UserInfo {
-	float: left;
-	display: flex;
-	align-items: center;
-}
-
-.UserInfo .UserProfile {
-	width: min(45px, 8vw);
-	height: min(45px, 8vw);
-	margin: 5px;
-}
-
-.UserInfo .UserName {
-	font-family: "CookieRunBold";
-	font-size: min(25px, 3vw);
-	text-align: center;
-	margin-right: 15px;
-}
-
 .secondRow {
 	align-items: center;
 }
 
 .ReturnMoney {
-	width: min(180px, 20vw);
+	width: auto;
 	height: min(50px, 8vw);
 	float: left;
 	display: flex;
-	justify-content: center;
+	align-items: center;
 	background-color: #000000;
 	color : white;
 	transition-duration: 0.4s;
 	border: 1px solid #404040;
 	border-radius: 30px;
 	padding:5px;
-	font-size: min(4vw, 15px);
-	text-align: center;
 	margin: 5px auto;
 	margin-right: 10px;
 	cursor: default;
@@ -57,14 +36,15 @@
 
 .ReturnMoney .MoneyImage {
 	width: min(40px, 4vmin);
-	height: min(40px, 2.5vmin);
 	height: auto;
 	padding-right: 5px;
+	margin-left: 15px;
 }
 
 .ReturnMoney .Money {
 	font-family: "CookieRunBold";
 	font-size: min(20px, 2.5vw);
+	margin-right: 15px;
 }
 
 .Date {
@@ -89,7 +69,7 @@
 }
 
 .spread {
-	width: min(60px, 11vw);
-	height: min(60px, 11vw);
+	width: auto;
+	height: min(60px, 10vw);
 	margin-bottom: 10px;
 }

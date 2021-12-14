@@ -149,23 +149,29 @@
 	border: 2px solid whitesmoke;
 }
 
-/* .hostProfileAndName {
+.hostProfileAndName {
 	display: inline-block;
 	width: 80%;
 	position: relative;
 	border-radius: 16px;
 	margin-top : 30px;
 	border: 1px solid #c06325;
-} */
+	margin-bottom: 20px;
+}
 
-.hostProfileAndName .hostProfile {
+.hostProfileAndName p {
+	color:#cc6a01;
+	margin-top: 5px;
+}
+
+/* .hostProfileAndName .hostProfile {
 	display: inline-block;
 	position: relative;
 	margin-top: 8px;
 }
 .hostProfile .hostName {
 	margin-bottom: 8px;
-}
+} */
 .partIn {
 	display: flex;
 	justify-content: center;
@@ -184,9 +190,4 @@
 
 .partIn:hover {
 	background-color: #c04325;
-}
-
-.certification {
-	width : 100%;
-	float : left;
 }

@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Calendar, DateObject} from 'react-multi-date-picker';
 import CenterModalButton from '../common/modalButton';
 import '../../CSS/editedCalendar/orange.css';
 import '../../CSS/viewRoutine/viewRoutine.css';
-import {Container, Image} from 'react-bootstrap';
-import ReactQuill from 'react-quill';
 import RoutineStart from './RoutineStart';
 import NoOptionQuill from '../common/noOptionQuill';
+import UserProfile from './UserProfile';
+import ParticipateRoutine from './ParticipateRoutine';
+import CommentExampleMinimal from './RoutineComment';
 
 export default function ViewRoutine(): JSX.Element {
   // 1. 체크된 달력 구현
@@ -74,11 +75,7 @@ export default function ViewRoutine(): JSX.Element {
               />
             </div>
             <div className="summarizedLocation">
-              <img
-                className="iconsSize"
-                src={'./icons/iconsLocation.png'}
-                width="100px"
-              />
+              <img className="iconsSize" src={'./icons/iconsLocation.png'} />
               <CenterModalButton
                 button="루틴 장소"
                 header="루틴 장소"
@@ -108,18 +105,10 @@ export default function ViewRoutine(): JSX.Element {
       <div className="summarizedCalenderAndParticipants">
         <div className="hostProfileAndName">
           {/* 호스트 프로필 사진 및 닉네임 */}
-          <Container className="hostProfileOutside">
-            <Image
-              className="hostProfile"
-              width="60px"
-              height="60px"
-              src={'./logoKakao.png'}
-              roundedCircle
-            />
-          </Container>
-          <div className="hostName">jaewpark</div>
+          <p>주최자</p>
+          <UserProfile />
         </div>
-        <button className="partIn">참여하기</button>
+        <ParticipateRoutine />
       </div>
       <div>
         {/* 댓글 창 구현 */}
@@ -132,6 +121,7 @@ export default function ViewRoutine(): JSX.Element {
         <RoutineStart />
         <RoutineStart />
       </div>
+      <CommentExampleMinimal />
     </div>
   );
 }
