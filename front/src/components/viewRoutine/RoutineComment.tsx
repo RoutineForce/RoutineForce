@@ -1,16 +1,29 @@
 import React, {useState} from 'react';
 import {Button, Comment, Form, Header} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+import './RoutineComment.css';
+import moment from 'moment';
 
+interface info {
+  content: string;
+  time: string;
+}
 export default function RoutineComment() {
   const [inputContent, setInputContent] = useState('');
-  const [commentList, setCommentList] = useState<string[]>([]);
+  const [commentList, setCommentList] = useState<info[]>([]);
 
   const onSubmit = () => {
-    setCommentList(commentList => [...commentList, inputContent]);
+    if (inputContent != '') {
+      setCommentList(commentList => [
+        ...commentList,
+        {content: inputContent, time: moment().format()},
+      ]);
+      setInputContent('');
+    }
   };
 
   function SingleComment(detail: any) {
+    console.log(detail.key);
     return (
       <Comment>
         <Comment.Avatar
@@ -20,11 +33,19 @@ export default function RoutineComment() {
         <Comment.Content>
           <Comment.Author as="a">Matt</Comment.Author>
           <Comment.Metadata>
-            <span>Today at 5:42PM</span>
+            <span>{moment(detail.time).fromNow()}</span>
           </Comment.Metadata>
-          <Comment.Text key={detail.id}>{detail.content}</Comment.Text>
+          <Comment.Text>{detail.content}</Comment.Text>
           <Comment.Actions>
-            <a>Reply</a>
+            <Comment.Action>
+              <a>Reply</a>
+            </Comment.Action>
+            <Comment.Action className="Edit">
+              <a>Edit</a>
+            </Comment.Action>
+            <Comment.Action className="Remove">
+              <a>Remove</a>
+            </Comment.Action>
           </Comment.Actions>
         </Comment.Content>
       </Comment>
@@ -32,12 +53,16 @@ export default function RoutineComment() {
   }
   return (
     <>
-      <Comment.Group minimal>
+      <Comment.Group>
         <Header as="h3" dividing>
           Comments
         </Header>
         {commentList.map((comments, id) => (
-          <SingleComment key={id} content={comments} />
+          <SingleComment
+            key={id}
+            time={comments.time}
+            content={comments.content}
+          />
         ))}
         <Form reply>
           <Form.TextArea
@@ -48,7 +73,7 @@ export default function RoutineComment() {
           <Button
             content="Add Reply"
             // labelPosition="left"
-            icon="edit"
+            // icon="edit"
             primary
             onClick={onSubmit}
           />

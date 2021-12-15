@@ -1,0 +1,17 @@
+.Edit a {
+	color: rgba(255, 115, 0, 0.703) !important;
+	transition: color !important;
+}
+
+.Edit a:hover {
+	color: rgb(255, 115, 0) !important;
+}
+
+.Remove a {
+	color:rgba(255, 55, 0, 0.703) !important;
+	transition: color !important;
+}
+
+.Remove a:hover {
+	color: rgb(255, 55, 0) !important;
+}
