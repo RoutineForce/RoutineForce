@@ -7,7 +7,7 @@ import RoutineStart from './RoutineStart';
 import NoOptionQuill from '../common/noOptionQuill';
 import UserProfile from './UserProfile';
 import ParticipateRoutine from './ParticipateRoutine';
-import CommentExampleMinimal from './RoutineComment';
+import RoutineComment from './RoutineComment';
 
 export default function ViewRoutine(): JSX.Element {
   // 1. 체크된 달력 구현
@@ -120,8 +120,8 @@ export default function ViewRoutine(): JSX.Element {
         <RoutineStart />
         <RoutineStart />
         <RoutineStart />
+        <RoutineComment />
       </div>
-      <CommentExampleMinimal />
     </div>
   );
 }
