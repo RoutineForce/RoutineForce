@@ -7,56 +7,11 @@
 	left: 50%;
 	margin:0 auto;
 }
-.summarizedInfo {
-	height: 500px;
-	font-family: "CookieRunBold";
-	border: 2px solid whitesmoke;
-	margin: 5px auto;
-}
-
-.summarizedInfo .routineBackground {
-	width: inherit;
-	float: right;
-	max-width: 100%;
-	max-height: 100%;
-	position: relative;
-}
-
-.summarizedInfo .summarizedName {
-	max-width: 70%;
-	transform: translate(10%, 100%);
-	font-size: 40px;
-	font-weight: bold;
-	color: #f79d37;
-	position: absolute;
-	float: left;
-	text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
-}
-
-.summarizedInfo .summarizedPlaceAndDate {
-	max-width: 800px;
-	transform: translate(5%, 200%);
-	font-size: 25px;
-	font-weight: bold;
-	text-indent: 20px;
-	float: left;
-	position: absolute;
-	text-shadow:  -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
-}
-
-.summarizedPlaceAndDate .summarizedPlace {
-	color: #cc6a01;
-}
-
-.summarizedPlaceAndDate .summarizedStartDate {
-	color : #cc6a01;
-}
 
 .remainedDetail{
 	width: 70%;
 	float: left;
 	margin: 5px auto;
-	border: 2px solid whitesmoke;
 	margin-bottom: 10px;
 }
 
@@ -115,8 +70,8 @@
 	height: auto;
 }
 
-
 .routinePrice .Price{
+	font-family: "CookieRunBold";
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -143,7 +98,6 @@
 	text-align: center;
 	font-family: "CookieRunBold";
 	margin: 5px auto;
-	border: 2px solid whitesmoke;
 }
 
 .hostProfileAndName {
@@ -187,4 +141,9 @@
 
 .partIn:hover {
 	background-color: #c04325;
+}
+
+.comments {
+	width: 100%;
+	display: table;
 }

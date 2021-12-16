@@ -1,13 +1,15 @@
 .Comment {
+	max-width: 866px;
 	min-width: 250px;
-	width: 40vw;
+	width: 60vw;
 }
 
 .TextArea {
 	padding: 5px 5px 0 0;
 	margin-left: 5px !important;
+	max-width: 866px;
 	min-width: 250px;
-	width: 40vw;
+	width: 60vw;
 }
 
 .Button {

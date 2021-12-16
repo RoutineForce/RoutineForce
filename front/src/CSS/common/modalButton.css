@@ -1,4 +1,10 @@
+@font-face {
+	font-family: "CookieRunBold";
+	src: url("../../fonts/CookieRunBold.ttf");
+}
+
 .btnOrange {
+	font-family: "CookieRunBold";
 	background-color: #f79d37;
 	color : white;
 	transition-duration: 0.4s;

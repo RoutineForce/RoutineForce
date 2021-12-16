@@ -1,0 +1,44 @@
+.summarizedInfo {
+	height: 500px;
+	font-family: "CookieRunBold";
+	margin: 5px auto;
+}
+
+.summarizedInfo .routineBackground {
+	width: inherit;
+	float: right;
+	max-width: 100%;
+	max-height: 100%;
+	position: relative;
+}
+
+.summarizedInfo .summarizedName {
+	max-width: 70%;
+	transform: translate(10%, 100%);
+	font-size: 40px;
+	font-weight: bold;
+	line-height: 100%;
+	color: #f79d37;
+	position: absolute;
+	text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+}
+
+.summarizedPlaceAndDate {
+	max-width: 800px;
+	transform: translate(5%, 100%);
+	line-height: 130%;
+	font-size: max(25px, 1.5vw);
+	font-weight: bold;
+	text-indent: 20px;
+	float: left;
+	position: absolute;
+	text-shadow:  -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+}
+
+.summarizedPlaceAndDate .summarizedPlace {
+	color: #cc6a01;
+}
+
+.summarizedPlaceAndDate .summarizedStartDate {
+	color : #cc6a01;
+}

@@ -9,6 +9,7 @@ import NoOptionQuill from '../common/noOptionQuill';
 import UserProfile from './UserProfile';
 import ParticipateRoutine from './ParticipateRoutine';
 import RoutineComment from './RoutineComment';
+import RoutineHeader from './RoutineHeader';
 
 export default function ViewRoutine(): JSX.Element {
   // 1. 체크된 달력 구현
@@ -38,21 +39,7 @@ export default function ViewRoutine(): JSX.Element {
 
   return (
     <div className="routineDetail">
-      <div className="summarizedInfoBox">
-        <div className="summarizedInfo">
-          <img
-            className="routineBackground"
-            src={'./testTitleBackground1.jpeg'}
-          />
-          <div className="summarizedName">[10기]Run and lead</div>
-          <div className="summarizedPlaceAndDate">
-            <div className="summarizedPlace">장소</div>
-            <div className="place">온라인</div>
-            <div className="summarizedStartDate">시작일</div>
-            <div className="startDate">11.29(월) 오전 6시 30분</div>
-          </div>
-        </div>
-      </div>
+      <RoutineHeader />
       <div className="remainedDetail">
         <div className="summarizedLocationAndCalender">
           자세한 정보
@@ -93,34 +80,27 @@ export default function ViewRoutine(): JSX.Element {
             </div>
             <div className="routinePrice">
               <img className="iconsSize" src={'./icons/iconsMoney.png'} />
-              {/* 루틴 금액 버튼과 비슷한 디자인 */}
               <button className="Price">20,000원</button>
             </div>
           </div>
         </div>
         <div className="detailedRoutine">
-          {/* 루틴에 대한 설명 */}
           <NoOptionQuill value={detailedSomething} />
         </div>
       </div>
       <div className="summarizedCalenderAndParticipants">
         <div className="hostProfileAndName">
-          {/* 호스트 프로필 사진 및 닉네임 */}
           <p>주최자</p>
           <UserProfile />
         </div>
         <ParticipateRoutine />
       </div>
-      <div>
-        {/* 댓글 창 구현 */}
-        {/* 구현 해야 하는 부분을 이렇게 씁니다 */}
-      </div>
       <div className="certification">
-        {/* 사진 인증 및 보기 */}
-        {/* 구현 해야 하는 부분을 이렇게 씁니다 */}
         <RoutineStart />
         <RoutineStart />
         <RoutineStart />
+      </div>
+      <div className="comments">
         <Divider horizontal>
           <Header as="h4">
             <Icon name="comment alternate" />
