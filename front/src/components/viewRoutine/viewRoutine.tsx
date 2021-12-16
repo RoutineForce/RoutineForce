@@ -1,5 +1,6 @@
 import React from 'react';
 import {Calendar, DateObject} from 'react-multi-date-picker';
+import {Divider, Icon, Header} from 'semantic-ui-react';
 import CenterModalButton from '../common/modalButton';
 import '../../CSS/editedCalendar/orange.css';
 import '../../CSS/viewRoutine/viewRoutine.css';
@@ -120,6 +121,12 @@ export default function ViewRoutine(): JSX.Element {
         <RoutineStart />
         <RoutineStart />
         <RoutineStart />
+        <Divider horizontal>
+          <Header as="h4">
+            <Icon name="comment alternate" />
+            댓글을 달아주세요
+          </Header>
+        </Divider>
         <RoutineComment />
       </div>
     </div>

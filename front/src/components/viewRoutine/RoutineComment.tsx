@@ -54,16 +54,22 @@ export default function RoutineComment() {
   return (
     <>
       <Comment.Group>
-        <Header as="h3" dividing>
-          Comments
-        </Header>
-        {commentList.map((comments, id) => (
-          <SingleComment
-            key={id}
-            time={comments.time}
-            content={comments.content}
-          />
-        ))}
+        <Header as="h3">Comments</Header>
+        {commentList.length !== 0 ? (
+          <>
+            {commentList.map((comments, id) => (
+              <SingleComment
+                key={id}
+                time={comments.time}
+                content={comments.content}
+              />
+            ))}
+          </>
+        ) : (
+          <div className="emptyComment">
+            루틴에 대해 궁금한 것을 댓글로 남겨주세요 😃
+          </div>
+        )}
         <Form reply>
           <Form.TextArea
             value={inputContent}

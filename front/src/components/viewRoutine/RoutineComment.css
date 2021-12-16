@@ -15,3 +15,10 @@
 .Remove a:hover {
 	color: rgb(255, 55, 0) !important;
 }
+
+.emptyComment {
+	margin: 5px;
+	color: rgba(100, 100, 100, 0.669);
+	cursor: default;
+	min-height: 20px;
+}

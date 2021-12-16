@@ -9,7 +9,6 @@
 }
 .summarizedInfo {
 	height: 500px;
-	background-color:rgb(243, 243, 243);
 	font-family: "CookieRunBold";
 	border: 2px solid whitesmoke;
 	margin: 5px auto;
@@ -54,7 +53,6 @@
 }
 
 .remainedDetail{
-	background-color:rgb(243, 243, 243);
 	width: 70%;
 	float: left;
 	margin: 5px auto;
@@ -139,7 +137,6 @@
 }
 
 .summarizedCalenderAndParticipants {
-	background-color:rgb(243, 243, 243);
 	width: 30%;
 	height: auto;
 	float: left;
