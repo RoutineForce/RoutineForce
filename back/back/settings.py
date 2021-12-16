@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'routineforce',
     'rest_framework',
+    'corsheaders',
+    'django_filters',
 ]
 
 REST_FRAMEWORK = {
@@ -53,6 +55,7 @@ REST_FRAMEWORK = {
         #'rest_framework.authentication.SessionAuthentication',
         #'rest_framework.authentication.BasicAuthentication',
     ),
+    'DEFAULT_FILTER_BACKENDS':['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 MIDDLEWARE = [
@@ -63,7 +66,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+#CORS_ORIGIN_WHITELIST = ['localhost:3000',
+#]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'back.urls'
 

@@ -1,8 +1,24 @@
 from rest_framework import serializers 
-from .models import Routine 
+from .models import Routine, User, RoutineRegistration, Login
 
 class RoutineSerializer(serializers.ModelSerializer): 
     class Meta:
         model = Routine # 모델 설정 
-        fields = ('id','title', 'status','type','day_run', 'dues', 'penalty', 'headcount_min', 'headcount_max', 'location', 'certification_type', 'intro', 'body', 'body_type', 'image_path')
+        fields = "__all__"
+        #fields = ('id','title', 'status','type','day_run', 'dues', 'penalty', 'headcount_min', 'headcount_max', 'location', 'certification_type', 'intro', 'body', 'body_type','image_path')
+
+class UserSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = User # 모델 설정 
+        fields = "__all__"
+
+class UserRoutineSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = RoutineRegistration # 모델 설정 
+        fields = "__all__"
+
+class LoginSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = Login # 모델 설정 
+        fields = "__all__"
 

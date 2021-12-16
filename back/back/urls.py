@@ -18,14 +18,26 @@ from django.urls import path
 from django.conf.urls import url, include
 from rest_framework import routers
 #from routineforce import views as main_views
-from routineforce.views import RoutineViewSet 
+from routineforce.views import RoutineViewSet, UserViewSet, UserRoutineViewSet, LoginAPI
 
 router = routers.DefaultRouter()
-router.register('routine', RoutineViewSet)
+#routerUser = routers.DefaultRouter()
+#routerUserRoutine = routers.DefaultRouter()
+#routerLogin = routers.DefaultRouter()
+router.register(r'routine', RoutineViewSet)
+router.register(r'user', UserViewSet)
+router.register(r'userroutine', UserRoutineViewSet)
+#userlogin = LoginViewSet.as_view({'post':'create'})
+#router.register(r'login', LoginViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('', main_views.index, name="index"),
-    #path('test/', main_views.index, name="index"),
-    url(r'^', include(router.urls)),
+    #path('routine/', RoutineViewSet.as_view()),
+    path('', include(router.urls)),
+    path('login', LoginAPI.as_view()),
+    #path('', include(routerUser.urls)),
+    #url(r'^', include(userlogin.urls)),
+    #path('', include(routerLogin.urls)),
+    #path('', include(routerUserRoutine.urls)),
 ]

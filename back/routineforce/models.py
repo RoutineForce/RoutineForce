@@ -77,16 +77,17 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-class Certification(models.Model):
+class RoutineCertification(models.Model):
     routine_id = models.IntegerField()
-    user_id = models.IntegerField()
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='certification')
     date_and_time = models.DateTimeField(blank=True, null=True)
     image_path = models.CharField(max_length=4096, blank=True, null=True)
     result = models.CharField(max_length=10)
 
     class Meta:
         managed = False
-        db_table = 'certification'
+        db_table = 'routine_certification'
 
 
 class Routine(models.Model):
@@ -114,8 +115,7 @@ class RoutineRegistration(models.Model):
     user = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='registration')
     routine = models.ForeignKey(Routine, models.DO_NOTHING)
-    status = models.CharField(max_length=10)
-    result = models.CharField(max_length=10)
+    result = models.CharField(max_length=10, null=True)
 
     class Meta:
         managed = False
@@ -136,14 +136,13 @@ class Comment(models.Model):
 
 
 class CommonCode(models.Model):
-    value = models.CharField(primary_key=True, max_length=10)
-    type = models.CharField(max_length=10)
-    name = models.CharField(max_length=20)
+    id = models.CharField(primary_key=True, max_length=10)
+    common_id = models.CharField(max_length=10, blank=True, null=True)
+    label = models.CharField(max_length=128)
 
     class Meta:
         managed = False
         db_table = 'common_code'
-        unique_together = (('value', 'type'),)
 
 
 class DjangoAdminLog(models.Model):
@@ -216,7 +215,7 @@ class LogPoint(models.Model):
 
 
 class User(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.CharField(max_length=128, primary_key=True)
     login = models.CharField(max_length=10)
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=320, blank=True, null=True)
@@ -226,3 +225,7 @@ class User(models.Model):
         managed = False
         db_table = 'user'
         unique_together = (('id', 'login'),)
+
+class Login(models.Model):
+    code = models.CharField(max_length=128)
+    service = models.CharField(max_length=10)
