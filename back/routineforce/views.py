@@ -7,16 +7,21 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 import requests
 import json
+import jwt
+import datetime
 from django_filters import rest_framework as filters
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .login import Provider
+#from settings import SECRET_KEY
+#SECRET_KEY = 
+SECRET_KEY = 'django-insecure-xecoq22xndesta5&^9sf#8txztg*q63!yi-c4+6wmojl4eimhe'
 
 # Create your views here.
 
-def index(request):
-    return render(request, "routineforce/index.html")
-def test(request):
-    return render(request, "routineforce/index.html")
+#def index(request):
+#    return render(request, "routineforce/index.html")
+#def test(request):
+#    return render(request, "routineforce/index.html")
 
 class RoutineFilter(filters.FilterSet):
     class Meta:
@@ -101,6 +106,7 @@ class UserViewSet(viewsets.ModelViewSet):
             qs2 = UserFilter(self.request.GET, queryset=queryset)
             qs2 = qs2.qs
         return qs2
+APP_ADMIN_KEY = "00b918e1b430f796b039aefb8e5ebc24"
 
 class LoginAPI(APIView):
 
@@ -133,8 +139,15 @@ class LoginAPI(APIView):
             userdata = provider(code)
             print(type(userdata))
             print(userdata)
+            payload = {
+                    'exp' : datetime.datetime.utcnow() + datetime.timedelta(seconds=7200),
+                    'id' : userdata['id'],
+                    'provider' : service
+                    }
             if User.objects.filter(id=userdata['id'], login=service).exists():
-                print("user exists")
+                #print("user exists")
+                routineforce_token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+                return JsonResponse({"token": routineforce_token}, status=status.HTTP_200_OK)
             else :
                 User(
                         id = userdata['id'],
@@ -143,7 +156,9 @@ class LoginAPI(APIView):
                         email = userdata['email'],
                         image_path = userdata['image_path']
                 ).save()
-            return Response('Login Successed!' ,status=status.HTTP_200_OK)
+                routineforce_token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+            return JsonResponse({"token": routineforce_token}, status=status.HTTP_200_OK)
+            #return Response('Login Successed!' ,status=status.HTTP_200_OK)
         else :
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors)

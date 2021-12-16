@@ -23,19 +23,19 @@ class Provider():
             'redirect_uri': (None, f'{ft_redirect_uri}'),
         }
         token_response = requests.post('https://api.intra.42.fr/oauth/token', files=files)
-        print(token_response.text)
+        #print(token_response.text)
         token_response_json = token_response.json()
-        access_token = token_response_json["access_token"]
+        access_token = token_response_json.get("access_token")
         headers = {
                 'Authorization': f'Bearer {access_token}',
         }
         response = requests.get('https://api.intra.42.fr/v2/me', headers=headers)
         response_json = response.json()
-        print(response_json)
-        ft_id = response_json["id"]
-        ft_name = response_json["login"]
-        ft_email = response_json["email"]
-        image_path = response_json["image_url"]
+        #print(response_json)
+        ft_id = response_json.get("id")
+        ft_name = response_json.get("login")
+        ft_email = response_json.get("email")
+        image_path = response_json.get("image_url")
         userdata = {
             'id': ft_id,
             'name': ft_name,
@@ -56,7 +56,7 @@ class Provider():
         }
         token_response = requests.post('https://kauth.kakao.com/oauth/token', headers=headers, data=data)
         response_json = token_response.json()
-        access_token = response_json["access_token"]
+        access_token = response_json.get("access_token")
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': f'Bearer {access_token}',
@@ -68,12 +68,14 @@ class Provider():
             
         kakao_response = requests.post('https://kapi.kakao.com/v2/user/me', headers=headers, data=data)
         kakao_response_json = kakao_response.json()
-        kakao_id = kakao_response_json["id"]
-        kakao_account = kakao_response_json["kakao_account"]
-        kakao_profile = kakao_account["profile"]
-        kakao_name = kakao_profile["nickname"]
-        image_path = kakao_profile["profile_image_url"]
-        kakao_email = kakao_account["email"]
+        print(kakao_response.text)
+        kakao_id = kakao_response_json.get("id")
+        kakao_properties = kakao_response_json.get("properties")
+        #test = kakao_response_json.get("profile")
+        kakao_account = kakao_response_json.get("kakao_account")
+        kakao_name = kakao_properties.get("nickname")
+        image_path = kakao_properties.get("profile_image")
+        kakao_email = kakao_account.get("email")
         userdata = {
                 'id': kakao_id,
                 'name': kakao_name,
@@ -92,19 +94,19 @@ class Provider():
         token_response = requests.post('https://nid.naver.com/oauth2.0/token', data=data)
         print(token_response.text)
         token_response_json = token_response.json()
-        access_token = token_response_json["access_token"]
+        access_token = token_response_json.get("access_token")
         headers = {
                 'Authorization': f'Bearer {access_token}'
         }
         naver_response = requests.post('https://openapi.naver.com/v1/nid/me', headers=headers)
-        print(naver_response.text)
+        #print(naver_response.text)
         naver_response_json = naver_response.json()
         #print(naver_response_json)
-        response = naver_response_json["response"]
-        naver_id = response["id"]
-        naver_name = response["name"]
-        naver_email = response["email"]
-        image_path = response["profile_image"]
+        response = naver_response_json.get("response")
+        naver_id = response.get("id")
+        naver_name = response.get("name")
+        naver_email = response.get("email")
+        image_path = response.get("profile_image")
         userdata = {
                 'id': naver_id,
                 'name':naver_name,
@@ -112,26 +114,3 @@ class Provider():
                 'image_path':image_path
         }
         return userdata;
-    def google(self, code):
-        headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        }
-
-        data = {
-                'client_id': f'{google_client_id}',
-                'client_secret' : f'{google_client_secret}',
-                'code': f'{code}',
-                'grant_type': 'authorization_code',
-                'redirect_uri': f'{google_redirect_uri}'
-        }
-        token_response = requests.post('https://oauth2.googleapis.com/token', headers=headers, data=data)
-        print("token:",token_response.text)
-        token_response_json = token_response.json()
-        access_token = token_response_json["access_token"]
-        print(access_token)
-        headers = {
-                'Authorization': f'Bearer {access_token}'
-        }
-        response = requests.post('https://www.googleapis.com/userinfo/v2/me', headers=headers)
-        print(response.text)
-        return 0;
