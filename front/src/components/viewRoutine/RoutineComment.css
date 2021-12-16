@@ -5,6 +5,7 @@
 
 .TextArea {
 	padding: 5px 5px 0 0;
+	margin-left: 5px !important;
 	min-width: 250px;
 	width: 40vw;
 }

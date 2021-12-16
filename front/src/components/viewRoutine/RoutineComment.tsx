@@ -13,6 +13,21 @@ export default function RoutineComment() {
   const [commentList, setCommentList] = useState<info[]>([]);
   const [formLocation, setFormLocation] = useState(-1);
 
+  const onCommentEdit = (index: number) => {
+    if (inputContent === '') return;
+    const newCommentList = [...commentList];
+    newCommentList[index].content = inputContent;
+    setCommentList(newCommentList);
+    setFormLocation(-1);
+    setInputContent('');
+  };
+
+  const onCommentRemove = (index: number) => {
+    commentList.splice(index, 1);
+    const newCommentList = [...commentList];
+    setCommentList(newCommentList);
+  };
+
   const onSubmit = () => {
     if (inputContent != '') {
       setCommentList(commentList => [
@@ -23,12 +38,12 @@ export default function RoutineComment() {
     }
   };
 
-  const selectComment = (num: number) => {
+  const selectComment = (num: number, content: string) => {
     setFormLocation(num);
+    setInputContent(content);
   };
 
   function SingleComment(detail: any) {
-    console.log(detail.key);
     return (
       <Comment className="Comment">
         <Comment.Avatar
@@ -48,12 +63,17 @@ export default function RoutineComment() {
             <Comment.Action
               className="Edit"
               onClick={() => {
-                selectComment(detail.index);
+                selectComment(detail.index, detail.content);
               }}
             >
               <a>수정</a>
             </Comment.Action>
-            <Comment.Action className="Remove">
+            <Comment.Action
+              className="Remove"
+              onClick={() => {
+                onCommentRemove(detail.index);
+              }}
+            >
               <a>삭제</a>
             </Comment.Action>
           </Comment.Actions>
@@ -89,7 +109,9 @@ export default function RoutineComment() {
                       className="Button"
                       content="수정하기"
                       secondary
-                      onClick={onSubmit}
+                      onClick={() => {
+                        onCommentEdit(index);
+                      }}
                     />
                   </Form>
                 ) : null}
