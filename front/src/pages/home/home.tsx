@@ -6,6 +6,8 @@ import HomeDefault from '../../components/homeDefault';
 import Routine from '../../components/editRoutine';
 import MultiRoutineView from '../../components/multiRoutineView';
 import API from '../../api/APIUtil';
+
+const loginstate = 'npns';
 /**
  * 테스트용으로 작성해놓은 부분입니다.
  */
@@ -32,6 +34,11 @@ function Home(): JSX.Element {
   const seeAllMeetingClick = () => {
     console.log('준비중!');
   };
+
+  const seeLoginPageClick = () => {
+    PageMover.goTo('./login');
+  };
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -46,16 +53,20 @@ function Home(): JSX.Element {
             <Nav>
               <Nav.Link>About</Nav.Link>
               {/* title 에 componenet 도 집어넣을 수 있음. 따라서 추후에 User 의 Image 로 변경될 것 */}
-              <NavDropdown title="Login-In" id="collasible-nav-dropdown">
-                <NavDropdown.Item>My Routines</NavDropdown.Item>
-                <NavDropdown.Item>Interested Routines</NavDropdown.Item>
-                <NavDropdown.Item onClick={makeNewRoutineClick}>
-                  Make new Routine
-                </NavDropdown.Item>
-                <NavDropdown.Item>Make new Meeting</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item>Logout</NavDropdown.Item>
-              </NavDropdown>
+              {loginstate === null ? (
+                <Nav.Link onClick={seeLoginPageClick}>Login</Nav.Link>
+              ) : (
+                <NavDropdown title="Login-In" id="collasible-nav-dropdown">
+                  <NavDropdown.Item>My Routines</NavDropdown.Item>
+                  <NavDropdown.Item>Interested Routines</NavDropdown.Item>
+                  <NavDropdown.Item onClick={makeNewRoutineClick}>
+                    Make new Routine
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>Make new Meeting</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item>Logout</NavDropdown.Item>
+                </NavDropdown>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
