@@ -20,16 +20,19 @@ export default function Login(): JSX.Element {
   const loginKakaoButtonClick = () => {
     console.log('click kakao login');
     (window as any).setCookieAndBack = (jwtToken: string) => {
-      console.log(jwtToken);
+      console.log('인가코드 : ' + jwtToken);
       axios
-        .post('./login', {jwtToken})
+        .post(`${process.env.REACT_APP_API_ADDRESS}login`, {
+          code: jwtToken,
+          service: 'T0102',
+        })
         .then(res => {
           if (res.status === 200) {
-            console.log('wow!');
+            console.log(res);
           } else {
             throw new Error();
           }
-          console.log(res.data);
+          console.log('return code : ' + res.data);
         })
         .catch(err => {
           console.log(err);

@@ -12,6 +12,8 @@ import datetime
 from django_filters import rest_framework as filters
 from django.http import HttpResponse, JsonResponse
 from .login import Provider
+from .utils import LoginConfirm
+
 #from settings import SECRET_KEY
 #SECRET_KEY = 
 SECRET_KEY = 'django-insecure-xecoq22xndesta5&^9sf#8txztg*q63!yi-c4+6wmojl4eimhe'
@@ -38,13 +40,14 @@ class UserRoutineFilter(filters.FilterSet):
         model = RoutineRegistration
         fields = '__all__'
 
+
 class RoutineViewSet(viewsets.ModelViewSet):
     queryset = Routine.objects.all()
     serializer_class = RoutineSerializer
     filter_backends = [filters.DjangoFilterBackend]
     #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
 
-    def get_queryset(self):
+    def list(self, request, *args, **kwargs):
         queryset = self.queryset
         fromIndex = self.request.query_params.get('start', None)
         if fromIndex:
@@ -52,11 +55,14 @@ class RoutineViewSet(viewsets.ModelViewSet):
             toIndex = int(self.request.query_params.get('count', None))
             qs1 =  RoutineFilter(self.request.GET, queryset=queryset)
             qs1 = qs1.qs
-            return qs1[fromIndex:toIndex]
+            qs1 = qs1[fromIndex:toIndex]
+            return qs1
+            #return Response(qs1, status=status.HTTP_200_OK)
         else :
             qs2 = RoutineFilter(self.request.GET, queryset=queryset)
             qs2 = qs2.qs
         return qs2
+        #return Response(qs2, status=status.HTTP_200_OK)
 
     #    search = self.request.query_params.get('search', None)
     #    if search:
@@ -67,6 +73,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
     #    qs = Routine.objects.filter(status='pending')
     #    serializer = self.get_serializer(qs, many=True)
     #    return Response(serializer.data)
+
 class UserRoutineViewSet(viewsets.ModelViewSet):
     queryset = RoutineRegistration.objects.all()
     serializer_class = UserRoutineSerializer
@@ -106,6 +113,7 @@ class UserViewSet(viewsets.ModelViewSet):
             qs2 = UserFilter(self.request.GET, queryset=queryset)
             qs2 = qs2.qs
         return qs2
+
 APP_ADMIN_KEY = "00b918e1b430f796b039aefb8e5ebc24"
 
 class LoginAPI(APIView):

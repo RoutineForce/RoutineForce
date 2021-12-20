@@ -1,17 +1,31 @@
 import React, {useState} from 'react';
 import {Button, Comment, Form, Header} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import './RoutineComment.css';
+import '../../CSS/viewRoutine/Comments.css';
 import moment from 'moment';
+import axios from 'axios';
 
 interface info {
   content: string;
   time: string;
 }
-export default function RoutineComment() {
+
+export default function Comments() {
+  // RoutineId: number,
+  // loginState: boolean,
+  const logStatus = null;
   const [inputContent, setInputContent] = useState('');
   const [commentList, setCommentList] = useState<info[]>([]);
   const [formLocation, setFormLocation] = useState(-1);
+
+  // const getCommentData = async () => {
+  //   try {
+  //     await axios.get(`/comment/${RoutineId}`).then(res => console.log(res)).catch(err=> console.log(err));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  //   setCommentList(res.commentData);
+  // }
 
   const onCommentEdit = (index: number) => {
     if (inputContent === '') return;
@@ -20,6 +34,8 @@ export default function RoutineComment() {
     setCommentList(newCommentList);
     setFormLocation(-1);
     setInputContent('');
+    // axios.put(`./comment/RoutineId/CommentId`, {comments: inputContent})
+    // e.preventDefault(); 알아보고 쓰기
   };
 
   const onCommentRemove = (index: number) => {
@@ -125,18 +141,37 @@ export default function RoutineComment() {
         )}
         {formLocation != -1 ? null : (
           <Form reply>
-            <Form.TextArea
-              className="TextArea"
-              value={inputContent}
-              placeholder="댓글을 입력해주세요"
-              onChange={e => setInputContent(e.target.value)}
-            />
-            <Button
-              className="Button"
-              content="등록하기"
-              primary
-              onClick={onSubmit}
-            />
+            {logStatus != null ? (
+              <>
+                <Form.TextArea
+                  className="TextArea"
+                  value={inputContent}
+                  placeholder="댓글을 입력해주세요"
+                  onChange={e => setInputContent(e.target.value)}
+                />
+                <Button
+                  className="Button"
+                  content="등록하기"
+                  primary
+                  onClick={onSubmit}
+                />
+              </>
+            ) : (
+              <>
+                <Form.TextArea
+                  className="TextArea"
+                  placeholder="로그인이 필요합니다"
+                  disabled
+                />
+                <Button
+                  className="Button"
+                  content="등록하기"
+                  primary
+                  onClick={onSubmit}
+                  disabled
+                />
+              </>
+            )}
           </Form>
         )}
       </Comment.Group>

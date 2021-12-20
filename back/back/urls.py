@@ -20,6 +20,12 @@ from rest_framework import routers
 #from routineforce import views as main_views
 from routineforce.views import RoutineViewSet, UserViewSet, UserRoutineViewSet, LoginAPI
 
+##############swagger modules###############
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+################################
+
 router = routers.DefaultRouter()
 #routerUser = routers.DefaultRouter()
 #routerUserRoutine = routers.DefaultRouter()
@@ -29,6 +35,21 @@ router.register(r'user', UserViewSet)
 router.register(r'userroutine', UserRoutineViewSet)
 #userlogin = LoginViewSet.as_view({'post':'create'})
 #router.register(r'login', LoginViewSet)
+
+###################swagger###########
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Snippets API",
+      default_version='v1',
+      description="Test description",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@snippets.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
+######################################
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,4 +61,8 @@ urlpatterns = [
     #url(r'^', include(userlogin.urls)),
     #path('', include(routerLogin.urls)),
     #path('', include(routerUserRoutine.urls)),
+    ###########swagger configuration###########
+    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
