@@ -10,6 +10,7 @@ import UserProfile from './UserProfile';
 import ParticipateRoutine from './ParticipateRoutine';
 import RoutineComment from './RoutineComment';
 import RoutineHeader from './RoutineHeader';
+import Navbarc from '../common/Navbar';
 
 export default function ViewRoutine(): JSX.Element {
   // 1. 체크된 달력 구현
@@ -38,77 +39,80 @@ export default function ViewRoutine(): JSX.Element {
   // 4. detailedRoutine (이후 시작이 되고 나서 접어두거나 새로운 탭형식)
 
   return (
-    <div className="routineDetail">
-      <RoutineHeader />
-      <div className="remainedDetail">
-        <div className="summarizedLocationAndCalender">
-          자세한 정보
-          <div className="InfoSort">
-            <div className="summarizedCalender">
-              <img className="iconsSize" src={'./icons/iconsCalender.png'} />
-              <CenterModalButton
-                button="루틴 일정"
-                header="루틴 일정"
-                body={
-                  <Calendar
-                    className="orange"
-                    currentDate={currentDate}
-                    multiple
-                    value={dates}
-                    sort
-                    readOnly
-                    showOtherDays
-                  />
-                }
-              />
-            </div>
-            <div className="summarizedLocation">
-              <img className="iconsSize" src={'./icons/iconsLocation.png'} />
-              <CenterModalButton
-                button="루틴 장소"
-                header="루틴 장소"
-                body="온라인"
-              />
-            </div>
-            <div className="summarizedParticipants">
-              <img className="iconsSize" src={'./icons/iconsPeople.png'} />
-              <CenterModalButton
-                button="참가자 명단"
-                header="최소 2명 ~ 최대 3명"
-                body={participants}
-              />
-            </div>
-            <div className="routinePrice">
-              <img className="iconsSize" src={'./icons/iconsMoney.png'} />
-              <button className="Price">20,000원</button>
+    <>
+      <Navbarc />
+      <div className="routineDetail">
+        <RoutineHeader />
+        <div className="remainedDetail">
+          <div className="summarizedLocationAndCalender">
+            자세한 정보
+            <div className="InfoSort">
+              <div className="summarizedCalender">
+                <img className="iconsSize" src={'./icons/iconsCalender.png'} />
+                <CenterModalButton
+                  button="루틴 일정"
+                  header="루틴 일정"
+                  body={
+                    <Calendar
+                      className="orange"
+                      currentDate={currentDate}
+                      multiple
+                      value={dates}
+                      sort
+                      readOnly
+                      showOtherDays
+                    />
+                  }
+                />
+              </div>
+              <div className="summarizedLocation">
+                <img className="iconsSize" src={'./icons/iconsLocation.png'} />
+                <CenterModalButton
+                  button="루틴 장소"
+                  header="루틴 장소"
+                  body="온라인"
+                />
+              </div>
+              <div className="summarizedParticipants">
+                <img className="iconsSize" src={'./icons/iconsPeople.png'} />
+                <CenterModalButton
+                  button="참가자 명단"
+                  header="최소 2명 ~ 최대 3명"
+                  body={participants}
+                />
+              </div>
+              <div className="routinePrice">
+                <img className="iconsSize" src={'./icons/iconsMoney.png'} />
+                <button className="Price">20,000원</button>
+              </div>
             </div>
           </div>
+          <div className="detailedRoutine">
+            <NoOptionQuill value={detailedSomething} />
+          </div>
         </div>
-        <div className="detailedRoutine">
-          <NoOptionQuill value={detailedSomething} />
+        <div className="summarizedCalenderAndParticipants">
+          <div className="hostProfileAndName">
+            <p>주최자</p>
+            <UserProfile />
+          </div>
+          <ParticipateRoutine />
+        </div>
+        <div className="certification">
+          <RoutineStart />
+          <RoutineStart />
+          <RoutineStart />
+        </div>
+        <div className="comments">
+          <Divider horizontal>
+            <Header as="h4">
+              <Icon name="comment alternate" />
+              댓글을 달아주세요
+            </Header>
+          </Divider>
+          <RoutineComment />
         </div>
       </div>
-      <div className="summarizedCalenderAndParticipants">
-        <div className="hostProfileAndName">
-          <p>주최자</p>
-          <UserProfile />
-        </div>
-        <ParticipateRoutine />
-      </div>
-      <div className="certification">
-        <RoutineStart />
-        <RoutineStart />
-        <RoutineStart />
-      </div>
-      <div className="comments">
-        <Divider horizontal>
-          <Header as="h4">
-            <Icon name="comment alternate" />
-            댓글을 달아주세요
-          </Header>
-        </Divider>
-        <RoutineComment />
-      </div>
-    </div>
+    </>
   );
 }

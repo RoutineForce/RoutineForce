@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, NavDropdown, Container, Nav} from 'react-bootstrap';
+import Navbarc from '../../components/common/Navbar';
 import {Routes, Route} from 'react-router-dom';
 import PageMover from '../../utils/PageMover';
 import HomeDefault from '../../components/homeDefault';
@@ -7,7 +7,7 @@ import Routine from '../../components/editRoutine';
 import MultiRoutineView from '../../components/multiRoutineView';
 import API from '../../api/APIUtil';
 
-const loginstate = 'npns';
+const loginstate = null;
 /**
  * 테스트용으로 작성해놓은 부분입니다.
  */
@@ -41,36 +41,7 @@ function Home(): JSX.Element {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand onClick={brandClick}>Routine Force</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link onClick={seeAllRoutineClick}>See All Routines</Nav.Link>
-              <Nav.Link onClick={seeAllMeetingClick}>See All Meetings</Nav.Link>
-            </Nav>
-            <Nav>
-              <Nav.Link>About</Nav.Link>
-              {/* title 에 componenet 도 집어넣을 수 있음. 따라서 추후에 User 의 Image 로 변경될 것 */}
-              {loginstate === null ? (
-                <Nav.Link onClick={seeLoginPageClick}>Login</Nav.Link>
-              ) : (
-                <NavDropdown title="Login-In" id="collasible-nav-dropdown">
-                  <NavDropdown.Item>My Routines</NavDropdown.Item>
-                  <NavDropdown.Item>Interested Routines</NavDropdown.Item>
-                  <NavDropdown.Item onClick={makeNewRoutineClick}>
-                    Make new Routine
-                  </NavDropdown.Item>
-                  <NavDropdown.Item>Make new Meeting</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item>Logout</NavDropdown.Item>
-                </NavDropdown>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <Navbarc />
       <Routes>
         <Route path={''} element={<HomeDefault></HomeDefault>}></Route>
         <Route path={'/editRoutine'} element={<Routine></Routine>} />

@@ -20,7 +20,21 @@ export default function Login(): JSX.Element {
   const loginKakaoButtonClick = () => {
     console.log('click kakao login');
     (window as any).setCookieAndBack = (jwtToken: string) => {
-      PageMover.goBack();
+      console.log(jwtToken);
+      axios
+        .post('./login', {jwtToken})
+        .then(res => {
+          if (res.status === 200) {
+            console.log('wow!');
+          } else {
+            throw new Error();
+          }
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      // PageMover.goBack();
     };
     window.open(process.env.REACT_APP_KAKAO_LOGIN_URL);
   };

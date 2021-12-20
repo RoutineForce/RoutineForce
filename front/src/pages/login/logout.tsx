@@ -1,4 +1,5 @@
 import React from 'react';
+import { LoginReturnKakao } from './loginReturn';
 
 export default function Logout(props: any) {
   const isLogin = props.islogin;

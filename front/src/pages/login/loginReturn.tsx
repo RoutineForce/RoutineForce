@@ -20,16 +20,6 @@ export function LoginReturn42(): JSX.Element {
 
 export function LoginReturnKakao(): JSX.Element {
   const code = new URL(window.location.href).searchParams.get('code');
-  axios({
-    method: 'GET',
-    url: `http://localhost:3000/loginreturn/kakao?code=${code}`,
-  })
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.log(err);
-    });
   useEffect(() => {
     if (window.opener) {
       // await getAllJSDocTagsOfKind;
@@ -39,7 +29,7 @@ export function LoginReturnKakao(): JSX.Element {
       console.error('window.opener null');
     }
   }, []);
-  window.close();
+  // window.close();
   return (
     <>
       <div>로그인 중입니다. code : {}</div>
