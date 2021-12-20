@@ -13,6 +13,7 @@ from django_filters import rest_framework as filters
 from django.http import HttpResponse, JsonResponse
 from .login import Provider
 from .utils import LoginConfirm
+from django.core import serializers
 
 #from settings import SECRET_KEY
 #SECRET_KEY = 
@@ -56,12 +57,15 @@ class RoutineViewSet(viewsets.ModelViewSet):
             qs1 =  RoutineFilter(self.request.GET, queryset=queryset)
             qs1 = qs1.qs
             qs1 = qs1[fromIndex:toIndex]
-            return qs1
+            #qs1 = json.dumps(qs1)
+            qs1 = serializers.serialize("json", qs1) 
+            return HttpResponse(qs1)
             #return Response(qs1, status=status.HTTP_200_OK)
         else :
             qs2 = RoutineFilter(self.request.GET, queryset=queryset)
             qs2 = qs2.qs
-        return qs2
+            qs2 = serializers.serialize("json",qs2)
+        return HttpResponse(qs2)
         #return Response(qs2, status=status.HTTP_200_OK)
 
     #    search = self.request.query_params.get('search', None)
