@@ -22,7 +22,7 @@ export default function Login(): JSX.Element {
     (window as any).setCookieAndBack = (jwtToken: string) => {
       console.log('인가코드 : ' + jwtToken);
       axios
-        .post(`${process.env.REACT_APP_API_ADDRESS}login`, {
+        .post(`${process.env.REACT_APP_API_DOCKER}/login`, {
           code: jwtToken,
           service: 'T0102',
         })
