@@ -2,6 +2,7 @@ import jwt
 import json
 from .models import User
 from django.http import JsonResponse, HttpResponse
+from rest_framework import status
 
 SECRET_KEY = 'django-insecure-xecoq22xndesta5&^9sf#8txztg*q63!yi-c4+6wmojl4eimhe'
 

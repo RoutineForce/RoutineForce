@@ -67,17 +67,12 @@ class RoutineViewSet(viewsets.ModelViewSet):
             qs2 = serializers.serialize("json",qs2)
         return HttpResponse(qs2)
         #return Response(qs2, status=status.HTTP_200_OK)
+    @LoginConfirm
+    def create(self, request, *args, **kwargs):
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    #    search = self.request.query_params.get('search', None)
-    #    if search:
-    #        queryset = queryset.filter(status=search)
-    #    return queryset
-    #@action(detail=False)
-    #def pending(self, request):
-    #    qs = Routine.objects.filter(status='pending')
-    #    serializer = self.get_serializer(qs, many=True)
-    #    return Response(serializer.data)
 
+    
 class UserRoutineViewSet(viewsets.ModelViewSet):
     queryset = RoutineRegistration.objects.all()
     serializer_class = UserRoutineSerializer
