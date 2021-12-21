@@ -133,6 +133,7 @@ class LoginAPI(APIView):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             #do login
+            print(serializer.data)
             code=serializer.data.get('code')
             service=serializer.data.get('service')
             if service == 'T0101':
