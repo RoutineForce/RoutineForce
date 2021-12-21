@@ -7,28 +7,36 @@ import './login.css';
  * Todo : jaewpark 이 로그인 페이지 만들어줄거임! ㅎㅎ
  */
 export default function Login(): JSX.Element {
-  async function login42ButtonClick() {
+  const login42ButtonClick = () => {
     console.log('click 42 login');
     (window as any).setCookieAndBack = (jwtToken: string) => {
       // Todo : 인자로 받아온 jwtToken 을 Cookie 에 담음. 그리고 User 클레스를 세팅
-      PageMover.goBack();
+      //PageMover.goBack();
     };
     window.open(process.env.REACT_APP_42_LOGIN_URL);
-  }
+  };
 
   // KAKAO_LOGIN_URL 체크
   const loginKakaoButtonClick = () => {
     console.log('click kakao login');
     (window as any).setCookieAndBack = (jwtToken: string) => {
-      console.log('code :', jwtToken);
+      //console.log(jwtToken);
+      const code = Object.values(jwtToken);
+      //console.log('str', str[0]);
       //console.log('인가코드 : ' + jwtToken);
       axios
-        .post(`${process.env.REACT_APP_API_DOCKER}/login`, {
-          params: {
-            code: jwtToken,
+        .post(
+          `${process.env.REACT_APP_API_DOCKER}/login`,
+          {
+            code: code[0],
             service: 'T0102',
           },
-        })
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        )
         .then(res => {
           if (res.status === 200) {
             console.log(res);
