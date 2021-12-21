@@ -77,58 +77,12 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-class RoutineCertification(models.Model):
-    routine_id = models.IntegerField()
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='certification')
-    date_and_time = models.DateTimeField(blank=True, null=True)
-    image_path = models.CharField(max_length=4096, blank=True, null=True)
-    result = models.CharField(max_length=10)
-
-    class Meta:
-        managed = False
-        db_table = 'routine_certification'
-
-
-class Routine(models.Model):
-    title = models.CharField(max_length=128)
-    status = models.CharField(max_length=10)
-    type = models.CharField(max_length=10)
-    day_run = models.TextField()
-    dues = models.IntegerField(blank=True, null=True)
-    penalty = models.IntegerField(blank=True, null=True)
-    headcount_min = models.IntegerField()
-    headcount_max = models.IntegerField()
-    location = models.CharField(max_length=128)
-    certification_type = models.CharField(max_length=10)
-    intro = models.CharField(max_length=128)
-    body = models.CharField(max_length=4096)
-    body_type = models.CharField(max_length=10)
-    image_path = models.CharField(max_length=4096, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'routine'
-
-
-class RoutineRegistration(models.Model):
-    user = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
-    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='registration')
-    routine = models.ForeignKey(Routine, models.DO_NOTHING)
-    result = models.CharField(max_length=10, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'routine_registration'
-        unique_together = (('user', 'user_login', 'routine'),)
-
-
 class Comment(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='usercomment')
+    user_id = models.ForeignKey('User', models.DO_NOTHING)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
     body = models.CharField(max_length=4096, blank=True, null=True)
     target = models.IntegerField()
-    date_and_time = models.DateTimeField()
+    created_at = models.DateTimeField()
 
     class Meta:
         managed = False
@@ -191,10 +145,10 @@ class DjangoSession(models.Model):
 
 
 class Heart(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='userheart')
-    routine = models.ForeignKey(Routine, models.DO_NOTHING)
-    date_and_time = models.DateTimeField()
+    user_id = models.ForeignKey('User', models.DO_NOTHING)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
+    routine = models.ForeignKey('Routine', models.DO_NOTHING)
+    pushed_at = models.DateTimeField()
 
     class Meta:
         managed = False
@@ -202,22 +156,79 @@ class Heart(models.Model):
 
 
 class LogPoint(models.Model):
-    user = models.ForeignKey('User', models.DO_NOTHING)
-    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='point')
-    routine = models.ForeignKey(Routine, models.DO_NOTHING)
+    user_id = models.ForeignKey('User', models.DO_NOTHING)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
+    routine = models.ForeignKey('Routine', models.DO_NOTHING)
     change_in_point = models.IntegerField()
     change_reason = models.CharField(max_length=10)
-    date_and_time = models.DateTimeField()
+    created_at = models.DateTimeField()
 
     class Meta:
         managed = False
         db_table = 'log_point'
 
 
+class Point(models.Model):
+    user_id = models.ForeignKey('User', models.DO_NOTHING)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
+    current_point = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'point'
+
+
+class Routine(models.Model):
+    title = models.CharField(max_length=128, db_collation='utf8mb4_general_ci')
+    status = models.CharField(max_length=10)
+    type = models.CharField(max_length=10)
+    day_run = models.TextField()
+    dues = models.IntegerField(blank=True, null=True)
+    penalty = models.IntegerField(blank=True, null=True)
+    headcount_min = models.IntegerField()
+    headcount_max = models.IntegerField()
+    location = models.CharField(max_length=128, db_collation='utf8mb4_general_ci')
+    certification_type = models.CharField(max_length=10)
+    intro = models.CharField(max_length=4096, db_collation='utf8mb4_general_ci')
+    body = models.CharField(max_length=4096, db_collation='utf8mb4_general_ci')
+    body_type = models.CharField(max_length=10)
+    image_path = models.CharField(max_length=4096, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'routine'
+
+
+class RoutineCertification(models.Model):
+    routine_id = models.IntegerField()
+    user_id = models.ForeignKey('User', models.DO_NOTHING)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
+    uploaded_at = models.DateTimeField()
+    image_path = models.CharField(max_length=4096)
+    result = models.CharField(max_length=10, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'routine_certification'
+
+
+class RoutineRegistration(models.Model):
+    user_id = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
+    routine = models.ForeignKey(Routine, models.DO_NOTHING)
+    user_auth = models.CharField(max_length=10)
+    result = models.CharField(max_length=10, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'routine_registration'
+        unique_together = (('user', 'user_login', 'routine'),)
+
+
 class User(models.Model):
-    id = models.CharField(max_length=128, primary_key=True)
+    id = models.CharField(primary_key=True, max_length=128)
     login = models.CharField(max_length=10)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, db_collation='utf8mb4_general_ci', blank=True, null=True)
     email = models.CharField(max_length=320, blank=True, null=True)
     image_path = models.CharField(max_length=4096, blank=True, null=True)
 
