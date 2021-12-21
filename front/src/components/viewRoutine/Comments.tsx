@@ -6,6 +6,8 @@ import moment from 'moment';
 import axios from 'axios';
 
 interface info {
+  userImage: string;
+  userName: string;
   content: string;
   time: string;
 }
@@ -48,7 +50,12 @@ export default function Comments() {
     if (inputContent != '') {
       setCommentList(commentList => [
         ...commentList,
-        {content: inputContent, time: moment().format()},
+        {
+          content: inputContent,
+          time: moment().format(),
+          userImage: './testTitleBackground1.jpeg',
+          userName: 'jaewpark',
+        },
       ]);
       setInputContent('');
     }

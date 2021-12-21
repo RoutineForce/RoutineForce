@@ -25,20 +25,10 @@ export default function PictureUpload(): JSX.Element {
   return (
     <div>
       <div
-        className="uploadCertification"
+        className="CertificationForm"
         onClick={imgClick}
         style={{
-          border: '2px dotted black',
-          borderRadius: 7,
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignContent: 'space-between',
-          backgroundRepeat: 'no-repeat',
           backgroundImage: `url(${imgBlob})`,
-          width: '100%',
-          minWidth: '50px',
-          minHeight: '100px',
-          cursor: 'pointer',
         }}
       ></div>
       <input
