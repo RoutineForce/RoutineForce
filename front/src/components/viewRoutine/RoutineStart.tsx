@@ -1,5 +1,5 @@
 import React from 'react';
-import ImagePicker from './SlideCertification';
+import Certifications from './Certifications';
 import UserProfile from './UserProfile';
 import {Accordion, useAccordionButton} from 'react-bootstrap';
 import '../../CSS/viewRoutine/RoutineStart.css';
@@ -39,7 +39,7 @@ export default function RoutineStart(): JSX.Element {
           <Accordion.Collapse eventKey="0">
             <div className="certificationPasing">
               <div className="uploadImg">
-                <ImagePicker />
+                <Certifications />
               </div>
             </div>
           </Accordion.Collapse>

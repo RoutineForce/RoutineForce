@@ -1,23 +1,43 @@
+import axios from 'axios';
 import React, {useEffect} from 'react';
 import PageMover from '../../utils/PageMover';
-import Home from '../home/home';
 import './login.css';
 
 /**
  * Todo : jaewpark 이 로그인 페이지 만들어줄거임! ㅎㅎ
  */
 export default function Login(): JSX.Element {
-  const login42ButtonClick = () => {
+  async function login42ButtonClick() {
+    console.log('click 42 login');
     (window as any).setCookieAndBack = (jwtToken: string) => {
       // Todo : 인자로 받아온 jwtToken 을 Cookie 에 담음. 그리고 User 클레스를 세팅
       PageMover.goBack();
     };
     window.open(process.env.REACT_APP_42_LOGIN_URL);
-  };
+  }
+
   // KAKAO_LOGIN_URL 체크
   const loginKakaoButtonClick = () => {
+    console.log('click kakao login');
     (window as any).setCookieAndBack = (jwtToken: string) => {
-      PageMover.goBack();
+      console.log('인가코드 : ' + jwtToken);
+      axios
+        .post(`${process.env.REACT_APP_API_DOCKER}/login`, {
+          code: jwtToken,
+          service: 'T0102',
+        })
+        .then(res => {
+          if (res.status === 200) {
+            console.log(res);
+          } else {
+            throw new Error();
+          }
+          console.log('return code : ' + res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      // PageMover.goBack();
     };
     window.open(process.env.REACT_APP_KAKAO_LOGIN_URL);
   };
@@ -30,6 +50,7 @@ export default function Login(): JSX.Element {
   };
   // NAVER_LOGIN_URL 체크
   const loginNaverButtonClick = () => {
+    console.log('click naver login');
     (window as any).setCookieAndBack = (jwtToken: string) => {
       PageMover.goBack();
     };

@@ -1,7 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import CheckCertification from './CheckCertification';
 import PictureUpload from './pictureUpload';
-import '../../CSS/viewRoutine/SlideCertification.css';
+import '../../CSS/viewRoutine/Certifications.css';
 
 // 이미지 보관 1장의 경우
 const images1: string[][] = [
@@ -62,7 +61,7 @@ const RoutineDate: any[] = [
   {year: 2021, month: 12, day: 17},
 ];
 
-const ImagePicker = (): JSX.Element => {
+const Certifications = (): JSX.Element => {
   const [pickIndex, setPickIndex] = useState<number>(0);
   // 기본으로 0번째 인덱스에 위치한 사진을 렌더링
 
@@ -96,14 +95,15 @@ const ImagePicker = (): JSX.Element => {
     for (let i = 0; i < Count; ++i) {
       array.push(
         images2[pickIndex][i] !== '' ? (
-          // <PictureUpload className="FillImage" />
-          <img
-            className="FillImage"
-            id={'' + {CertificationCount}}
-            src={images2[pickIndex][i]}
-          />
+          <PictureUpload />
         ) : (
-          <div className="emptyCertification">
+          // <img
+          //   className="FillImage"
+          //   id={'' + {CertificationCount}}
+          //   src={images2[pickIndex][i]}
+          // />
+          // ) : (
+          <div className="CertificationForm">
             <span> 인증 하기 </span>
           </div>
         ),
@@ -112,10 +112,20 @@ const ImagePicker = (): JSX.Element => {
     return array;
   }
 
+  const [status, setStatus] = useState(true);
+
+  const ChangeStatusTrue = () => {
+    setStatus(true);
+  };
+
+  const ChangeStatusFalse = () => {
+    setStatus(false);
+  };
+
   return (
     <>
       <div className="Container">
-        <div>
+        <div className={status ? 'CertificationTrue' : 'CertificationFalse'}>
           <div className="CertificationDate">
             <div className="Date">
               {RoutineDate[pickIndex].month +
@@ -123,7 +133,18 @@ const ImagePicker = (): JSX.Element => {
                 RoutineDate[pickIndex].day +
                 '일'}
             </div>
-            <CheckCertification />
+            <div className="CertificationCheck">
+              <img
+                onClick={ChangeStatusTrue}
+                className="CheckCertificationBtn"
+                src={'./icons/success.png'}
+              />
+              <img
+                onClick={ChangeStatusFalse}
+                className="CheckCertificationBtn"
+                src={'./icons/fail.png'}
+              />
+            </div>
           </div>
           <div className="Certification">{FillImage(CertificationCount)}</div>
         </div>
@@ -142,4 +163,4 @@ const ImagePicker = (): JSX.Element => {
   );
 };
 
-export default ImagePicker;
+export default Certifications;
