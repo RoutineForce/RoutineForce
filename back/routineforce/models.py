@@ -78,10 +78,10 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Comment(models.Model):
-    user_id = models.ForeignKey('User', models.DO_NOTHING)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', related_name='comment_user_id')
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
+    routine_id = models.ForeignKey('Routine', models.DO_NOTHING, db_column='routine_id')
     body = models.CharField(max_length=4096, blank=True, null=True)
-    target = models.IntegerField()
     created_at = models.DateTimeField()
 
     class Meta:
@@ -145,9 +145,9 @@ class DjangoSession(models.Model):
 
 
 class Heart(models.Model):
-    user_id = models.ForeignKey('User', models.DO_NOTHING)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', related_name='heart_user_id')
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
-    routine = models.ForeignKey('Routine', models.DO_NOTHING)
+    routine_id = models.ForeignKey('Routine', models.DO_NOTHING, db_column='routine_id')
     pushed_at = models.DateTimeField()
 
     class Meta:
@@ -156,9 +156,9 @@ class Heart(models.Model):
 
 
 class LogPoint(models.Model):
-    user_id = models.ForeignKey('User', models.DO_NOTHING)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', related_name='log_point_id')
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
-    routine = models.ForeignKey('Routine', models.DO_NOTHING)
+    routine_id = models.ForeignKey('Routine', models.DO_NOTHING, db_column='routine_id')
     change_in_point = models.IntegerField()
     change_reason = models.CharField(max_length=10)
     created_at = models.DateTimeField()
@@ -169,7 +169,7 @@ class LogPoint(models.Model):
 
 
 class Point(models.Model):
-    user_id = models.ForeignKey('User', models.DO_NOTHING)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', related_name='point_user_id')
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
     current_point = models.IntegerField()
 
@@ -200,8 +200,8 @@ class Routine(models.Model):
 
 
 class RoutineCertification(models.Model):
-    routine_id = models.IntegerField()
-    user_id = models.ForeignKey('User', models.DO_NOTHING)
+    routine_id = models.ForeignKey('Routine', models.DO_NOTHING, db_column='routine_id')
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', related_name='routine_certification_user')
     user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
     uploaded_at = models.DateTimeField()
     image_path = models.CharField(max_length=4096)
@@ -213,16 +213,16 @@ class RoutineCertification(models.Model):
 
 
 class RoutineRegistration(models.Model):
-    user_id = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)
-    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login')
-    routine = models.ForeignKey(Routine, models.DO_NOTHING)
+    user_id = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id')
+    user_login = models.ForeignKey('User', models.DO_NOTHING, db_column='user_login', related_name='routine_registration_user')
+    routine_id = models.ForeignKey('Routine', models.DO_NOTHING, db_column='routine_id')
     user_auth = models.CharField(max_length=10)
     result = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'routine_registration'
-        unique_together = (('user', 'user_login', 'routine'),)
+        unique_together = (('user_id', 'user_login', 'routine_id'),)
 
 
 class User(models.Model):
