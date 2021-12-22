@@ -85,7 +85,6 @@
     display: 'flex';
     flex-wrap: 'wrap';
     align-content: 'space-between';
-    background-repeat: 'no-repeat';
 	cursor: 'pointer';
 	background-color: white;
 }
