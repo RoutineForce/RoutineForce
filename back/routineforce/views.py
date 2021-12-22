@@ -116,6 +116,11 @@ class UserRoutineViewSet(viewsets.ModelViewSet):
             qs2 = qs2.qs
             qs2 = serializers.serialize("json",qs2)
         return HttpResponse(qs2)
+    def create(self, request, *args, **kwargs):
+        serializer = UserRoutineSerializer(data=request.data)
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -192,7 +197,7 @@ class CommonCodeViewSet(viewsets.ModelViewSet):
             qs2 = CommonCodeFilter(self.request.GET, queryset=queryset)
             qs2 = qs2.qs
             qs2 = serializers.serialize("json",qs2)
-        return HttpResponse(qs2)
+        return HttpResponse(queryset)
 
 class PointViewSet(viewsets.ModelViewSet):
     queryset = Point.objects.all()

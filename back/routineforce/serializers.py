@@ -13,9 +13,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class UserRoutineSerializer(serializers.ModelSerializer): 
+    user_login = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     class Meta:
         model = RoutineRegistration # 모델 설정 
-        fields = "__all__"
+        fields = ('user_id','user_login')
 
 class LoginSerializer(serializers.ModelSerializer): 
     class Meta:
