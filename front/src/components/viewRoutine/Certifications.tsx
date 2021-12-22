@@ -61,6 +61,9 @@ const RoutineDate: any[] = [
   {year: 2021, month: 12, day: 17},
 ];
 
+// 관리자 확인
+const boss = 'abs';
+
 const Certifications = (): JSX.Element => {
   const [pickIndex, setPickIndex] = useState<number>(0);
   // 기본으로 0번째 인덱스에 위치한 사진을 렌더링
@@ -134,16 +137,20 @@ const Certifications = (): JSX.Element => {
                 '일'}
             </div>
             <div className="CertificationCheck">
-              <img
-                onClick={ChangeStatusTrue}
-                className="CheckCertificationBtn"
-                src={'./icons/success.png'}
-              />
-              <img
-                onClick={ChangeStatusFalse}
-                className="CheckCertificationBtn"
-                src={'./icons/fail.png'}
-              />
+              {boss != null ? (
+                <>
+                  <img
+                    onClick={ChangeStatusTrue}
+                    className="CheckCertificationBtn"
+                    src={'./icons/success.png'}
+                  />
+                  <img
+                    onClick={ChangeStatusFalse}
+                    className="CheckCertificationBtn"
+                    src={'./icons/fail.png'}
+                  />
+                </>
+              ) : null}
             </div>
           </div>
           <div className="Certification">{FillImage(CertificationCount)}</div>

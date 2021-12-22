@@ -1,6 +1,8 @@
 import React from 'react';
 import '../../CSS/viewRoutine/RoutineHeader.css';
 
+// prop => routine index
+// data => 타이틀, 장소, 시작일, 인증 시간(빠른), 이미지
 export default function RoutineHeader() {
   return (
     <div className="summarizedInfo">

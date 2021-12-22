@@ -55,7 +55,7 @@ export default function ViewRoutine(): JSX.Element {
   // 4. detailedRoutine (이후 시작이 되고 나서 접어두거나 새로운 탭형식)
 
   return (
-    <>
+    <div style={{maxWidth: '1400'}}>
       <Navbarc />
       <div className="routineDetail">
         <RoutineHeader />
@@ -69,15 +69,19 @@ export default function ViewRoutine(): JSX.Element {
                   button="루틴 일정"
                   header="루틴 일정"
                   body={
-                    <Calendar
-                      className="orange"
-                      currentDate={currentDate}
-                      multiple
-                      value={dates}
-                      sort
-                      readOnly
-                      showOtherDays
-                    />
+                    <>
+                      <Calendar
+                        className="orange"
+                        currentDate={currentDate}
+                        multiple
+                        value={dates}
+                        sort
+                        readOnly
+                        showOtherDays
+                      />
+                      <p>첫번째 인증 시간 = 6:00 ~ 6:30</p>
+                      <p>두번째 인증 시간 = 6:00 ~ 6:30</p>
+                    </>
                   }
                 />
               </div>
@@ -129,6 +133,6 @@ export default function ViewRoutine(): JSX.Element {
           <Comments />
         </div>
       </div>
-    </>
+    </div>
   );
 }

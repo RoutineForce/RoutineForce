@@ -1,10 +1,11 @@
 .summarizedInfo {
-	height: 500px;
+	max-height: 500px;
+	height: 60vw;
 	font-family: "CookieRunBold";
 	margin: 5px auto;
 }
 
-.summarizedInfo .routineBackground {
+.routineBackground {
 	width: inherit;
 	float: right;
 	max-width: 100%;
@@ -12,10 +13,10 @@
 	position: relative;
 }
 
-.summarizedInfo .summarizedName {
+.summarizedName {
 	max-width: 70%;
-	transform: translate(10%, 100%);
-	font-size: 40px;
+	transform: translate(10%, min(150px, 8vw));
+	font-size: min(60px, 4vw);
 	font-weight: bold;
 	line-height: 100%;
 	color: #f79d37;
@@ -24,13 +25,12 @@
 }
 
 .summarizedPlaceAndDate {
-	max-width: 800px;
-	transform: translate(5%, 100%);
-	line-height: 130%;
-	font-size: max(25px, 1.5vw);
+	max-width: 70%;
+	transform: translate(10%, max(150px, 10vw));
+	line-height: 150%;
+	font-size: max(20px, 1.2vw);
 	font-weight: bold;
 	text-indent: 20px;
-	float: left;
 	position: absolute;
 	text-shadow:  -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
 }

@@ -6,7 +6,9 @@
 	--rmdp-hover-orange: #ffae3b;
 	--rmdp-deselect-orange: #cc6a01;
   }
-
+  .orange {
+    margin-bottom: 10px;
+  }
   .orange .rmdp-wrapper {
 	border: 1px solid var(--rmdp-secondary-orange);
 	box-shadow: 0 0 5px var(--rmdp-secondary-orange);

@@ -3,7 +3,7 @@ import PageMover from '../../utils/PageMover';
 import {Navbar, NavDropdown, Container, Nav} from 'react-bootstrap';
 import API from '../../api/APIUtil';
 
-const loginstate = null;
+const loginstate = 'ㅁㄴㅇ';
 
 export default function Navbarc(): JSX.Element {
   const brandClick = () => {
@@ -28,7 +28,12 @@ export default function Navbarc(): JSX.Element {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        variant="dark"
+        style={{backgroundColor: '#f79d37'}}
+      >
         <Container>
           <Navbar.Brand onClick={brandClick}>Routine Force</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
