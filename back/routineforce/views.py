@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .serializers import RoutineSerializer, UserSerializer, UserRoutineSerializer, LoginSerializer 
-from .models import Routine, User, RoutineRegistration, Login
+from .serializers import CommentSerializer, CommonCodeSerializer, PointSerializer, HeartSerializer 
+from .models import Routine, User, RoutineRegistration, Login, Comment, CommonCode, Heart, Point
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.decorators import action
@@ -41,6 +42,25 @@ class UserRoutineFilter(filters.FilterSet):
         model = RoutineRegistration
         fields = '__all__'
 
+class CommentFilter(filters.FilterSet):
+    class Meta:
+        model = Routine
+        fields = '__all__'
+
+class CommonCodeFilter(filters.FilterSet):
+    class Meta:
+        model = Routine
+        fields = '__all__'
+
+class HeartFilter(filters.FilterSet):
+    class Meta:
+        model = Routine
+        fields = '__all__'
+
+class PointFilter(filters.FilterSet):
+    class Meta:
+        model = Routine
+        fields = '__all__'
 
 class RoutineViewSet(viewsets.ModelViewSet):
     queryset = Routine.objects.all()
@@ -70,16 +90,15 @@ class RoutineViewSet(viewsets.ModelViewSet):
     @LoginConfirm
     def create(self, request, *args, **kwargs):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
     
+
 class UserRoutineViewSet(viewsets.ModelViewSet):
     queryset = RoutineRegistration.objects.all()
     serializer_class = UserRoutineSerializer
     filter_backends = [filters.DjangoFilterBackend]
     #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
 
-    def get_queryset(self):
+    def list(self, request, *args, **kwargs):
         queryset = self.queryset
         fromIndex = self.request.query_params.get('start', None)
         if fromIndex:
@@ -87,11 +106,16 @@ class UserRoutineViewSet(viewsets.ModelViewSet):
             toIndex = int(self.request.query_params.get('count', None))
             qs1 =  UserRoutineFilter(self.request.GET, queryset=queryset)
             qs1 = qs1.qs
-            return qs1[fromIndex:toIndex]
+            qs1 = qs1[fromIndex:toIndex]
+            #qs1 = json.dumps(qs1)
+            qs1 = serializers.serialize("json", qs1) 
+            return HttpResponse(qs1)
+            #return Response(qs1, status=status.HTTP_200_OK)
         else :
             qs2 = UserRoutineFilter(self.request.GET, queryset=queryset)
             qs2 = qs2.qs
-        return qs2
+            qs2 = serializers.serialize("json",qs2)
+        return HttpResponse(qs2)
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -99,19 +123,126 @@ class UserViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.DjangoFilterBackend]
     #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
 
-    def get_queryset(self):
+    def list(self, request, *args, **kwargs):
         queryset = self.queryset
         fromIndex = self.request.query_params.get('start', None)
         if fromIndex:
             fromIndex = int(fromIndex)
             toIndex = int(self.request.query_params.get('count', None))
-            qs1 =  UserRoutineFilter(self.request.GET, queryset=queryset)
+            qs1 =  UserFilter(self.request.GET, queryset=queryset)
             qs1 = qs1.qs
-            return qs1[fromIndex:toIndex]
+            qs1 = qs1[fromIndex:toIndex]
+            #qs1 = json.dumps(qs1)
+            qs1 = serializers.serialize("json", qs1) 
+            return HttpResponse(qs1)
+            #return Response(qs1, status=status.HTTP_200_OK)
         else :
             qs2 = UserFilter(self.request.GET, queryset=queryset)
             qs2 = qs2.qs
-        return qs2
+            qs2 = serializers.serialize("json",qs2)
+        return HttpResponse(qs2)
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.queryset
+        fromIndex = self.request.query_params.get('start', None)
+        if fromIndex:
+            fromIndex = int(fromIndex)
+            toIndex = int(self.request.query_params.get('count', None))
+            qs1 =  CommentFilter(self.request.GET, queryset=queryset)
+            qs1 = qs1.qs
+            qs1 = qs1[fromIndex:toIndex]
+            #qs1 = json.dumps(qs1)
+            qs1 = serializers.serialize("json", qs1) 
+            return HttpResponse(qs1)
+            #return Response(qs1, status=status.HTTP_200_OK)
+        else :
+            qs2 = CommentFilter(self.request.GET, queryset=queryset)
+            qs2 = qs2.qs
+            qs2 = serializers.serialize("json",qs2)
+        return HttpResponse(qs2)
+
+
+class CommonCodeViewSet(viewsets.ModelViewSet):
+    queryset = CommonCode.objects.all()
+    serializer_class = CommonCodeSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.queryset
+        fromIndex = self.request.query_params.get('start', None)
+        if fromIndex:
+            fromIndex = int(fromIndex)
+            toIndex = int(self.request.query_params.get('count', None))
+            qs1 =  CommonCodeFilter(self.request.GET, queryset=queryset)
+            qs1 = qs1.qs
+            qs1 = qs1[fromIndex:toIndex]
+            #qs1 = json.dumps(qs1)
+            qs1 = serializers.serialize("json", qs1) 
+            return HttpResponse(qs1)
+            #return Response(qs1, status=status.HTTP_200_OK)
+        else :
+            qs2 = CommonCodeFilter(self.request.GET, queryset=queryset)
+            qs2 = qs2.qs
+            qs2 = serializers.serialize("json",qs2)
+        return HttpResponse(qs2)
+
+class PointViewSet(viewsets.ModelViewSet):
+    queryset = Point.objects.all()
+    serializer_class = PointSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.queryset
+        fromIndex = self.request.query_params.get('start', None)
+        if fromIndex:
+            fromIndex = int(fromIndex)
+            toIndex = int(self.request.query_params.get('count', None))
+            qs1 =  PointFilter(self.request.GET, queryset=queryset)
+            qs1 = qs1.qs
+            qs1 = qs1[fromIndex:toIndex]
+            #qs1 = json.dumps(qs1)
+            qs1 = serializers.serialize("json", qs1) 
+            return HttpResponse(qs1)
+            #return Response(qs1, status=status.HTTP_200_OK)
+        else :
+            qs2 = PointFilter(self.request.GET, queryset=queryset)
+            qs2 = qs2.qs
+            qs2 = serializers.serialize("json",qs2)
+        return HttpResponse(qs2)
+
+class HeartViewSet(viewsets.ModelViewSet):
+    queryset = Heart.objects.all()
+    serializer_class = HeartSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.queryset
+        fromIndex = self.request.query_params.get('start', None)
+        if fromIndex:
+            fromIndex = int(fromIndex)
+            toIndex = int(self.request.query_params.get('count', None))
+            qs1 =  HeartFilter(self.request.GET, queryset=queryset)
+            qs1 = qs1.qs
+            qs1 = qs1[fromIndex:toIndex]
+            #qs1 = json.dumps(qs1)
+            qs1 = serializers.serialize("json", qs1) 
+            return HttpResponse(qs1)
+            #return Response(qs1, status=status.HTTP_200_OK)
+        else :
+            qs2 = HeartFilter(self.request.GET, queryset=queryset)
+            qs2 = qs2.qs
+            qs2 = serializers.serialize("json",qs2)
+        return HttpResponse(qs2)
 
 APP_ADMIN_KEY = "00b918e1b430f796b039aefb8e5ebc24"
 
