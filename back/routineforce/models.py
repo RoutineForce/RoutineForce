@@ -222,7 +222,8 @@ class RoutineRegistration(models.Model):
     class Meta:
         managed = False
         db_table = 'routine_registration'
-        unique_together = (('user_id', 'user_login', 'routine_id'),)
+        #models.UniqueConstraint(fields=['user_id', 'user_login', 'routine_id'], name='fk_user_routine')
+        #unique_together = (('user_id', 'user_login', 'routine_id'),)
 
 
 class User(models.Model):
@@ -235,7 +236,7 @@ class User(models.Model):
     class Meta:
         managed = False
         db_table = 'user'
-        unique_together = (('id', 'login'),)
+        unique_together = (('id', 'login'))
 
 class Login(models.Model):
     code = models.CharField(max_length=128)
