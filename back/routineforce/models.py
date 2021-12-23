@@ -210,7 +210,7 @@ class RoutineCertification(models.Model):
 class RoutineRegistration(models.Model):
     user_id = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
     routine_id = models.ForeignKey(Routine, on_delete=models.CASCADE, db_column='routine_id')
-    user_auth = models.ForeignKey(CommonCode, on_delete=models.SET_NULL, db_column='user_auth', null=True)
+    user_auth = models.ForeignKey(CommonCode, to_field='code_id', on_delete=models.SET_NULL, db_column='user_auth', null=True)
     result = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:

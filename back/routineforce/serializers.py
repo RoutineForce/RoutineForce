@@ -13,10 +13,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class UserRoutineSerializer(serializers.ModelSerializer): 
-    user_login = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    #user_login = serializers.PrimaryKeyRelatedField(queryset=User.objects.all()) 이러니까 user_login이 생기던데 정말 신기하다 여기서도 컬럼이 생성이 되나봐
     class Meta:
         model = RoutineRegistration # 모델 설정 
-        fields = ('user_id','user_login')
+        fields = "__all__"
 
 class LoginSerializer(serializers.ModelSerializer): 
     class Meta:

@@ -119,6 +119,16 @@ class UserRoutineViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = UserRoutineSerializer(data=request.data)
         if serializer.is_valid():
+            print(serializer.data['user_id'])
+            #user_id = User.objects.get(id=serializer.data['user_id'])
+            #user_auth = CommonCode.objects.get(code_id=serializer.data['user_auth']),
+            #print(user_id)
+            #print(user_auth)
+            RoutineRegistration(
+                        user_id = User.objects.get(id=serializer.data['user_id']),
+                        routine_id = Routine.objects.get(id=serializer.data['routine_id']),
+                        user_auth = CommonCode.objects.get(code_id=serializer.data['user_auth']),
+                ).save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
