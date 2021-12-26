@@ -23,7 +23,7 @@ class Provider():
             'redirect_uri': (None, f'{ft_redirect_uri}'),
         }
         token_response = requests.post('https://api.intra.42.fr/oauth/token', files=files)
-        #print(token_response.text)
+        print(token_response.text)
         token_response_json = token_response.json()
         access_token = token_response_json.get("access_token")
         headers = {
@@ -99,7 +99,7 @@ class Provider():
                 'Authorization': f'Bearer {access_token}'
         }
         naver_response = requests.post('https://openapi.naver.com/v1/nid/me', headers=headers)
-        #print(naver_response.text)
+        print(naver_response.text)
         naver_response_json = naver_response.json()
         #print(naver_response_json)
         response = naver_response_json.get("response")

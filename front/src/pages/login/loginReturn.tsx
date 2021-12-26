@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
 
 export function LoginReturn42(): JSX.Element {
+  const code = new URL(window.location.href).searchParams.get('code');
   useEffect(() => {
     // [{id: amugae, name: 'HAHA'}] 형태로 받아옴
     // axios.get('/login', null, []).then(res => console.log(res)).catch((Error) => {console.log(Error);})
@@ -9,7 +11,7 @@ export function LoginReturn42(): JSX.Element {
     // https://mygumi.tistory.com/328
     if (window.opener) {
       // Todo : 받은 code 로 백엔드에 로그인을 시도, 성공하여 jwtToken 을 받으면 아래 함수 호출
-      (window.opener as any).setCookieAndBack('jwtToken given backend');
+      (window.opener as any).setCookieAndBack({code});
       // window.close();
     } else {
       console.error('window.opener null');
@@ -29,7 +31,7 @@ export function LoginReturnKakao(): JSX.Element {
       console.error('window.opener null');
     }
   }, []);
-  // window.close();
+  window.close();
   return (
     <>
       <div>로그인 중입니다. code : {}</div>

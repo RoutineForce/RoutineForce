@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf.urls import url, include
 from rest_framework import routers
 #from routineforce import views as main_views
-from routineforce.views import RoutineViewSet, UserViewSet, UserRoutineViewSet, LoginAPI
+from routineforce.views import RoutineViewSet, UserViewSet, UserRoutineViewSet, LoginAPI, CommentViewSet, CommonCodeViewSet, HeartViewSet, PointViewSet
 
 ##############swagger modules###############
 from rest_framework import permissions
@@ -32,7 +32,11 @@ router = routers.DefaultRouter()
 #routerLogin = routers.DefaultRouter()
 router.register(r'routine', RoutineViewSet)
 router.register(r'user', UserViewSet)
-router.register(r'userroutine', UserRoutineViewSet)
+router.register(r'user-routine', UserRoutineViewSet)
+router.register(r'comment', CommentViewSet)
+router.register(r'heart', HeartViewSet)
+router.register(r'point', PointViewSet)
+router.register(r'common-code', CommonCodeViewSet)
 #userlogin = LoginViewSet.as_view({'post':'create'})
 #router.register(r'login', LoginViewSet)
 
