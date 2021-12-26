@@ -6,6 +6,7 @@ from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
 import requests
 import json
 import jwt
@@ -15,6 +16,7 @@ from django.http import HttpResponse, JsonResponse
 from .login import Provider
 from .utils import LoginConfirm
 from django.core import serializers
+from django.core.exceptions import FieldError
 
 #from settings import SECRET_KEY
 #SECRET_KEY = 
@@ -33,6 +35,11 @@ class RoutineFilter(filters.FilterSet):
         fields = '__all__'
 
 class UserFilter(filters.FilterSet):
+    #fields = User._meta.concrete_fields
+    #model_fields = [f.name for f in User._meta.fields]
+    #print(fields)
+    #print(model_fields)
+
     class Meta:
         model = User
         fields = '__all__'
@@ -116,14 +123,15 @@ class UserRoutineViewSet(viewsets.ModelViewSet):
             qs2 = qs2.qs
             qs2 = serializers.serialize("json",qs2)
         return HttpResponse(qs2)
+    #@LoginConfirm
     def create(self, request, *args, **kwargs):
         serializer = UserRoutineSerializer(data=request.data)
         if serializer.is_valid():
-            print(serializer.data['user_id'])
-            #user_id = User.objects.get(id=serializer.data['user_id'])
-            #user_auth = CommonCode.objects.get(code_id=serializer.data['user_auth']),
-            #print(user_id)
-            #print(user_auth)
+        #    print(serializer.data['user_id'])
+        #    #user_id = User.objects.get(id=serializer.data['user_id'])
+        #    #user_auth = CommonCode.objects.get(code_id=serializer.data['user_auth']),
+        #    #print(user_id)
+        #    #print(user_auth)
             RoutineRegistration(
                         user_id = User.objects.get(id=serializer.data['user_id']),
                         routine_id = Routine.objects.get(id=serializer.data['routine_id']),
@@ -131,6 +139,7 @@ class UserRoutineViewSet(viewsets.ModelViewSet):
                 ).save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        #return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -138,24 +147,49 @@ class UserViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.DjangoFilterBackend]
     #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.queryset
+    def get_queryset(self):
+        qs1 = self.queryset
+        model_fields = [f.name for f in User._meta.fields]
+        #print(type(model_fields))
+        model_fields.extend(("start", "count"))
+        try:
+            qs1 =  UserFilter(self.request.GET, queryset=self.queryset)
+            print(self.request.GET)
+            for i in self.request.GET:
+                print(i)
+                if i not in model_fields:
+                    print('field not in list')
+                    raise NotFound('field not found')
+        except FieldError:
+            return Response('asdf',status.HTTP_404_NOT_FOUND)
+        #print(qs1)
+        #print(self.request.GET)     
+        qs1 = qs1.qs
+        #print(type(qs1))
+        #print(qs1)
+
+        #if qs1.exists():
+        #    return qs1
+        #else: 
+        #    return Response(status.HTTP_404_NOT_FOUND)
+        #qs1 = serializers.serialize("json", qs1) 
         fromIndex = self.request.query_params.get('start', None)
         if fromIndex:
             fromIndex = int(fromIndex)
-            toIndex = int(self.request.query_params.get('count', None))
-            qs1 =  UserFilter(self.request.GET, queryset=queryset)
-            qs1 = qs1.qs
+            toIndex = int(self.request.query_params.get('count', None)) + fromIndex
             qs1 = qs1[fromIndex:toIndex]
-            #qs1 = json.dumps(qs1)
-            qs1 = serializers.serialize("json", qs1) 
-            return HttpResponse(qs1)
+        #/serializer = UserSerializer(data=qs1)
+        #if serializer.is_valid():
+        #    return Response(serializer.data)
+        #qs1 = serializers.serialize("json", qs1) 
+            #return HttpResponse(qs1)
             #return Response(qs1, status=status.HTTP_200_OK)
-        else :
-            qs2 = UserFilter(self.request.GET, queryset=queryset)
-            qs2 = qs2.qs
-            qs2 = serializers.serialize("json",qs2)
-        return HttpResponse(qs2)
+        #else :
+            #qs1 = UserFilter(self.request.GET, queryset=queryset)
+            #qs2 = qs2.qs
+            #qs2 = serializers.serialize("json",qs2)
+        return qs1
+        #return Response(queryset, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
