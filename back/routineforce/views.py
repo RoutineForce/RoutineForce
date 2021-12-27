@@ -6,7 +6,7 @@ from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound, ParseError
 import requests
 import json
 import jwt
@@ -16,7 +16,9 @@ from django.http import HttpResponse, JsonResponse
 from .login import Provider
 from .utils import LoginConfirm
 from django.core import serializers
-from django.core.exceptions import FieldError
+from django.core.exceptions import FieldError, ObjectDoesNotExist, FieldDoesNotExist
+from django.utils.datastructures import MultiValueDictKeyError
+from django.db import models
 
 #from settings import SECRET_KEY
 #SECRET_KEY = 
@@ -148,45 +150,49 @@ class UserViewSet(viewsets.ModelViewSet):
     #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
 
     def get_queryset(self):
-        qs1 = self.queryset
-        model_fields = [f.name for f in User._meta.fields]
+        #qs1 = self.queryset
+        #model_fields = [f.name for f in User._meta.fields]
         #print(type(model_fields))
-        model_fields.extend(("start", "count"))
+        #model_fields.extend(("start", "count"))
+        requested_fields = self.request.GET.copy()
+        #print(type(requested_fields))
+        #print(requested_fields)
         try:
-            qs1 =  UserFilter(self.request.GET, queryset=self.queryset)
-            print(self.request.GET)
-            for i in self.request.GET:
-                print(i)
-                if i not in model_fields:
-                    print('field not in list')
-                    raise NotFound('field not found')
-        except FieldError:
-            return Response('asdf',status.HTTP_404_NOT_FOUND)
+            fromIndex = self.request.query_params.get('start', None)
+            toIndex = self.request.query_params.get('count', None)
+            fromIndex = int(fromIndex)
+            toIndex = int(toIndex) + fromIndex
+            requested_fields.pop('start')
+            requested_fields.pop('count')
+        except TypeError as e:
+            print(e)
+        except KeyError as e:
+            print(e)
+
+        for field_name in requested_fields:
+            try:
+                User._meta.get_field(field_name)
+            except FieldDoesNotExist:
+                raise ParseError
+        #for i in self.request.GET:
+            # print(i)
+            # if i not in model_fields:
+            #     print('field not in list')
+            #     raise NotFound
         #print(qs1)
         #print(self.request.GET)     
+        qs1 =  UserFilter(self.request.GET, queryset=self.queryset)
         qs1 = qs1.qs
         #print(type(qs1))
         #print(qs1)
-
-        #if qs1.exists():
-        #    return qs1
-        #else: 
-        #    return Response(status.HTTP_404_NOT_FOUND)
-        #qs1 = serializers.serialize("json", qs1) 
-        fromIndex = self.request.query_params.get('start', None)
-        if fromIndex:
-            fromIndex = int(fromIndex)
-            toIndex = int(self.request.query_params.get('count', None)) + fromIndex
-            qs1 = qs1[fromIndex:toIndex]
-        #/serializer = UserSerializer(data=qs1)
-        #if serializer.is_valid():
-        #    return Response(serializer.data)
-        #qs1 = serializers.serialize("json", qs1) 
-            #return HttpResponse(qs1)
-            #return Response(qs1, status=status.HTTP_200_OK)
-        #else :
-            #qs1 = UserFilter(self.request.GET, queryset=queryset)
-            #qs2 = qs2.qs
+        #fromIndex = self.request.query_params.get('start', None)
+        #if fromIndex:
+        #    fromIndex = int(fromIndex)
+        #    toIndex = int(self.request.query_params.get('count', None)) + fromIndex
+        #print(fromIndex, toIndex)
+        qs1 = qs1[fromIndex:toIndex]
+        if not qs1:
+            raise NotFound
             #qs2 = serializers.serialize("json",qs2)
         return qs1
         #return Response(queryset, status=status.HTTP_400_BAD_REQUEST)
@@ -297,18 +303,18 @@ APP_ADMIN_KEY = "00b918e1b430f796b039aefb8e5ebc24"
 
 class LoginAPI(APIView):
 
-    def get(self, request):
-        headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': f'KakaoAK {APP_ADMIN_KEY}',
-        }
-
-        data = {
-            'target_id_type': 'user_id',
-            'target_id': '2027486874'
-        }
-        response = requests.post('https://kapi.kakao.com/v1/user/unlink', headers=headers, data=data)
-        return Response("logout")
+    #def get(self, request):
+    #    headers = {
+    #        'Content-Type': 'application/x-www-form-urlencoded',
+    #        'Authorization': f'KakaoAK {APP_ADMIN_KEY}',
+    #    }
+    #
+    #    data = {
+    #        'target_id_type': 'user_id',
+    #        'target_id': '2027486874'
+    #    }
+    #    response = requests.post('https://kapi.kakao.com/v1/user/unlink', headers=headers, data=data)
+    #    return Response("logout")
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
@@ -325,8 +331,8 @@ class LoginAPI(APIView):
             elif service == 'T0104':
                 provider = Provider().google
             userdata = provider(code)
-            print(type(userdata))
-            print(userdata)
+            #print(type(userdata))
+            #print(userdata)
             payload = {
                     'exp' : datetime.datetime.utcnow() + datetime.timedelta(seconds=7200),
                     'id' : userdata['id'],
