@@ -42,3 +42,44 @@
 .summarizedPlaceAndDate .summarizedStartDate {
 	color : #cc6a01;
 }
+
+
+/* 										 */
+/* 					mobile				 */
+/* 										 */
+
+
+.MobileView {
+	font-family: "CookieRunBold";
+	width: 100%;
+	height: 40vh;
+	background-repeat: no-repeat;
+}
+
+.MobileView .RoutineBackgroundImage {
+	height: 100%;
+	background-size: contain;
+	float: right;
+	position: relative;
+}
+
+.RoutineHeader {
+	position: absolute;
+	font-weight: bold;
+	font-size: min(23px, 4.5vw);
+	line-height: 180%;
+	padding: 8vh 20px 4vh;
+	text-shadow:  -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+}
+
+.RoutineTitle {
+	color: #f79d37;
+	font-size: min(45px, 6.5vw);
+	line-height: 120%;
+	margin-bottom: 5vh;
+}
+
+.Location, .StartDate {
+	color: #cc6a01;
+	font-size: min(30px, 5vw);
+}
