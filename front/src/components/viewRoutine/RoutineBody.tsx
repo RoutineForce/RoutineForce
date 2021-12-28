@@ -10,31 +10,34 @@ export default function RoutineBody() {
         <p style={{margin: 20}}>자세한 정보</p>
         <div
           style={{
-            width: '66%', // 600px 이상
+            // width: '66%', // 600px 이상
+            height: 80,
             display: 'flex',
             justifyContent: 'space-between',
             margin: 20,
+            boxShadow: '0rem 0.3rem 0.3rem 0rem rgb(0 0 0 / 10%)',
+            borderRadius: '0.7rem',
           }}
         >
           <Icon color="brown" name="calendar check outline" size="huge">
-            <p style={{fontSize: 12, fontWeight: 'bold', margin: 4}}>
+            <div style={{fontSize: 12, fontWeight: 'bold', margin: 4}}>
               루틴 일정
-            </p>
+            </div>
           </Icon>
           <Icon color="brown" name="map outline" size="huge">
-            <p style={{fontSize: 12, fontWeight: 'bold', margin: 4}}>
+            <div style={{fontSize: 12, fontWeight: 'bold', margin: 4}}>
               루틴 장소
-            </p>
+            </div>
           </Icon>
           <Icon color="brown" name="users" size="huge">
-            <p style={{fontSize: 12, fontWeight: 'bold', margin: 4}}>
+            <div style={{fontSize: 12, fontWeight: 'bold', margin: 4}}>
               루틴 맴버
-            </p>
+            </div>
           </Icon>
           <Icon color="brown" name="won" size="huge">
-            <p style={{fontSize: 12, fontWeight: 'bold', margin: 4}}>
+            <div style={{fontSize: 12, fontWeight: 'bold', margin: 4}}>
               루틴 금액
-            </p>
+            </div>
           </Icon>
         </div>
       </MobileView>
