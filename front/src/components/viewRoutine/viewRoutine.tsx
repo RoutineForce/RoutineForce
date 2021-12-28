@@ -12,6 +12,7 @@ import Comments from './Comments';
 import RoutineHeader from './RoutineHeader';
 import Navbarc from '../common/Navbar';
 import axios from 'axios';
+import RoutineBody from './RoutineBody';
 
 export default function ViewRoutine(): JSX.Element {
   // 1. 체크된 달력 구현
@@ -59,6 +60,7 @@ export default function ViewRoutine(): JSX.Element {
       <Navbarc />
       <div className="routineDetail">
         <RoutineHeader />
+        <RoutineBody />
         <div className="remainedDetail">
           <div className="summarizedLocationAndCalender">
             자세한 정보
