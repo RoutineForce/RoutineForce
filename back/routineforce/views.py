@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from .paginations import Pagination
 from .serializers import RoutineSerializer, UserSerializer, UserRoutineSerializer, LoginSerializer 
 from .serializers import CommentSerializer, CommonCodeSerializer, PointSerializer, HeartSerializer 
 from .models import Routine, User, RoutineRegistration, Login, Comment, CommonCode, Heart, Point
@@ -74,8 +76,8 @@ class PointFilter(filters.FilterSet):
 class RoutineViewSet(viewsets.ModelViewSet):
     queryset = Routine.objects.all()
     serializer_class = RoutineSerializer
-    filter_backends = [filters.DjangoFilterBackend]
-    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
+    pagination_class = Pagination
+    filterset_fields = '__all__'
 
     def list(self, request, *args, **kwargs):
         queryset = self.queryset
@@ -104,255 +106,110 @@ class RoutineViewSet(viewsets.ModelViewSet):
 class UserRoutineViewSet(viewsets.ModelViewSet):
     queryset = RoutineRegistration.objects.all()
     serializer_class = UserRoutineSerializer
-    filter_backends = [filters.DjangoFilterBackend]
-    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
+    pagination_class = Pagination
+    filterset_fields = '__all__'
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.queryset
-        fromIndex = self.request.query_params.get('start', None)
-        if fromIndex:
-            fromIndex = int(fromIndex)
-            toIndex = int(self.request.query_params.get('count', None))
-            qs1 =  UserRoutineFilter(self.request.GET, queryset=queryset)
-            qs1 = qs1.qs
-            qs1 = qs1[fromIndex:toIndex]
-            #qs1 = json.dumps(qs1)
-            qs1 = serializers.serialize("json", qs1) 
-            return HttpResponse(qs1)
-            #return Response(qs1, status=status.HTTP_200_OK)
-        else :
-            qs2 = UserRoutineFilter(self.request.GET, queryset=queryset)
-            qs2 = qs2.qs
-            qs2 = serializers.serialize("json",qs2)
-        return HttpResponse(qs2)
-    #@LoginConfirm
+    # @LoginConfirm
     def create(self, request, *args, **kwargs):
         serializer = UserRoutineSerializer(data=request.data)
         if serializer.is_valid():
-        #    print(serializer.data['user_id'])
-        #    #user_id = User.objects.get(id=serializer.data['user_id'])
-        #    #user_auth = CommonCode.objects.get(code_id=serializer.data['user_auth']),
-        #    #print(user_id)
-        #    #print(user_auth)
+            #    print(serializer.data['user_id'])
+            #    #user_id = User.objects.get(id=serializer.data['user_id'])
+            #    #user_auth = CommonCode.objects.get(code_id=serializer.data['user_auth']),
+            #    #print(user_id)
+            #    #print(user_auth)
             RoutineRegistration(
-                        user_id = User.objects.get(id=serializer.data['user_id']),
-                        routine_id = Routine.objects.get(id=serializer.data['routine_id']),
-                        user_auth = CommonCode.objects.get(code_id=serializer.data['user_auth']),
+                        user_id=User.objects.get(id=serializer.data['user_id']),
+                        routine_id=Routine.objects.get(id=serializer.data['routine_id']),
+                        user_auth=CommonCode.objects.get(code_id=serializer.data['user_auth']),
                 ).save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        #return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.order_by('pk')
     serializer_class = UserSerializer
-    filter_backends = [filters.DjangoFilterBackend]
-    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
+    pagination_class = Pagination
+    filterset_fields = '__all__'
 
-    def get_queryset(self):
-        #qs1 = self.queryset
-        #model_fields = [f.name for f in User._meta.fields]
-        #print(type(model_fields))
-        #model_fields.extend(("start", "count"))
-        requested_fields = self.request.GET.copy()
-        #print(type(requested_fields))
-        #print(requested_fields)
-        try:
-            fromIndex = self.request.query_params.get('start', None)
-            toIndex = self.request.query_params.get('count', None)
-            fromIndex = int(fromIndex)
-            toIndex = int(toIndex) + fromIndex
-            requested_fields.pop('start')
-            requested_fields.pop('count')
-        except TypeError as e:
-            print(e)
-        except KeyError as e:
-            print(e)
-
-        for field_name in requested_fields:
-            try:
-                User._meta.get_field(field_name)
-            except FieldDoesNotExist:
-                raise ParseError
-        #for i in self.request.GET:
-            # print(i)
-            # if i not in model_fields:
-            #     print('field not in list')
-            #     raise NotFound
-        #print(qs1)
-        #print(self.request.GET)     
-        qs1 =  UserFilter(self.request.GET, queryset=self.queryset)
-        qs1 = qs1.qs
-        #print(type(qs1))
-        #print(qs1)
-        #fromIndex = self.request.query_params.get('start', None)
-        #if fromIndex:
-        #    fromIndex = int(fromIndex)
-        #    toIndex = int(self.request.query_params.get('count', None)) + fromIndex
-        #print(fromIndex, toIndex)
-        qs1 = qs1[fromIndex:toIndex]
-        if not qs1:
-            raise NotFound
-            #qs2 = serializers.serialize("json",qs2)
-        return qs1
-        #return Response(queryset, status=status.HTTP_400_BAD_REQUEST)
+    # def list(self, request, *args, **kwargs):
+    #     res = super().list(request, *args, **kwargs)
+    #     return res
 
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    filter_backends = [filters.DjangoFilterBackend]
-    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.queryset
-        fromIndex = self.request.query_params.get('start', None)
-        if fromIndex:
-            fromIndex = int(fromIndex)
-            toIndex = int(self.request.query_params.get('count', None))
-            qs1 =  CommentFilter(self.request.GET, queryset=queryset)
-            qs1 = qs1.qs
-            qs1 = qs1[fromIndex:toIndex]
-            #qs1 = json.dumps(qs1)
-            qs1 = serializers.serialize("json", qs1) 
-            return HttpResponse(qs1)
-            #return Response(qs1, status=status.HTTP_200_OK)
-        else :
-            qs2 = CommentFilter(self.request.GET, queryset=queryset)
-            qs2 = qs2.qs
-            qs2 = serializers.serialize("json",qs2)
-        return HttpResponse(qs2)
+    pagination_class = Pagination
+    filterset_fields = '__all__'
 
 
 class CommonCodeViewSet(viewsets.ModelViewSet):
     queryset = CommonCode.objects.all()
     serializer_class = CommonCodeSerializer
-    filter_backends = [filters.DjangoFilterBackend]
-    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
+    pagination_class = Pagination
+    filterset_fields = '__all__'
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.queryset
-        fromIndex = self.request.query_params.get('start', None)
-        if fromIndex:
-            fromIndex = int(fromIndex)
-            toIndex = int(self.request.query_params.get('count', None))
-            qs1 =  CommonCodeFilter(self.request.GET, queryset=queryset)
-            qs1 = qs1.qs
-            qs1 = qs1[fromIndex:toIndex]
-            #qs1 = json.dumps(qs1)
-            qs1 = serializers.serialize("json", qs1) 
-            return HttpResponse(qs1)
-            #return Response(qs1, status=status.HTTP_200_OK)
-        else :
-            qs2 = CommonCodeFilter(self.request.GET, queryset=queryset)
-            qs2 = qs2.qs
-            qs2 = serializers.serialize("json",qs2)
-        return HttpResponse(queryset)
 
 class PointViewSet(viewsets.ModelViewSet):
     queryset = Point.objects.all()
     serializer_class = PointSerializer
-    filter_backends = [filters.DjangoFilterBackend]
-    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
+    pagination_class = Pagination
+    filterset_fields = '__all__'
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.queryset
-        fromIndex = self.request.query_params.get('start', None)
-        if fromIndex:
-            fromIndex = int(fromIndex)
-            toIndex = int(self.request.query_params.get('count', None))
-            qs1 =  PointFilter(self.request.GET, queryset=queryset)
-            qs1 = qs1.qs
-            qs1 = qs1[fromIndex:toIndex]
-            #qs1 = json.dumps(qs1)
-            qs1 = serializers.serialize("json", qs1) 
-            return HttpResponse(qs1)
-            #return Response(qs1, status=status.HTTP_200_OK)
-        else :
-            qs2 = PointFilter(self.request.GET, queryset=queryset)
-            qs2 = qs2.qs
-            qs2 = serializers.serialize("json",qs2)
-        return HttpResponse(qs2)
 
 class HeartViewSet(viewsets.ModelViewSet):
     queryset = Heart.objects.all()
     serializer_class = HeartSerializer
-    filter_backends = [filters.DjangoFilterBackend]
-    #filterset_fields = ['status', 'type', 'id', 'certification_type', 'body_type']
+    pagination_class = Pagination
+    filterset_fields = '__all__'
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.queryset
-        fromIndex = self.request.query_params.get('start', None)
-        if fromIndex:
-            fromIndex = int(fromIndex)
-            toIndex = int(self.request.query_params.get('count', None))
-            qs1 =  HeartFilter(self.request.GET, queryset=queryset)
-            qs1 = qs1.qs
-            qs1 = qs1[fromIndex:toIndex]
-            #qs1 = json.dumps(qs1)
-            qs1 = serializers.serialize("json", qs1) 
-            return HttpResponse(qs1)
-            #return Response(qs1, status=status.HTTP_200_OK)
-        else :
-            qs2 = HeartFilter(self.request.GET, queryset=queryset)
-            qs2 = qs2.qs
-            qs2 = serializers.serialize("json",qs2)
-        return HttpResponse(qs2)
 
 APP_ADMIN_KEY = "00b918e1b430f796b039aefb8e5ebc24"
 
-class LoginAPI(APIView):
 
-    #def get(self, request):
-    #    headers = {
-    #        'Content-Type': 'application/x-www-form-urlencoded',
-    #        'Authorization': f'KakaoAK {APP_ADMIN_KEY}',
-    #    }
-    #
-    #    data = {
-    #        'target_id_type': 'user_id',
-    #        'target_id': '2027486874'
-    #    }
-    #    response = requests.post('https://kapi.kakao.com/v1/user/unlink', headers=headers, data=data)
-    #    return Response("logout")
+class LoginAPI(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
-            #do login
+            # do login
             print(serializer.data)
             code=serializer.data.get('code')
-            service=serializer.data.get('service')
-            if service == 'T0101':
-                provider = Provider().fortytwo
-            elif service == 'T0102':
-                provider = Provider().kakao
-            elif service == 'T0103':
-                provider = Provider().naver
-            elif service == 'T0104':
-                provider = Provider().google
-            userdata = provider(code)
-            #print(type(userdata))
-            #print(userdata)
+            provider=serializer.data.get('provider')
+            if provider == 'T0101':
+                login = Provider().fortytwo
+            elif provider == 'T0102':
+                login = Provider().kakao
+            elif provider == 'T0103':
+                login = Provider().naver
+            elif provider == 'T0104':
+                login = Provider().google
+            try:
+                userdata = login(code)
+            except requests.HTTPError:
+                return Response({'error': 'provider-500'}, status=400)
+            except TypeError:
+                return Response(status=400)
             payload = {
-                    'exp' : datetime.datetime.utcnow() + datetime.timedelta(seconds=7200),
-                    'id' : userdata['id'],
-                    'provider' : service
+                    'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=7200),
+                    'id': userdata['uid'],
+                    'provider': provider
                     }
-            if User.objects.filter(id=userdata['id'], login=service).exists():
-                #print("user exists")
+            if User.objects.filter(uid=userdata['uid'], provider=provider).exists():
                 routineforce_token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
                 return JsonResponse({"token": routineforce_token}, status=status.HTTP_200_OK)
             else :
                 User(
-                        id = userdata['id'],
-                        login = service,
+                        uid = userdata['uid'],
+                        provider = provider,
                         name = userdata['name'],
                         email = userdata['email'],
                         image_path = userdata['image_path']
                 ).save()
                 routineforce_token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
             return JsonResponse({"token": routineforce_token}, status=status.HTTP_200_OK)
-            #return Response('Login Successed!' ,status=status.HTTP_200_OK)
         else :
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors)

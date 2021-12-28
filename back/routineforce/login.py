@@ -23,6 +23,7 @@ class Provider():
             'redirect_uri': (None, f'{ft_redirect_uri}'),
         }
         token_response = requests.post('https://api.intra.42.fr/oauth/token', files=files)
+        token_response.raise_for_status()
         print(token_response.text)
         token_response_json = token_response.json()
         access_token = token_response_json.get("access_token")
@@ -37,12 +38,13 @@ class Provider():
         ft_email = response_json.get("email")
         image_path = response_json.get("image_url")
         userdata = {
-            'id': ft_id,
+            'uid': ft_id,
             'name': ft_name,
             'email': ft_email,
             'image_path': image_path
         }
-        return userdata;
+        return userdata
+
     def kakao(self, code):
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -77,7 +79,7 @@ class Provider():
         image_path = kakao_properties.get("profile_image")
         kakao_email = kakao_account.get("email")
         userdata = {
-                'id': kakao_id,
+                'uid': kakao_id,
                 'name': kakao_name,
                 'email': kakao_email,
                 'image_path': image_path
@@ -108,7 +110,7 @@ class Provider():
         naver_email = response.get("email")
         image_path = response.get("profile_image")
         userdata = {
-                'id': naver_id,
+                'uid': naver_id,
                 'name':naver_name,
                 'email':naver_email,
                 'image_path':image_path

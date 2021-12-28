@@ -221,17 +221,18 @@ class RoutineRegistration(models.Model):
 
 class User(models.Model):
     uid = models.CharField(max_length=128)
-    login = models.CharField(max_length=10)
+    provider = models.CharField(max_length=10)
     name = models.CharField(max_length=255, db_collation='utf8mb4_general_ci')
+    #name = models.CharField(max_length=255)
     email = models.CharField(max_length=320, blank=True, null=True)
     image_path = models.CharField(max_length=4096, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'user'
-        unique_together = (('uid', 'login'),)
+        unique_together = (('uid', 'provider'),)
 
 
 class Login(models.Model):
     code = models.CharField(max_length=128)
-    service = models.CharField(max_length=10)
+    provider = models.CharField(max_length=10)
