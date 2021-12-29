@@ -2,6 +2,14 @@
 	font-family: "CookieRunBold";
 	src: url("../../fonts/CookieRunBold.ttf");
 }
+@font-face {
+	font-family: "Elron";
+	src: url("../../fonts/Elronmonospace.ttf");
+}
+@font-face {
+	font-family: "CookieRunRegular";
+	src: url("../../fonts/CookieRunRegular.ttf");
+}
 .routineDetail {
 	max-width:1440px;
 	left: 50%;

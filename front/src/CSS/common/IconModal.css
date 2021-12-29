@@ -1,0 +1,21 @@
+.IconName {
+	font-family: "CookieRunRegular";
+	font-size: 12px;
+	margin: 4px;
+	transform: translateY(120%);
+	color: #f2711c;
+}
+
+.RoutineModal {
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	padding: 5vw;
+	height: auto;
+}
+.RoutineModal .Header {
+	transform: translateY(30%);
+}
+.RoutineModal .Body {
+	text-align: center;
+}

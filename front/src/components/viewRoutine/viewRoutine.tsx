@@ -62,53 +62,7 @@ export default function ViewRoutine(): JSX.Element {
         <RoutineHeader />
         <RoutineBody />
         <div className="remainedDetail">
-          <div className="summarizedLocationAndCalender">
-            자세한 정보
-            <div className="InfoSort">
-              <div className="summarizedCalender">
-                <img className="iconsSize" src={'./icons/iconsCalender.png'} />
-                <CenterModalButton
-                  button="루틴 일정"
-                  header="루틴 일정"
-                  body={
-                    <>
-                      <Calendar
-                        className="orange"
-                        currentDate={currentDate}
-                        multiple
-                        value={dates}
-                        sort
-                        readOnly
-                        showOtherDays
-                      />
-                      <p>첫번째 인증 시간 = 6:00 ~ 6:30</p>
-                      <p>두번째 인증 시간 = 6:00 ~ 6:30</p>
-                    </>
-                  }
-                />
-              </div>
-              <div className="summarizedLocation">
-                <img className="iconsSize" src={'./icons/iconsLocation.png'} />
-                <CenterModalButton
-                  button="루틴 장소"
-                  header="루틴 장소"
-                  body="온라인"
-                />
-              </div>
-              <div className="summarizedParticipants">
-                <img className="iconsSize" src={'./icons/iconsPeople.png'} />
-                <CenterModalButton
-                  button="참가자 명단"
-                  header="최소 2명 ~ 최대 3명"
-                  body={participants}
-                />
-              </div>
-              <div className="routinePrice">
-                <img className="iconsSize" src={'./icons/iconsMoney.png'} />
-                <button className="Price">20,000원</button>
-              </div>
-            </div>
-          </div>
+          <div className="summarizedLocationAndCalender">자세한 정보</div>
           <div className="detailedRoutine">
             <NoOptionQuill value={detailedSomething} />
           </div>
