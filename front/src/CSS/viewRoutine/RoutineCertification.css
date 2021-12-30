@@ -1,0 +1,12 @@
+.Certification .title {
+	margin: 3px 5px 6px;
+    font-family: "CookieRunBold";
+	color: #cc6a01;
+}
+.Certification {
+	background-color: white;
+    margin: 10px;
+    padding: 5px;
+    box-shadow: 0rem 0.3rem 0.3rem 0rem rgb(0 0 0 / 10%);
+    border-radius: 0.7rem;
+}

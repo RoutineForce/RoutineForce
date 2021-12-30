@@ -2,7 +2,32 @@ import React from 'react';
 import {BrowserView, MobileView} from 'react-device-detect';
 import IconModal from '../common/IconModal';
 import {Calendar, DateObject} from 'react-multi-date-picker';
+import {Feed} from 'semantic-ui-react';
 import '../../CSS/viewRoutine/RoutineBody.css';
+import UserProfile from '../common/UserProfile';
+import NoOptionQuill from '../common/noOptionQuill';
+
+const MemberView = () => {
+  return (
+    <>
+      <Feed>
+        <UserProfile maker />
+        <UserProfile />
+        <UserProfile />
+        <UserProfile />
+        <UserProfile />
+        <UserProfile />
+        <UserProfile />
+        <UserProfile />
+        <UserProfile />
+        <UserProfile />
+      </Feed>
+    </>
+  );
+};
+
+const detailedSomething =
+  ':선물: 챌린지 성공(10일 출석) 시 42티셔츠를 상품으로 지급 받을 수 있습니다:미소짓는_얼굴:\n[ AM 06 : 30 ] 각자 조깅 스팟에 도착, 팀장이 아침 출석 체크\n[ ~ AM 07 : 00 ] 30분간 체력에 맞게 달리거나 걷기\n[ ~ AM 08 : 00 ] 귀가 후 씻고 독서 모임 집합 (게더타운)\n[ ~ AM 08 : 30 ] 읽어온 글감에 대해 대화 나누기 (글감 : 회원들이 돌아가며 전 날에 10 ~ 20분 분량으로 발췌)\n[ ~ AM 08 : 50 ] 간단한 스크럼, - 전 날 뭐했고, 오늘의 뭐할건지 공유하고 커피 챗~\n모임 회비 : 20000원 (한 시즌(10일) 기준,  지각/결석 시 1일 2000원 차감, 챌린지 완수 시 전액 환급!, 차감 금액은 챌린지 성공 인원들에게 N빵 지급)';
 
 export default function RoutineBody() {
   const dates = [
@@ -59,8 +84,8 @@ export default function RoutineBody() {
             <IconModal
               icon="users"
               name="참가맴버"
-              header="참자맴버"
-              body="asdasdasd"
+              header="참가맴버"
+              body={MemberView()}
             />
             <IconModal
               icon="won"
@@ -75,6 +100,10 @@ export default function RoutineBody() {
               }
             />
           </div>
+        </div>
+        <div className="RoutineExplanation">
+          <div className="title">루틴 안내</div>
+          <NoOptionQuill value={detailedSomething} />
         </div>
       </MobileView>
     </>
