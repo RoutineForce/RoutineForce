@@ -24,7 +24,7 @@ class Provider():
         }
         token_response = requests.post('https://api.intra.42.fr/oauth/token', files=files)
         token_response.raise_for_status()
-        print(token_response.text)
+        # print(token_response.text)
         token_response_json = token_response.json()
         access_token = token_response_json.get("access_token")
         headers = {
@@ -32,7 +32,7 @@ class Provider():
         }
         response = requests.get('https://api.intra.42.fr/v2/me', headers=headers)
         response_json = response.json()
-        #print(response_json)
+        # print(response_json)
         ft_id = response_json.get("id")
         ft_name = response_json.get("login")
         ft_email = response_json.get("email")

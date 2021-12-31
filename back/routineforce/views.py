@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from .paginations import Pagination
+from .permissions import IsOwnerOrReadOnly
 from .serializers import RoutineSerializer, UserSerializer, UserRoutineSerializer, LoginSerializer 
 from .serializers import CommentSerializer, CommonCodeSerializer, PointSerializer, HeartSerializer 
 from .models import Routine, User, RoutineRegistration, Login, Comment, CommonCode, Heart, Point
@@ -73,34 +74,22 @@ class PointFilter(filters.FilterSet):
         model = Routine
         fields = '__all__'
 
+
 class RoutineViewSet(viewsets.ModelViewSet):
     queryset = Routine.objects.all()
     serializer_class = RoutineSerializer
     pagination_class = Pagination
+    permission_classes = [IsOwnerOrReadOnly, ]
+    authentication_classes = [LoginConfirm, ]
     filterset_fields = '__all__'
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.queryset
-        fromIndex = self.request.query_params.get('start', None)
-        if fromIndex:
-            fromIndex = int(fromIndex)
-            toIndex = int(self.request.query_params.get('count', None))
-            qs1 =  RoutineFilter(self.request.GET, queryset=queryset)
-            qs1 = qs1.qs
-            qs1 = qs1[fromIndex:toIndex]
-            #qs1 = json.dumps(qs1)
-            qs1 = serializers.serialize("json", qs1) 
-            return HttpResponse(qs1)
-            #return Response(qs1, status=status.HTTP_200_OK)
-        else :
-            qs2 = RoutineFilter(self.request.GET, queryset=queryset)
-            qs2 = qs2.qs
-            qs2 = serializers.serialize("json",qs2)
-        return HttpResponse(qs2)
-        #return Response(qs2, status=status.HTTP_200_OK)
-    @LoginConfirm
-    def create(self, request, *args, **kwargs):
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    # def get_object(self, art):
+    #    article = get_object_or_404(Article, pk=article_pk)
+    #    self.check_object_permissions(self.request, article)
+    #    return article
+    # @LoginConfirm
+    # def create(self, request, *args, **kwargs):
+    #    return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 
 class UserRoutineViewSet(viewsets.ModelViewSet):
