@@ -95,6 +95,8 @@ class RoutineViewSet(viewsets.ModelViewSet):
 class UserRoutineViewSet(viewsets.ModelViewSet):
     queryset = RoutineRegistration.objects.all()
     serializer_class = UserRoutineSerializer
+    permission_classes = [IsOwnerOrReadOnly, ]
+    authentication_classes = [LoginConfirm, ]
     pagination_class = Pagination
     filterset_fields = '__all__'
 
