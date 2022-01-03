@@ -1,15 +1,10 @@
-@font-face {
-	font-family: "CookieRunBold";
-	src: url("../../fonts/CookieRunBold.ttf");
-}
-
 .Container {
 	border: 2px dotted black;
 	width: 100%;
 	display: flex;
 	position: relative;
 	margin: 0px;
-	margin-bottom: 2rem;
+	margin-bottom: 0.5rem;
 }
 
 .Arrow#Left{
@@ -65,27 +60,22 @@
 	vertical-align: middle;
 }
 
-.Certification {
+.CertificationP {
 	background-repeat: no-repeat;
 	display: flex;
-	padding-left: 10px
+	justify-content: space-between;
 }
 
 .CertificationForm {
 	max-width: 500px;
 	max-height: 500px;
-	width: 35vw;
+	width: 40vw;
 	height: 35vw;
 	border: 2px dotted black;
-	margin-right: 10px;
-	margin-bottom: 5px;
+	margin: 0 2.3vw 5px 2.3vw;
 	text-align: center;
 	display: table;
 	border-radius: 7px;
-    display: 'flex';
-    flex-wrap: 'wrap';
-    align-content: 'space-between';
-	cursor: 'pointer';
 	background-color: white;
 }
 
@@ -109,17 +99,21 @@
 
 .CertificationTrue {
 	background-color: rgba(0, 140, 0, 0.180);
+	width: 100%;
 }
 
 .CertificationFalse {
 	background-color: rgba(255, 82, 52, 0.180);
+	width: 100%;
 }
 
 .CertificationCheck {
-	width: 20vw;
 	height: 2.5rem;
-	margin: 5px;
-	text-align: right;
+	padding-right: 20px;
+	float: right;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .CheckCertificationBtn {

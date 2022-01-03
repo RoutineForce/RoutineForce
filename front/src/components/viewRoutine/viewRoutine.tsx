@@ -67,12 +67,6 @@ export default function ViewRoutine(): JSX.Element {
         </div> */}
         <RoutineCertification />
         <div className="comments">
-          <Divider horizontal>
-            <Header as="h4">
-              <Icon name="comment alternate" />
-              댓글을 달아주세요
-            </Header>
-          </Divider>
           <Comments />
         </div>
       </div>

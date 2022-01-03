@@ -3,12 +3,19 @@ import {BrowserView, MobileView} from 'react-device-detect';
 import {Accordion, Feed, Icon, Label} from 'semantic-ui-react';
 import '../../CSS/viewRoutine/RoutineCertification.css';
 import UserProfile from '../common/UserProfile';
+import Certifications from './Certifications';
 
 const MENU_LIST = [
   {title: 'TAMS', list: ['Users', 'Wallets'], fail: 2},
   {title: 'Jupiter', list: ['Create', 'Read', 'Update', 'Delete'], fail: 0},
 ];
 
+const RoutineDays = 10;
+const RoutineMoney = 20000;
+
+function remainMoney(fail: number) {
+  return (RoutineMoney * (RoutineDays - fail)) / RoutineDays;
+}
 function UserCertification() {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
@@ -31,7 +38,7 @@ function UserCertification() {
                           style={{marginRight: 5, maxHeight: 15}}
                           src={'./icons/iconsReverseMoney.png'}
                         />
-                        20000원
+                        {remainMoney(item.fail)}
                       </Label>
                     </div>
                   }
@@ -52,7 +59,8 @@ function UserCertification() {
               </Feed>
             </Accordion.Title>
             <Accordion.Content active={activeIndex === idx}>
-              {item.list + ''}
+              {/* {item.list + ''} */}
+              <Certifications />
             </Accordion.Content>
           </>
         );

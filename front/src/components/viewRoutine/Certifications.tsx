@@ -1,5 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import PictureUpload from './pictureUpload';
+import {Icon} from 'semantic-ui-react';
 import '../../CSS/viewRoutine/Certifications.css';
 
 // 이미지 보관 1장의 경우
@@ -139,21 +140,23 @@ const Certifications = (): JSX.Element => {
             <div className="CertificationCheck">
               {boss != null ? (
                 <>
-                  <img
+                  <Icon
+                    name="check circle"
+                    color="green"
                     onClick={ChangeStatusTrue}
-                    className="CheckCertificationBtn"
-                    src={'./icons/success.png'}
+                    size="large"
                   />
-                  <img
+                  <Icon
+                    name="times circle"
+                    color="red"
                     onClick={ChangeStatusFalse}
-                    className="CheckCertificationBtn"
-                    src={'./icons/fail.png'}
+                    size="large"
                   />
                 </>
               ) : null}
             </div>
           </div>
-          <div className="Certification">{FillImage(CertificationCount)}</div>
+          <div className="CertificationP">{FillImage(CertificationCount)}</div>
         </div>
         <div className="Arrow" id="Left" onClick={handlePrevClickImage}>
           <img className="ArrowImage" id="Left" src={'./icons/leftArrow.png'} />

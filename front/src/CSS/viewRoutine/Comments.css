@@ -1,3 +1,17 @@
+.RoutineComment {
+	background-color: white;
+    margin: 0px 10px 10px 10px;
+    padding: 5px;
+	padding-bottom: 10px;
+    box-shadow: 0rem 0.3rem 0.3rem 0rem rgb(0 0 0 / 10%);
+    border-radius: 0.7rem;
+}
+.Title {
+	font-family: "CookieRunBold";
+	color: #cc6a01;
+	margin: 10px;
+}
+
 .Comment {
 	max-width: 866px;
 	min-width: 250px;
@@ -7,9 +21,7 @@
 .TextArea {
 	padding: 5px 5px 0 0;
 	margin-left: 5px !important;
-	max-width: 866px;
-	min-width: 250px;
-	width: 60vw;
+	max-width: 100%;
 }
 
 .Button {
@@ -37,6 +49,7 @@
 
 .emptyComment {
 	margin: 5px;
+	padding-left: 5px;
 	color: rgba(100, 100, 100, 0.669);
 	cursor: default;
 	min-height: 20px;

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Button, Comment, Form, Header} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../CSS/viewRoutine/Comments.css';
+import {MobileView, BrowserView} from 'react-device-detect';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -15,7 +16,7 @@ interface info {
 export default function Comments() {
   // RoutineId: number,
   // loginState: boolean,
-  const logStatus = null;
+  const logStatus = 'asd';
   const [inputContent, setInputContent] = useState('');
   const [commentList, setCommentList] = useState<info[]>([]);
   const [formLocation, setFormLocation] = useState(-1);
@@ -106,82 +107,85 @@ export default function Comments() {
   }
   return (
     <>
-      <Comment.Group>
-        <Header as="h3" style={{padding: 5}}>
-          Comments
-        </Header>
-        {commentList.length !== 0 ? (
-          <>
-            {commentList.map((comments, index) => (
-              <div key={index} style={{padding: 8}}>
-                <SingleComment
-                  time={comments.time}
-                  content={comments.content}
-                  index={index}
-                  selectComment={selectComment}
-                />
-                {formLocation == index ? (
-                  <Form reply>
-                    <Form.TextArea
-                      className="TextArea"
-                      value={inputContent}
-                      placeholder="댓글을 입력해주세요"
-                      onChange={e => setInputContent(e.target.value)}
-                    />
-                    <Button
-                      className="Button"
-                      content="수정하기"
-                      secondary
-                      onClick={() => {
-                        onCommentEdit(index);
-                      }}
-                    />
-                  </Form>
-                ) : null}
-              </div>
-            ))}
-          </>
-        ) : (
-          <div className="emptyComment">
-            루틴에 대해 궁금한 것을 댓글로 남겨주세요 😃
-          </div>
-        )}
-        {formLocation != -1 ? null : (
-          <Form reply>
-            {logStatus != null ? (
-              <>
-                <Form.TextArea
-                  className="TextArea"
-                  value={inputContent}
-                  placeholder="댓글을 입력해주세요"
-                  onChange={e => setInputContent(e.target.value)}
-                />
-                <Button
-                  className="Button"
-                  content="등록하기"
-                  primary
-                  onClick={onSubmit}
-                />
-              </>
-            ) : (
-              <>
-                <Form.TextArea
-                  className="TextArea"
-                  placeholder="로그인이 필요합니다"
-                  disabled
-                />
-                <Button
-                  className="Button"
-                  content="등록하기"
-                  primary
-                  onClick={onSubmit}
-                  disabled
-                />
-              </>
-            )}
-          </Form>
-        )}
-      </Comment.Group>
+      <BrowserView></BrowserView>
+      <MobileView className="RoutineComment">
+        <Comment.Group>
+          <Header>
+            <div className="Title">Comments</div>
+          </Header>
+          {commentList.length !== 0 ? (
+            <>
+              {commentList.map((comments, index) => (
+                <div key={index} style={{padding: 8}}>
+                  <SingleComment
+                    time={comments.time}
+                    content={comments.content}
+                    index={index}
+                    selectComment={selectComment}
+                  />
+                  {formLocation == index ? (
+                    <Form reply>
+                      <Form.TextArea
+                        className="TextArea"
+                        value={inputContent}
+                        placeholder="댓글을 입력해주세요"
+                        onChange={e => setInputContent(e.target.value)}
+                      />
+                      <Button
+                        className="Button"
+                        content="수정하기"
+                        secondary
+                        onClick={() => {
+                          onCommentEdit(index);
+                        }}
+                      />
+                    </Form>
+                  ) : null}
+                </div>
+              ))}
+            </>
+          ) : (
+            <div className="emptyComment">
+              루틴에 대해 궁금한 것을 댓글로 남겨주세요 😃
+            </div>
+          )}
+          {formLocation != -1 ? null : (
+            <Form reply>
+              {logStatus != null ? (
+                <>
+                  <Form.TextArea
+                    className="TextArea"
+                    value={inputContent}
+                    placeholder="댓글을 입력해주세요"
+                    onChange={e => setInputContent(e.target.value)}
+                  />
+                  <Button
+                    className="Button"
+                    content="등록하기"
+                    primary
+                    onClick={onSubmit}
+                  />
+                </>
+              ) : (
+                <>
+                  <Form.TextArea
+                    className="TextArea"
+                    placeholder="로그인이 필요합니다"
+                    disabled
+                  />
+                  <Button
+                    className="Button"
+                    content="등록하기"
+                    primary
+                    onClick={onSubmit}
+                    disabled
+                  />
+                </>
+              )}
+            </Form>
+          )}
+        </Comment.Group>
+      </MobileView>
     </>
   );
 }

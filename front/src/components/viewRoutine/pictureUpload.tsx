@@ -87,7 +87,7 @@ export default function PictureUpload(): JSX.Element {
         </span>
       </div>
       <input
-        className="hindingUpload"
+        style={{display: 'none'}}
         type="file"
         accept="image/*"
         ref={filePickerRef}
