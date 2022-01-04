@@ -1,11 +1,12 @@
 import React from 'react';
-import {BrowserView, MobileView} from 'react-device-detect';
+import {BrowserView, MobileView, TabletView} from 'react-device-detect';
 import IconModal from '../common/IconModal';
 import {Calendar, DateObject} from 'react-multi-date-picker';
 import {Feed} from 'semantic-ui-react';
 import '../../CSS/viewRoutine/RoutineBody.css';
 import UserProfile from '../common/UserProfile';
 import NoOptionQuill from '../common/noOptionQuill';
+import AttendBtn from './AttendBtn';
 
 const MemberView = () => {
   return (
@@ -51,6 +52,9 @@ export default function RoutineBody() {
     <>
       <BrowserView></BrowserView>
       <MobileView>
+        <TabletView>
+          <AttendBtn />
+        </TabletView>
         <div className="RoutineInfo">
           <div className="title">자세한 정보</div>
           <div className="Icons">

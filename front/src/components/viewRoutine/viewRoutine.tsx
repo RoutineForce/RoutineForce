@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Calendar, DateObject} from 'react-multi-date-picker';
 import {Divider, Icon, Header} from 'semantic-ui-react';
 import CenterModalButton from '../common/modalButton';
@@ -14,6 +14,7 @@ import RoutineHeader from './RoutineHeader';
 import Navbarc from '../common/Navbar';
 import axios from 'axios';
 import RoutineBody from './RoutineBody';
+import AttendBtn from './AttendBtn';
 
 export default function ViewRoutine(): JSX.Element {
   // 1. 체크된 달력 구현
@@ -56,9 +57,25 @@ export default function ViewRoutine(): JSX.Element {
   // 3. 디자인 버튼
   // 4. detailedRoutine (이후 시작이 되고 나서 접어두거나 새로운 탭형식)
 
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const updateScroll = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', updateScroll);
+  });
+  const updateScrollTop = () => {
+    window.scrollTo(0, 0);
+  };
+  const scrollTop = () => {
+    return (
+      <div className="updateScrollTop" onClick={updateScrollTop}>
+        <Icon name="arrow alternate circle up" size="big" color="grey" />
+      </div>
+    );
+  };
   return (
     <div style={{maxWidth: '1400'}}>
-      <Navbarc />
       <div className="routineDetail">
         <RoutineHeader />
         <RoutineBody />
@@ -69,6 +86,14 @@ export default function ViewRoutine(): JSX.Element {
         <div className="comments">
           <Comments />
         </div>
+        {scrollPosition === 0 ? (
+          <div className="scrollTop">
+            <Navbarc className="TopNav" />
+            <AttendBtn />
+          </div>
+        ) : (
+          scrollTop()
+        )}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import API from '../../api/APIUtil';
 
 const loginstate = 'ㅁㄴㅇ';
 
-export default function Navbarc(): JSX.Element {
+export default function Navbarc(prop?: any): JSX.Element {
   const brandClick = () => {
     PageMover.goToHomePage();
   };
@@ -27,7 +27,7 @@ export default function Navbarc(): JSX.Element {
   };
 
   return (
-    <>
+    <div className={prop.className}>
       <Navbar
         collapseOnSelect
         expand="lg"
@@ -63,6 +63,6 @@ export default function Navbarc(): JSX.Element {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </>
+    </div>
   );
 }

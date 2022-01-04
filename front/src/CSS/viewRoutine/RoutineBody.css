@@ -9,6 +9,11 @@
     border-radius: 0.7rem;
 }
 
+@media (width >= 700px) {
+    .RoutineInfo {
+        width: 61vw;
+    }
+}
 .RoutineInfo .title {
 	margin: 1px 5px 6px;
 }
