@@ -78,9 +78,9 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Comment(models.Model):
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id', related_name='user_id')
+    user = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id', related_name='user_id')
     target_code = models.ForeignKey('CommonCode', on_delete=models.SET_NULL, db_column='target_code', null=True)
-    target_id = models.ForeignKey('User', on_delete=models.CASCADE, db_column='target_id', related_name='target_id')
+    target = models.ForeignKey('User', on_delete=models.CASCADE, db_column='target_id', related_name='target_id')
     body = models.CharField(max_length=4096, blank=True, null=True)
     created_at = models.DateTimeField()
 
@@ -145,8 +145,8 @@ class DjangoSession(models.Model):
 
 
 class Heart(models.Model):
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
-    routine_id = models.ForeignKey('Routine', on_delete=models.CASCADE, db_column='routine_id')
+    user = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
+    routine = models.ForeignKey('Routine', on_delete=models.CASCADE, db_column='routine_id')
     pushed_at = models.DateTimeField()
 
     class Meta:
@@ -155,7 +155,7 @@ class Heart(models.Model):
 
 
 class LogPoint(models.Model):
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
+    user = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
     change_code = models.ForeignKey(CommonCode, on_delete=models.SET_NULL, db_column='change_code', null=True)
     change_in_point = models.IntegerField()
     created_at = models.DateTimeField()
@@ -166,7 +166,7 @@ class LogPoint(models.Model):
 
 
 class Point(models.Model):
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
+    user = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
     current_point = models.IntegerField()
 
     class Meta:
@@ -196,8 +196,8 @@ class Routine(models.Model):
 
 
 class RoutineCertification(models.Model):
-    routine_id = models.ForeignKey(Routine, on_delete=models.CASCADE, db_column='routine_id')
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
+    routine = models.ForeignKey(Routine, on_delete=models.CASCADE, db_column='routine_id')
+    user = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
     uploaded_at = models.DateTimeField()
     image_path = models.CharField(max_length=4096)
     result = models.CharField(max_length=10, blank=True, null=True)
@@ -208,8 +208,8 @@ class RoutineCertification(models.Model):
 
 
 class RoutineRegistration(models.Model):
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
-    routine_id = models.ForeignKey(Routine, on_delete=models.CASCADE, db_column='routine_id')
+    user = models.ForeignKey('User', on_delete=models.CASCADE, db_column='user_id')
+    routine = models.ForeignKey(Routine, on_delete=models.CASCADE, db_column='routine_id')
     user_auth = models.ForeignKey(CommonCode, to_field='code_id', on_delete=models.SET_NULL, db_column='user_auth', null=True)
     result = models.CharField(max_length=10, blank=True, null=True)
 
@@ -221,17 +221,18 @@ class RoutineRegistration(models.Model):
 
 class User(models.Model):
     uid = models.CharField(max_length=128)
-    login = models.CharField(max_length=10)
+    provider = models.CharField(max_length=10)
     name = models.CharField(max_length=255, db_collation='utf8mb4_general_ci')
+    #name = models.CharField(max_length=255)
     email = models.CharField(max_length=320, blank=True, null=True)
     image_path = models.CharField(max_length=4096, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'user'
-        unique_together = (('uid', 'login'),)
+        unique_together = (('uid', 'provider'),)
 
 
 class Login(models.Model):
     code = models.CharField(max_length=128)
-    service = models.CharField(max_length=10)
+    provider = models.CharField(max_length=10)

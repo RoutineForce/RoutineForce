@@ -29,7 +29,7 @@ export default function Login(): JSX.Element {
           `${process.env.REACT_APP_API_DOCKER}/login`,
           {
             code: code[0],
-            service: 'T0102',
+            provider: 'T0102',
           },
           {
             headers: {
