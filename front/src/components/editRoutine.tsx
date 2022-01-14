@@ -14,6 +14,7 @@ import DatePanel from 'react-multi-date-picker/plugins/date_panel';
 import TimePicker from 'react-multi-date-picker/plugins/time_picker';
 import GlobalLoader from './globalLoader';
 import {MultiSelect} from 'react-multi-select-component';
+import NewEditRoutine from './newEditRoutine';
 
 interface TimePickerFromToProps {
   idx: number;
@@ -270,6 +271,8 @@ export default function Routine(): JSX.Element {
       <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
         <Button onClick={saveButtonClick}>등록하기!</Button>
       </div>
+      <hr />
+      <NewEditRoutine />
     </div>
   );
 }
