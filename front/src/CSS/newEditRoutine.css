@@ -1,0 +1,35 @@
+.makeRoutine {
+  text-align: center;
+  display: flex;
+  align-items: center; /* 수직 정렬 */
+  flex-direction: row; /* default: row */
+  justify-content: center; /* flex direction에 대해서 정렬방식 선택 */
+}
+
+.inputPicture {
+  font-family: 'CookieRunRegular';
+  color: rgba(128, 128, 128, 0.842);
+  border: 1px solid rgba(128, 128, 128, 0.575);
+  border-radius: 1.5rem;
+  width: 80vw;
+  height: 200px;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.inputPicture .Image {
+  width: 100%;
+  border-radius: 1.5rem;
+}
+
+.ql-editor {
+  min-height: 300px;
+}
+.inputExplanationT {
+  width: 80vw;
+  min-height: 300px;
+  height: auto;
+  border: 1px solid rgba(128, 128, 128, 0.575);
+  border-radius: 1.5rem;
+}

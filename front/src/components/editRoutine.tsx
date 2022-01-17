@@ -160,7 +160,7 @@ export default function Routine(): JSX.Element {
 
   return (
     <div className="routineFrame">
-      <div
+      {/* <div
         onClick={imgClick}
         style={{
           border: '2px dotted black',
@@ -271,7 +271,7 @@ export default function Routine(): JSX.Element {
       <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
         <Button onClick={saveButtonClick}>등록하기!</Button>
       </div>
-      <hr />
+      <hr /> */}
       <NewEditRoutine />
     </div>
   );
