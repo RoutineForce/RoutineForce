@@ -1,19 +1,14 @@
-.childSpaceBetweenContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.routineCardViewLocationContainer {
-  width: 150px;
-  overflow: hidden;
-  display: inline-block;
-  white-space: nowrap;
+.text {
   text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.routineCardViewHeartContainer {
-  width: 100px;
-  display: flex;
-  justify-content: flex-end;
+.bodyText {
+  height: 80px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }

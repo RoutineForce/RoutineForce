@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Card, Image, Icon} from 'semantic-ui-react';
 import PageMover from '../utils/PageMover';
 import './routineCard.css';
 
@@ -10,7 +10,6 @@ export interface RoutineCardProps {
   text: string;
   timeText: string;
   location: string;
-  marginBottom: number;
 }
 
 export default function RoutineCard(props: RoutineCardProps): JSX.Element {
@@ -18,38 +17,30 @@ export default function RoutineCard(props: RoutineCardProps): JSX.Element {
     PageMover.goTo('/viewRoutine', {routineId: props.routineId});
   };
   return (
-    <Card
-      onClick={cardClick}
-      style={{
-        width: 210,
-        height: 385,
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: props.marginBottom,
-      }}
-    >
-      <Card.Img style={{maxHeight: 138.66}} variant="top" src={props.imgSrc} />
-      <Card.Body>
-        <Card.Title>{props.title}</Card.Title>
-        <Card.Text>{props.text}</Card.Text>
-      </Card.Body>
-      <ListGroup className="list-group-flush">
-        <ListGroupItem>{props.timeText}</ListGroupItem>
-        <ListGroupItem>
-          <div className="childSpaceBetweenContainer">
-            <div className="routineCardViewLocationContainer">
-              {props.location}
-            </div>
-            <div className="routineCardViewHeartContainer">
-              <img
-                style={{height: 20, marginRight: 5}}
-                src="./icons/heart.png"
-              ></img>
-              <div>150</div>
-            </div>
-          </div>
-        </ListGroupItem>
-      </ListGroup>
+    <Card onClick={cardClick}>
+      <Image
+        style={{height: '180px', width: '100%', overflow: 'hidden'}}
+        src={props.imgSrc}
+        wrapped
+        ui={false}
+      />
+      <Card.Content>
+        <Card.Header className="text">{props.title}</Card.Header>
+        <Card.Meta>
+          <span>{props.timeText}</span>
+        </Card.Meta>
+        <Card.Description className="bodyText">{props.text}</Card.Description>
+      </Card.Content>
+      <Card.Content
+        extra
+        style={{display: 'flex', justifyContent: 'space-between'}}
+      >
+        <div>
+          <Icon name="like" />
+          150
+        </div>
+        <div className="text">{props.location}</div>
+      </Card.Content>
     </Card>
   );
 }
