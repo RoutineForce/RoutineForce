@@ -5,14 +5,18 @@
   flex-direction: row; /* default: row */
   justify-content: center; /* flex direction에 대해서 정렬방식 선택 */
 }
+.inputTitle {
+  padding: 40px 0 20px;
+}
 
 .inputPicture {
   font-family: 'CookieRunRegular';
+  transform: translateX();
   color: rgba(128, 128, 128, 0.842);
   border: 1px solid rgba(128, 128, 128, 0.575);
   border-radius: 1.5rem;
   width: 80vw;
-  height: 200px;
+  height: 100px;
   text-align: center;
   display: table-cell;
   vertical-align: middle;
@@ -32,4 +36,29 @@
   height: auto;
   border: 1px solid rgba(128, 128, 128, 0.575);
   border-radius: 1.5rem;
+}
+
+.makeRoutine .ui.button {
+  margin-top: 5px;
+  text-align: right;
+}
+
+/*      */
+/* Font */
+/*      */
+
+.makeRoutine .title {
+  margin-top: 40px;
+  font-family: 'CookieRunRegular';
+  color: #c07325;
+}
+.makeRoutine .InputName {
+  font-family: 'CookieRunBold';
+  color: #c07325;
+  text-align: left;
+  padding-top: 20px;
+  margin: 8px;
+}
+.selectedDates {
+  color: rgba(128, 128, 128, 0.705);
 }

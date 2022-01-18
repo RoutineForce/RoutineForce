@@ -2,22 +2,11 @@ import React, {useRef, useState} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './editRoutine.css';
-import {ButtonGroup, ToggleButton} from 'react-bootstrap';
-import {
-  Divider,
-  Input,
-  Image,
-  Icon,
-  Button,
-  Label,
-  Radio,
-} from 'semantic-ui-react';
+import {Divider, Input, Image, Icon, Button, Label} from 'semantic-ui-react';
 import DatePicker, {DateObject} from 'react-multi-date-picker';
 import DatePanel from 'react-multi-date-picker/plugins/date_panel';
 import TimePicker from 'react-multi-date-picker/plugins/time_picker';
 import GlobalLoader from './globalLoader';
-import {MultiSelect} from 'react-multi-select-component';
-import NewEditRoutine from './newEditRoutine';
 
 import '../CSS/newEditRoutine.css';
 
@@ -27,8 +16,12 @@ interface TimePickerFromToProps {
 
 function TimePickerFromTo(props: TimePickerFromToProps): JSX.Element {
   return (
-    <div style={{marginTop: 5, display: 'flex'}}>
-      <p>{props.idx + 1}번째 인증 : </p>
+    <div
+      style={{marginTop: 5, display: 'flex', justifyContent: 'space-evenly'}}
+    >
+      <p style={{fontFamily: 'CookieRunRegular'}}>
+        {props.idx + 1}번째 인증 :{' '}
+      </p>
       <DatePicker
         style={{marginLeft: 3, width: 70, textAlign: 'center'}}
         editable={false}
@@ -87,8 +80,6 @@ function PictureCertificationDetailSelector(): JSX.Element {
       style={{
         marginTop: 5,
         padding: 5,
-        border: '1px solid black',
-        borderRadius: 5,
       }}
     >
       <Button.Group>
@@ -96,7 +87,12 @@ function PictureCertificationDetailSelector(): JSX.Element {
         <Button.Or />
         <Button onClick={twoButtonClick}>두 번 인증</Button>
       </Button.Group>
-      <Label pointing="below">
+      <Label
+        style={{
+          marginTop: 5,
+          padding: 5,
+        }}
+      >
         <Icon name="alarm" color="orange" />
         업로드 시간을 입력해주세요
       </Label>
@@ -183,12 +179,11 @@ export default function Routine(): JSX.Element {
   const onChangeParticipants = (e: any) => {
     setParticipants(e.target.value);
   };
-  console.log(participants);
   return (
     <div className="makeRoutine">
       {pages === 0 ? (
         <div className="prevPage">
-          <h2>어떤 루틴을 등록하시나요?</h2>
+          <h2 className="title">어떤 루틴을 등록하시나요?</h2>
           <div className="inputTitle">
             <Input
               style={{width: '80vw'}}
@@ -205,7 +200,7 @@ export default function Routine(): JSX.Element {
             {imgBlob === '' ? (
               <>
                 <Icon size="huge" name="image" color="grey" />
-                <p>add picture</p>
+                <p>사진 추가</p>
               </>
             ) : (
               <Image className="Image" onClick={imgClick} src={imgBlob} />
@@ -217,25 +212,25 @@ export default function Routine(): JSX.Element {
             ref={filePickerRef}
             type="file"
           ></input>
-          <p>루틴 설명</p>
+          <p className="InputName">루틴 설명</p>
           <div className="inputExplanationT">
             <ReactQuill theme="bubble" modules={{toolbar: false}} />
           </div>
-          <Button value="nextBts" onClick={handlePages}>
-            다음
-          </Button>
+          <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
+            <Button value="nextBts" onClick={handlePages}>
+              다음
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="routineFrame">
-          <br></br>
-          <div style={{padding: 5, border: '1px solid black', borderRadius: 5}}>
-            <h5>Routine 종류를 선택해주세요!</h5>
+          <div>
+            <p className="InputName">종류</p>
             <Input list="Tag" placeholder="Choose Tag..." />
             <datalist id="Tag">{optionList}</datalist>
           </div>
-          <br></br>
-          <div style={{padding: 5, border: '1px solid black', borderRadius: 5}}>
-            <h5>Routine 진행 날짜를 선택해주세요!</h5>
+          <div>
+            <p className="InputName">진행 날짜</p>
             <Input
               readOnly
               onClick={() => datePickerRef.current.openCalendar()}
@@ -252,13 +247,12 @@ export default function Routine(): JSX.Element {
                 plugins={[<DatePanel key={1} />]}
               ></DatePicker>
               {selectedDates.length ? (
-                <div>{`${selectedDates.length}일`}</div>
+                <span className="selectedDates">{`${selectedDates.length}일`}</span>
               ) : null}
             </div>
           </div>
-          <br></br>
-          <div style={{padding: 5, border: '1px solid black', borderRadius: 5}}>
-            <h5>Routine 인증 방식을 선택해주세요!</h5>
+          <div>
+            <p className="InputName">인증 방식</p>
             <Button.Group size="large">
               <Button value="1" onClick={certificationKindChange}>
                 Online
@@ -275,42 +269,67 @@ export default function Routine(): JSX.Element {
               <OfflineCertificationDetailSelector />
             ) : null}
           </div>
-          <br></br>
-          <div style={{padding: 5, border: '1px solid black', borderRadius: 5}}>
-            <h5>Routine 인원을 입력해주세요!</h5>
-            <div>최소</div>
-            <Input type="number" />
-            <div>최대</div>
-            <Input type="number" />
+          <div>
+            <p className="InputName">인원</p>
+            <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+              <div>
+                <div style={{fontFamily: 'CookieRunBold'}}>최소</div>
+                <Input style={{width: '100px'}} type="number" />
+              </div>
+              <div>
+                <div style={{fontFamily: 'CookieRunBold'}}>최대</div>
+                <Input style={{width: '100px'}} type="number" />
+              </div>
+            </div>
           </div>
-          <br></br>
-          <div style={{padding: 5, border: '1px solid black', borderRadius: 5}}>
-            <h5>참가비</h5>
+          <div>
+            <p className="InputName">참가비</p>
             <Button.Group size="large">
-              <Button onClick={handleParticipantYes}>Participant</Button>
+              <Button onClick={handleParticipantYes}>Participation fee</Button>
               <Button.Or />
-              <Button onClick={handleParticipantNo}>Nothing</Button>
+              <Button onClick={handleParticipantNo}>None</Button>
             </Button.Group>
             {participationChoice === undefined ? null : (
               <>
                 {participationChoice ? (
                   <>
-                    <Input type="number" onChange={onChangeParticipants} />
-                    <Label>원</Label>
+                    <Input
+                      style={{
+                        marginTop: 5,
+                        padding: 5,
+                      }}
+                      label={{basic: true, content: '원'}}
+                      labelPosition="right"
+                      type="number"
+                      onChange={onChangeParticipants}
+                    />
                   </>
                 ) : (
-                  <Input readOnly placeholder="참가비가 없습니다" />
+                  <Input
+                    style={{
+                      marginTop: 5,
+                      padding: 5,
+                    }}
+                    readOnly
+                    placeholder="No participation fee"
+                  />
                 )}
               </>
             )}
           </div>
-          <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row-reverse',
+              marginTop: 20,
+            }}
+          >
             <Button onClick={saveButtonClick}>등록하기!</Button>
-          </div>
 
-          <Button value="prevBts" onClick={handlePages}>
-            이전
-          </Button>
+            <Button value="prevBts" onClick={handlePages}>
+              이전
+            </Button>
+          </div>
         </div>
       )}
     </div>
