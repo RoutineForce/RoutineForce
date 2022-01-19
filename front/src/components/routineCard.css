@@ -12,9 +12,3 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-
-.ui.cards > .card,
-.ui.card {
-  transition: box-shadow 0.1s ease 0s, transform 0.1s ease 0s,
-    -webkit-transform 0.1s ease 0s;
-}
