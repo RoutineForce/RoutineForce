@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../CSS/viewRoutine/RoutineHeader.css';
 import {BrowserView, MobileView} from 'react-device-detect';
-import {Label} from 'semantic-ui-react';
+import {Label, Icon} from 'semantic-ui-react';
 
 // prop => routine index
 // data => 타이틀, 장소, 시작일, 인증 시간(빠른), 이미지
@@ -39,6 +39,13 @@ export default function RoutineHeader() {
               <div className="RoutineStartDate">11.29(월) 오전 6시 30분</div>
             </div>
           </div>
+          <Icon
+            className="editRoutine"
+            circular
+            inverted
+            name="edit outline"
+            color="grey"
+          />
         </div>
       </MobileView>
     </>

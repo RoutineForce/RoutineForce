@@ -5,6 +5,7 @@ import getData from './temp';
 import {RoutineGetDto} from '../api/dto/routineGet';
 import API from '../api/APIUtil';
 import DateUtil from '../utils/DateUtil';
+import {Card} from 'semantic-ui-react';
 
 interface MultiCardViewProps {
   cardViewInfos: RoutineCardProps[];
@@ -13,15 +14,16 @@ interface MultiCardViewProps {
 function MultiCardView(props: MultiCardViewProps): JSX.Element {
   return (
     <Row style={{marginBottom: 10}}>
-      {props.cardViewInfos.map(cardViewInfo => {
-        return (
-          <RoutineCard
-            key={cardViewInfo.routineId}
-            {...cardViewInfo}
-            marginBottom={20}
-          ></RoutineCard>
-        );
-      })}
+      <Card.Group>
+        {props.cardViewInfos.map(cardViewInfo => {
+          return (
+            <RoutineCard
+              key={cardViewInfo.routineId}
+              {...cardViewInfo}
+            ></RoutineCard>
+          );
+        })}
+      </Card.Group>
     </Row>
   );
 }
@@ -72,7 +74,6 @@ export default function MultiRoutineView(): JSX.Element {
         text: routine.body,
         timeText: makeFromToDateStr(routine.day_run),
         location: routine.location,
-        marginBottom: 20,
       };
       return routineCardProps;
     });

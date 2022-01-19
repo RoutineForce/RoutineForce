@@ -236,7 +236,7 @@ const routineCardData: any[] = [
     imgSrc:
       'https://cdn.crowdpic.net/list-thumb/thumb_l_9FA2E3C7E87309B6B344204FCDBFF3CE.jpg',
     title: 'test26',
-    text: 'asdnfioasneioansefmasioefmioasenasdfasdfasdfasdfasdfasdfasdffioasneoifnasoef  ioanseoifnaiosenfi',
+    text: 'asdnfioasneioansefmasioefmioasenasdfasdfasdfasdfasdfasdfasdffioasnasdddddddddddddddddeoifnasoef  ioanseoifnaiosenfi',
     timeText: '11.12 ~ 11.25',
     location: 'gaepo',
   },

@@ -1,100 +1,107 @@
 .summarizedInfo {
-	max-height: 500px;
-	height: 60vw;
-	font-family: "CookieRunBold";
-	margin: 5px auto;
+  max-height: 500px;
+  height: 60vw;
+  font-family: 'CookieRunBold';
+  margin: 5px auto;
 }
 
 .routineBackground {
-	width: inherit;
-	float: right;
-	max-width: 100%;
-	max-height: 100%;
-	position: relative;
+  width: inherit;
+  float: right;
+  max-width: 100%;
+  max-height: 100%;
+  position: relative;
 }
 
 .summarizedName {
-	max-width: 70%;
-	transform: translate(10%, min(150px, 8vw));
-	font-size: min(60px, 4vw);
-	font-weight: bold;
-	line-height: 100%;
-	color: #f79d37;
-	position: absolute;
-	text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+  max-width: 70%;
+  transform: translate(10%, min(150px, 8vw));
+  font-size: min(60px, 4vw);
+  font-weight: bold;
+  line-height: 100%;
+  color: #f79d37;
+  position: absolute;
+  text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke,
+    0 -1px whitesmoke;
 }
 
 .summarizedPlaceAndDate {
-	max-width: 70%;
-	transform: translate(10%, max(150px, 10vw));
-	line-height: 150%;
-	font-size: max(20px, 1.2vw);
-	font-weight: bold;
-	text-indent: 20px;
-	position: absolute;
-	text-shadow:  -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+  max-width: 70%;
+  transform: translate(10%, max(150px, 10vw));
+  line-height: 150%;
+  font-size: max(20px, 1.2vw);
+  font-weight: bold;
+  text-indent: 20px;
+  position: absolute;
+  text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke,
+    0 -1px whitesmoke;
 }
 
 .summarizedPlaceAndDate .summarizedPlace {
-	color: #cc6a01;
+  color: #cc6a01;
 }
 
 .summarizedPlaceAndDate .summarizedStartDate {
-	color : #cc6a01;
+  color: #cc6a01;
 }
-
 
 /* 										 */
 /* 					mobile				 */
 /* 										 */
 
-
 .MobileView {
-	font-family: "CookieRunBold";
-	max-width: 100%;
-	height: 40vh;
-	background-repeat: no-repeat;
-	box-shadow: 0rem 0.3rem 0.3rem 0rem rgb(0 0 0 / 10%);
-	border-radius: 0.7rem;
-	margin: 30px 10px 10px;
-	padding: 0px;
-	background: white;
+  font-family: 'CookieRunBold';
+  max-width: 100%;
+  height: 40vh;
+  background-repeat: no-repeat;
+  box-shadow: 0rem 0.3rem 0.3rem 0rem rgb(0 0 0 / 10%);
+  border-radius: 0.7rem;
+  margin: 30px 10px 10px;
+  padding: 0px;
+  background: white;
 }
 
 .MobileView .RoutineBackgroundImage {
-	height: 100%;
-	max-width: 100%;
-	float: right;
-	position: relative;
-	border-radius: 0.7rem;  
-	object-fit: cover;
-	filter: brightness(60%);
+  height: 100%;
+  max-width: 100%;
+  float: right;
+  position: relative;
+  border-radius: 0.7rem;
+  object-fit: cover;
+  filter: brightness(60%);
 }
 
 .RoutineHeader {
-	position: absolute;
-	font-size: min(23px, 4.5vw);
-	line-height: 180%;
-	padding: 4vh 20px 3vh;
-	text-shadow:  -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+  position: absolute;
+  font-size: min(23px, 4.5vw);
+  line-height: 180%;
+  padding: 4vh 20px 3vh;
+  text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke,
+    0 -1px whitesmoke;
 }
 
 .label {
-	transform: translateX(-5px);
-	font-family: "CookieRunBold";
-	font-size: min(20px, 4vw);
-	font-weight: lighter;
+  transform: translateX(-5px);
+  font-family: 'CookieRunBold';
+  font-size: min(20px, 4vw);
+  font-weight: lighter;
 }
 
 .RoutineTitle {
-	color: #f79d37;
-	font-size: min(45px, 6.5vw);
-	line-height: 100%;
-	margin-top: 5px;
-	margin-bottom: 5vh;
+  color: #f79d37;
+  font-size: min(45px, 6.5vw);
+  line-height: 100%;
+  margin-top: 5px;
+  margin-bottom: 5vh;
 }
 
-.Location, .StartDate {
-	color: #cc6a01;
-	font-size: min(30px, 5vw);
+.Location,
+.StartDate {
+  color: #cc6a01;
+  font-size: min(30px, 5vw);
+}
+.editRoutine {
+  position: absolute;
+  transform: translateY(30px);
+  right: 14px;
 }
