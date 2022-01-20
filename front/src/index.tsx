@@ -15,6 +15,7 @@ import {
 import Report from './pages/report/report';
 import PageMover from './utils/PageMover';
 import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom';
+import UserProfile from './pages/userProfile/userProfile';
 
 function Router() {
   const navigate = useNavigate();
@@ -62,6 +63,10 @@ function Router() {
         <Route
           path={process.env.REACT_APP_ROUTINEDETAIL_PATH}
           element={<WritenRoutine></WritenRoutine>}
+        ></Route>
+        <Route
+          path={process.env.REACT_APP_PROFILE_PATH}
+          element={<UserProfile></UserProfile>}
         ></Route>
       </Routes>
     </>
