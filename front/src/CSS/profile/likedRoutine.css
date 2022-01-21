@@ -1,0 +1,17 @@
+.Header {
+  background-color: #f79d37f6;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}
+
+.handlePrev {
+  position: absolute;
+  left: 0;
+}
+
+.ui.header {
+  margin: 0;
+}
