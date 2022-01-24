@@ -15,3 +15,8 @@
 .ui.header {
   margin: 0;
 }
+
+.ui.card:first-child,
+.ui.card:last-child {
+  margin: 1em 0 !important;
+}
