@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import LikedRoutine from '../../components/profile/likedRoutine';
 import Navbarc from '../../components/common/Navbar';
+import {Button} from 'semantic-ui-react';
 
 const likedRoutine = [
   {
@@ -60,10 +61,24 @@ const likedRoutine = [
   },
 ];
 export default function UserProfile(): JSX.Element {
+  const [stat, setStat] = useState('');
+  const handleSetStat = (StatName: string) =>
+    useEffect(() => {
+      console.log(stat);
+      setStat(StatName);
+    });
   return (
     <>
+      {stat === 'like' ? (
+        <LikedRoutine
+          name="like"
+          RoutineCards={likedRoutine}
+          attended
+          onChange={(value: string) => handleSetStat(value)}
+        />
+      ) : null}
       <Navbarc />
-      <LikedRoutine {...likedRoutine} />
+      <Button onClick={() => setStat('like')}> like </Button>
     </>
   );
 }
