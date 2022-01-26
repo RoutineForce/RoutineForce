@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Header, Card, Feed, Label, Icon} from 'semantic-ui-react';
-import PageMover from '../../utils/PageMover';
 
 import '../../CSS/profile/likedRoutine.css';
 
