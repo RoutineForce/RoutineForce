@@ -29,21 +29,8 @@ interface RoutineCard {
   participant: string;
   remain: number;
 }
-interface RoutineProps {
-  liked?: boolean;
-  attended?: boolean;
-  completed?: boolean;
-  RoutineCards: Array<RoutineCard>;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-}
 
-export default function LikedRoutine(
-  // RoutineProps: Array<RoutineProps['RoutineProp']>,
-  // {RoutineCards, liked, attended, completed, onChange}: RoutineProps,
-  props: any,
-): JSX.Element {
-  // const result = Object.values(RoutineProps);
-  // console.log(result);
+export default function LikedRoutine(props: any): JSX.Element {
   const [goPrev, setGoPrev] = useState(props.name);
   const handleChange = () => {
     setGoPrev('');
@@ -57,7 +44,7 @@ export default function LikedRoutine(
           onClick={handleChange}
           onChange={props.onChange(goPrev)}
         />
-        {props.liked ? (
+        {props.name === 'liked' ? (
           <>
             <Icon name="like" color="red" />
             <Header.Content>
@@ -66,16 +53,25 @@ export default function LikedRoutine(
             </Header.Content>
           </>
         ) : null}
-        {props.attended ? (
+        {props.name === 'attended' ? (
           <>
-            <Icon name="trophy" color="orange" />
+            <Icon name="thumbtack" color="orange" />
             <Header.Content>
               Attended Routine
-              <Header.Subheader>참가한 루틴을 보여드립니다</Header.Subheader>
+              <Header.Subheader>참여중인 루틴을 보여드립니다</Header.Subheader>
             </Header.Content>
           </>
         ) : null}
-        {props.completed ? (
+        {props.name === 'proceeded' ? (
+          <>
+            <Icon name="trophy" color="orange" />
+            <Header.Content>
+              Proceeded Routine
+              <Header.Subheader>진행중인 루틴을 보여드립니다</Header.Subheader>
+            </Header.Content>
+          </>
+        ) : null}
+        {props.name === 'completed' ? (
           <>
             <Icon name="lock" color="black" />
             <Header.Content>
