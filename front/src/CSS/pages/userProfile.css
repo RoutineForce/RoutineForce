@@ -1,0 +1,53 @@
+.profile {
+  display: flex;
+  margin: 5;
+  justify-content: space-evenly;
+  background-color: white;
+  width: 95%;
+  height: 20vh;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0rem 0.3rem 0.3rem 0rem rgb(0 0 0 / 10%);
+  border-radius: 0.7rem;
+  font-family: 'CookieRunBold';
+  font-size: 1.5rem;
+}
+.likedRoutine .header {
+  background-color: white;
+  width: 95%;
+  height: 10vh;
+  margin: 10px;
+  padding: 5px;
+  box-shadow: 0rem 0.3rem 0.3rem 0rem rgb(0 0 0 / 10%);
+  border-radius: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'CookieRunRegular';
+  font-size: 1.2rem;
+}
+
+.header .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f79d37;
+}
+.moreView {
+  font-size: 1rem;
+  color: rgba(128, 128, 128, 0.794);
+}
+
+.ui.ui.card {
+  background-color: white;
+  width: 90vw;
+  box-shadow: 0rem 0.3rem 0.3rem 0rem rgb(0 0 0 / 10%);
+  border-radius: 0.7rem;
+}
+
+.nothing {
+  padding-top: 15vh;
+  text-align: center;
+  font-family: 'CookieRunRegular';
+  font-size: 1.5rem;
+  color: rgba(128, 128, 128, 0.794);
+}

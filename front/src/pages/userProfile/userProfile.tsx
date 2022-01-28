@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import LikedRoutine from '../../components/profile/likedRoutine';
 import Navbarc from '../../components/common/Navbar';
 import {Icon, Image} from 'semantic-ui-react';
+import '../../CSS/pages/userProfile.css';
 
 const likedRoutine = [
   {
@@ -67,90 +68,72 @@ export default function UserProfile(): JSX.Element {
       console.log(stat);
       setStat(StatName);
     });
+  const routineCardViews = (Tag: string) => {
+    if (Tag === 'liked') return null;
+    else return likedRoutine;
+  };
   return (
     <>
       {stat !== '' ? (
         <LikedRoutine
           name={stat}
-          RoutineCards={likedRoutine}
+          RoutineCards={routineCardViews(stat)}
           onChange={(value: string) => handleSetStat(value)}
         />
-      ) : null}
-      <Navbarc />
-
-      {/*                              */}
-      {/* 프로필 수정 버튼 및 기능 추가 */}
-      {/*                              */}
-
-      <div
-        style={{
-          display: 'flex',
-          margin: 5,
-          justifyContent: 'space-evenly',
-          width: '80%',
-        }}
-        className="profile"
-      >
-        <Image
-          circular
-          src="https://react.semantic-ui.com/images/avatar/small/elliot.jpg"
-        />
-        <div className="UserProfile">jaewpark</div>
-      </div>
-      <div className="likedRoutine">
-        <div
-          style={{display: 'flex', justifyContent: 'space-between'}}
-          className="header"
-        >
-          <div>
-            <Icon name="like" />
-            찜한 루틴
+      ) : (
+        <>
+          <Navbarc />
+          <div className="profile">
+            <Image
+              circular
+              src="https://react.semantic-ui.com/images/avatar/small/elliot.jpg"
+            />
+            <div className="UserProfile">jaewpark</div>
           </div>
-          <div onClick={e => setStat('liked')}>
-            더보기
-            <Icon name="angle right" />
+          <div className="likedRoutine">
+            <div className="header">
+              <div className="title">
+                <Icon color="orange" size="big" name="like" />
+                찜한 루틴
+              </div>
+              <div className="moreView" onClick={() => setStat('liked')}>
+                더보기
+                <Icon name="angle right" />
+              </div>
+            </div>
+            <div className="header">
+              <div className="title">
+                <Icon color="orange" size="big" name="thumbtack" />
+                참여중인 루틴
+              </div>
+              <div className="moreView" onClick={() => setStat('attended')}>
+                더보기
+                <Icon name="angle right" />
+              </div>
+            </div>
+            <div className="header">
+              <div className="title">
+                <Icon color="orange" size="big" name="trophy" />
+                진행중인 루틴
+              </div>
+              <div className="moreView" onClick={() => setStat('proceeded')}>
+                더보기
+                <Icon name="angle right" />
+              </div>
+            </div>
+            <div className="header">
+              <div className="title">
+                <Icon color="orange" size="big" name="lock" />
+                <div>완료된 루틴</div>
+              </div>
+              <div className="moreView" onClick={() => setStat('completed')}>
+                더보기
+                <Icon name="angle right" />
+              </div>
+            </div>
           </div>
-        </div>
-        <div
-          style={{display: 'flex', justifyContent: 'space-between'}}
-          className="header"
-        >
-          <div>
-            <Icon name="thumbtack" />
-            참여중인 루틴
-          </div>
-          <div onClick={e => setStat('attended')}>
-            더보기
-            <Icon name="angle right" />
-          </div>
-        </div>
-        <div
-          style={{display: 'flex', justifyContent: 'space-between'}}
-          className="header"
-        >
-          <div>
-            <Icon name="trophy" />
-            진행중인 루틴
-          </div>
-          <div onClick={e => setStat('proceeded')}>
-            더보기
-            <Icon name="angle right" />
-          </div>
-        </div>
-        <div
-          style={{display: 'flex', justifyContent: 'space-between'}}
-          className="header"
-        >
-          <div>
-            <Icon name="lock" />
-            완료된 루틴
-          </div>
-          <div onClick={e => setStat('completed')}>
-            더보기
-            <Icon name="angle right" />
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 }

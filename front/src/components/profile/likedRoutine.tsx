@@ -34,6 +34,20 @@ export default function LikedRoutine(props: any): JSX.Element {
   const handleChange = () => {
     setGoPrev('');
   };
+  const adjective = () => {
+    switch (props.name) {
+      case 'liked':
+        return '찜한 ';
+      case 'attended':
+        return '참여중인 ';
+      case 'proceeded':
+        return '진행중인 ';
+      case 'compelte':
+        return '완료한 ';
+      default:
+        return null;
+    }
+  };
   return (
     <>
       <Header as="h2" inverted className="Header">
@@ -80,19 +94,22 @@ export default function LikedRoutine(props: any): JSX.Element {
           </>
         ) : null}
       </Header>
-      <div style={{padding: '10px 3px'}}>
-        <Card.Group
-          style={{
-            padding: 5,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItem: 'center',
-          }}
-        >
-          {/* {likedRoutine.map(e => (
+      {props.RoutinCards === undefined ? (
+        <div className="nothing">{adjective()}루틴이 없습니다</div>
+      ) : (
+        <div style={{padding: '10px 3px'}}>
+          <Card.Group
+            style={{
+              padding: 5,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItem: 'center',
+            }}
+          >
+            {/* {likedRoutine.map(e => (
           <RoutineCard key={e.routineId} {...e} />
         ))} */}
-          {/* {Object.values(RoutineProps).map((entrie, index) => (
+            {/* {Object.values(RoutineProps).map((entrie, index) => (
             <Card key={index} style={{width: '90vw'}}>
               <Card.Content>
                 <Card.Header className="text">{entrie?.title}</Card.Header>
@@ -130,47 +147,49 @@ export default function LikedRoutine(props: any): JSX.Element {
               )}
             </Card>
           ))} */}
-          {/* 테스트 */}
-          {props.RoutineCards.map((entrie: RoutineCard, index: number) => (
-            <Card key={index} style={{width: '90vw'}}>
-              <Card.Content>
-                <Card.Header className="text">{entrie?.title}</Card.Header>
-                <Card.Meta>{entrie?.timeText}</Card.Meta>
-                <Card.Description className="text">
-                  {entrie?.text}
-                </Card.Description>
-                <Feed>
-                  <Feed.Event
-                    style={{
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      alignItems: 'center',
-                    }}
-                  >
-                    {test.map((e, idk) => {
-                      if (idk < 5)
-                        return <Feed.Label key={idk} image={e.img} />;
-                    })}
-                    {test.length > 5 ? (
-                      <Icon name="ellipsis horizontal" color="grey" />
-                    ) : null}
-                  </Feed.Event>
-                </Feed>
-              </Card.Content>
-              <Card.Content extra>
-                <div className="text">{entrie?.location}</div>
-              </Card.Content>
-              {entrie?.remain === 0 ? (
-                <Label attached="top right" color="red">
-                  Full
-                </Label>
-              ) : (
-                <Label attached="top right">{entrie?.remain}자리 남음</Label>
-              )}
-            </Card>
-          ))}
-        </Card.Group>
-      </div>
+            {/* 테스트 */}
+
+            {props.RoutineCards.map((entrie: RoutineCard, index: number) => (
+              <Card className="card" key={index}>
+                <Card.Content>
+                  <Card.Header className="text">{entrie?.title}</Card.Header>
+                  <Card.Meta>{entrie?.timeText}</Card.Meta>
+                  <Card.Description className="text">
+                    {entrie?.text}
+                  </Card.Description>
+                  <Feed>
+                    <Feed.Event
+                      style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
+                      }}
+                    >
+                      {test.map((e, idk) => {
+                        if (idk < 5)
+                          return <Feed.Label key={idk} image={e.img} />;
+                      })}
+                      {test.length > 5 ? (
+                        <Icon name="ellipsis horizontal" color="grey" />
+                      ) : null}
+                    </Feed.Event>
+                  </Feed>
+                </Card.Content>
+                <Card.Content extra>
+                  <div className="text">{entrie?.location}</div>
+                </Card.Content>
+                {entrie?.remain === 0 ? (
+                  <Label attached="top right" color="red">
+                    Full
+                  </Label>
+                ) : (
+                  <Label attached="top right">{entrie?.remain}자리 남음</Label>
+                )}
+              </Card>
+            ))}
+          </Card.Group>
+        </div>
+      )}
     </>
   );
 }
