@@ -1,6 +1,5 @@
 import React from 'react';
-import {Container, Image} from 'react-bootstrap';
-import {Feed, FeedSummary, Icon} from 'semantic-ui-react';
+import {Feed, Icon} from 'semantic-ui-react';
 import '../../CSS/viewRoutine/UserProfile.css';
 
 interface prop {

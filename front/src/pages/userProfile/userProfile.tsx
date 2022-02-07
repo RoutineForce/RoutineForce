@@ -61,6 +61,9 @@ const likedRoutine = [
     remain: 0,
   },
 ];
+
+const nothing: any[] = [];
+
 export default function UserProfile(): JSX.Element {
   const [stat, setStat] = useState('');
   const handleSetStat = (StatName: string) =>
@@ -69,7 +72,7 @@ export default function UserProfile(): JSX.Element {
       setStat(StatName);
     });
   const routineCardViews = (Tag: string) => {
-    if (Tag === 'liked') return null;
+    if (Tag === 'liked') return nothing;
     else return likedRoutine;
   };
   return (
