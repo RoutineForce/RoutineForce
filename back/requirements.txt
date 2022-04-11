@@ -32,3 +32,4 @@ pytest
 pytest-django
 django-test-plus
 factory_boy
+python-decouple==3.6
